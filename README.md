@@ -111,6 +111,53 @@ test/
 
 ---
 
+## Assumptions Made
+
+1. **Monthly Reset Logic**
+   - Monthly limits reset on the 1st day of each month
+   - Reset happens automatically when data is fetched
+   - Previous month's usage is cleared
+
+2. **Phone Number Validation**
+   - Accepts UAE format: +971XXXXXXXXX (13 digits total)
+   - Also accepts: 05XXXXXXXX (10 digits total)
+   - Other formats are rejected
+
+3. **Mock Backend**
+   - HTTP client simulates network delays (300-1000ms)
+   - 5% chance of random network errors for testing
+   - Data persists in local cache between sessions
+
+4. **User Verification**
+   - Verification status comes from backend (not editable in app)
+   - Affects per-beneficiary monthly limits
+   - Hardcoded in mock data (can be changed for testing)
+
+5. **Transaction Charges & Limit Calculation**
+   - Fixed AED 3 charge per transaction
+   - Total cost = Top-up amount + AED 3 fee
+   - Fee deducted from user balance but NOT counted toward monthly limits
+   - Monthly limits apply only to the top-up amount sent to beneficiaries
+   - Example: AED 50 top-up costs AED 53, but only AED 50 counts toward limits
+
+6. **Data Persistence**
+   - User and beneficiary data cached locally
+   - Cache used as fallback when network fails
+   - Transaction history stored locally for audit trail
+   - Transactions tracked by month and beneficiary for limit enforcement
+
+7. **Money Handling**
+   - Amounts stored as double type representing AED
+   - All predefined amounts are whole numbers (5, 10, 20, 30, 50, 75, 100)
+   - Service charge is AED 3.00 (whole number)
+   - This minimizes floating-point precision issues
+
+8. **UI/UX Decisions**
+   - Pull-to-refresh for manual data reload
+   - Inline validation with helpful error messages
+   - Confirmation dialogs for destructive actions
+---
+
 ## Installation & Setup
 
 ### Prerequisites
