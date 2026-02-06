@@ -119,7 +119,7 @@ test/
 
 **1. Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/Snehal-iOS/uae_topup_app.git
 cd uae_topup_app
 ```
 
