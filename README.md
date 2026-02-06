@@ -1,5 +1,9 @@
 # UAE Mobile Top-up App
 
+[![Flutter](https://img.shields.io/badge/Flutter-3.32.4-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.8.1-0175C2?logo=dart&logoColor=white)](https://dart.dev)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 A production-ready Flutter application for managing mobile phone top-up beneficiaries and transactions in the UAE. Built with Clean Architecture, comprehensive testing (116 tests), and modern Flutter best practices.
 
 ## Description
