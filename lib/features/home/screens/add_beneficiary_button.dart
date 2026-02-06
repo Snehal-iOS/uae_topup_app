@@ -6,10 +6,7 @@ import '../../../core/constants/color_palette.dart';
 class AddBeneficiaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const AddBeneficiaryButton({
-    super.key,
-    this.onPressed,
-  });
+  const AddBeneficiaryButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +31,16 @@ class AddBeneficiaryButton extends StatelessWidget {
                 height: 45,
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
+                decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(borderRadius)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.person_add,
-                      size: 22,
-                      color: contentColor,
-                    ),
+                    Icon(Icons.person_add, size: 22, color: contentColor),
                     const SizedBox(width: 12),
                     Text(
                       AppStrings.addBeneficiary,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: contentColor,
-                      ),
+                      style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600, color: contentColor),
                     ),
                   ],
                 ),
@@ -106,9 +93,7 @@ class DashedBorderPainter extends CustomPainter {
     for (final metric in path.computeMetrics()) {
       double distance = 0;
       while (distance < metric.length) {
-        final length = (distance + dashLength <= metric.length)
-            ? dashLength
-            : metric.length - distance;
+        final length = (distance + dashLength <= metric.length) ? dashLength : metric.length - distance;
         if (length > 0) {
           canvas.drawPath(metric.extractPath(distance, distance + length), paint);
         }

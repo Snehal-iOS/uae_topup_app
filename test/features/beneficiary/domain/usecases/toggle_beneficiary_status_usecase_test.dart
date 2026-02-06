@@ -7,8 +7,8 @@ import 'package:uae_topup_app/features/beneficiary/domain/repositories/beneficia
 import 'package:uae_topup_app/features/beneficiary/domain/usecases/toggle_beneficiary_status_usecase.dart';
 
 import 'add_beneficiary_usecase_test.mocks.dart';
-@GenerateMocks([BeneficiaryRepository])
 
+@GenerateMocks([BeneficiaryRepository])
 void main() {
   late ToggleBeneficiaryStatusUseCase useCase;
   late MockBeneficiaryRepository mockRepository;
@@ -40,16 +40,11 @@ void main() {
         ),
       )..add(tBeneficiary);
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => beneficiaries);
-      when(mockRepository.updateBeneficiary(any))
-          .thenAnswer((_) async => tBeneficiary.copyWith(isActive: true));
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => beneficiaries);
+      when(mockRepository.updateBeneficiary(any)).thenAnswer((_) async => tBeneficiary.copyWith(isActive: true));
 
       // Act
-      final result = await useCase(
-        beneficiaryId: tBeneficiary.id,
-        activate: true,
-      );
+      final result = await useCase(beneficiaryId: tBeneficiary.id, activate: true);
 
       // Assert
       expect(result.isActive, isTrue);
@@ -57,8 +52,7 @@ void main() {
       verify(mockRepository.updateBeneficiary(any)).called(1);
     });
 
-    test('should throw MaxBeneficiariesException when activating and 5 already active',
-        () async {
+    test('should throw MaxBeneficiariesException when activating and 5 already active', () async {
       // Arrange
       final beneficiaries = List.generate(
         5,
@@ -71,36 +65,22 @@ void main() {
         ),
       )..add(tBeneficiary);
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => beneficiaries);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => beneficiaries);
 
       // Act & Assert
-      expect(
-        () => useCase(
-          beneficiaryId: tBeneficiary.id,
-          activate: true,
-        ),
-        throwsA(isA<MaxBeneficiariesException>()),
-      );
+      expect(() => useCase(beneficiaryId: tBeneficiary.id, activate: true), throwsA(isA<MaxBeneficiariesException>()));
       // verifyNever(mockRepository.updateBeneficiary(any)); // Commented out - causes issues with Mockito
     });
 
-    test('should return beneficiary unchanged when already active and activating',
-        () async {
+    test('should return beneficiary unchanged when already active and activating', () async {
       // Arrange
       final activeBeneficiary = tBeneficiary.copyWith(isActive: true);
-      final beneficiaries = [
-        activeBeneficiary,
-      ];
+      final beneficiaries = [activeBeneficiary];
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => beneficiaries);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => beneficiaries);
 
       // Act
-      final result = await useCase(
-        beneficiaryId: activeBeneficiary.id,
-        activate: true,
-      );
+      final result = await useCase(beneficiaryId: activeBeneficiary.id, activate: true);
 
       // Assert
       expect(result, equals(activeBeneficiary));
@@ -113,41 +93,27 @@ void main() {
       final activeBeneficiary = tBeneficiary.copyWith(isActive: true);
       final beneficiaries = [activeBeneficiary];
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => beneficiaries);
-      when(mockRepository.updateBeneficiary(any))
-          .thenAnswer((_) async => activeBeneficiary.copyWith(isActive: false));
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => beneficiaries);
+      when(mockRepository.updateBeneficiary(any)).thenAnswer((_) async => activeBeneficiary.copyWith(isActive: false));
 
       // Act
-      final result = await useCase(
-        beneficiaryId: activeBeneficiary.id,
-        activate: false,
-      );
+      final result = await useCase(beneficiaryId: activeBeneficiary.id, activate: false);
 
       // Assert
       expect(result.isActive, isFalse);
       verify(mockRepository.updateBeneficiary(any)).called(1);
     });
 
-    test('should throw NotFoundException when beneficiary does not exist',
-        () async {
+    test('should throw NotFoundException when beneficiary does not exist', () async {
       // Arrange
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => []);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => []);
 
       // Act & Assert
-      expect(
-        () => useCase(
-          beneficiaryId: 'non-existent',
-          activate: true,
-        ),
-        throwsA(isA<NotFoundException>()),
-      );
+      expect(() => useCase(beneficiaryId: 'non-existent', activate: true), throwsA(isA<NotFoundException>()));
       // verifyNever(mockRepository.updateBeneficiary(any)); // Commented out - causes issues with Mockito
     });
 
-    test('should allow deactivation even when 5 active beneficiaries exist',
-        () async {
+    test('should allow deactivation even when 5 active beneficiaries exist', () async {
       // Arrange
       final activeBeneficiary = tBeneficiary.copyWith(isActive: true);
       final beneficiaries = List.generate(
@@ -161,16 +127,11 @@ void main() {
         ),
       )..add(activeBeneficiary);
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => beneficiaries);
-      when(mockRepository.updateBeneficiary(any))
-          .thenAnswer((_) async => activeBeneficiary.copyWith(isActive: false));
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => beneficiaries);
+      when(mockRepository.updateBeneficiary(any)).thenAnswer((_) async => activeBeneficiary.copyWith(isActive: false));
 
       // Act
-      final result = await useCase(
-        beneficiaryId: activeBeneficiary.id,
-        activate: false,
-      );
+      final result = await useCase(beneficiaryId: activeBeneficiary.id, activate: false);
 
       // Assert
       expect(result.isActive, isFalse);

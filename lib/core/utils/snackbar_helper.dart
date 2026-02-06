@@ -16,10 +16,7 @@ class AppSnackBar {
   static void _show(BuildContext context, String message, Color backgroundColor, int seconds) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-          style: AppTextStyles.bodyMedium.copyWith(color: ColorPalette.white),
-        ),
+        content: Text(message, style: AppTextStyles.bodyMedium.copyWith(color: ColorPalette.white)),
         backgroundColor: backgroundColor,
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: seconds),

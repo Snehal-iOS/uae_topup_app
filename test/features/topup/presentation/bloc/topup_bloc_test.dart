@@ -13,11 +13,7 @@ import 'package:uae_topup_app/features/topup/presentation/bloc/topup_event.dart'
 import 'package:uae_topup_app/features/topup/presentation/bloc/topup_state.dart';
 import 'package:uae_topup_app/features/user/domain/entities/user.dart';
 
-@GenerateMocks([
-  PerformTopupUseCase,
-  GetTransactionsUseCase,
-  CheckTopupEligibilityUseCase,
-])
+@GenerateMocks([PerformTopupUseCase, GetTransactionsUseCase, CheckTopupEligibilityUseCase])
 import 'topup_bloc_test.mocks.dart';
 
 void main() {
@@ -67,21 +63,17 @@ void main() {
     blocTest<TopupBloc, TopupState>(
       'should emit loading then success when PerformTopup succeeds',
       build: () {
-        when(mockPerformTopupUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        ),).thenAnswer((_) async {});
+        when(
+          mockPerformTopupUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async {});
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        PerformTopup(
-          beneficiaryId: tBeneficiary.id,
-          amount: 100.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        ),
-      ),
+      act: (bloc) =>
+          bloc.add(PerformTopup(beneficiaryId: tBeneficiary.id, amount: 100.0, user: tUser, beneficiary: tBeneficiary)),
       expect: () => [
         const TopupState(status: TopupStatus.loading),
         const TopupState(
@@ -94,27 +86,20 @@ void main() {
     blocTest<TopupBloc, TopupState>(
       'should emit loading then error when PerformTopup fails',
       build: () {
-        when(mockPerformTopupUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        ),).thenThrow(const ValidationException('Invalid amount'));
+        when(
+          mockPerformTopupUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenThrow(const ValidationException('Invalid amount'));
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        PerformTopup(
-          beneficiaryId: tBeneficiary.id,
-          amount: -10.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        ),
-      ),
+      act: (bloc) =>
+          bloc.add(PerformTopup(beneficiaryId: tBeneficiary.id, amount: -10.0, user: tUser, beneficiary: tBeneficiary)),
       expect: () => [
         const TopupState(status: TopupStatus.loading),
-        const TopupState(
-          status: TopupStatus.error,
-          errorMessage: 'Failed to perform top-up: Invalid amount',
-        ),
+        const TopupState(status: TopupStatus.error, errorMessage: 'Failed to perform top-up: Invalid amount'),
       ],
     );
 
@@ -132,8 +117,7 @@ void main() {
             status: 'success',
           ),
         ];
-        when(mockGetTransactionsUseCase())
-            .thenAnswer((_) async => transactions);
+        when(mockGetTransactionsUseCase()).thenAnswer((_) async => transactions);
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadTransactions()),
@@ -158,117 +142,93 @@ void main() {
     blocTest<TopupBloc, TopupState>(
       'should emit loading then error when LoadTransactions fails',
       build: () {
-        when(mockGetTransactionsUseCase())
-            .thenThrow(Exception('Failed to load'));
+        when(mockGetTransactionsUseCase()).thenThrow(Exception('Failed to load'));
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadTransactions()),
       expect: () => [
         const TopupState(status: TopupStatus.loading),
-        const TopupState(
-          status: TopupStatus.error,
-          errorMessage: 'Failed to load data: Failed to load',
-        ),
+        const TopupState(status: TopupStatus.error, errorMessage: 'Failed to load data: Failed to load'),
       ],
     );
 
     blocTest<TopupBloc, TopupState>(
       'should clear messages when ClearMessages is called',
       build: () => bloc,
-      seed: () => const TopupState(
-        errorMessage: 'Error',
-        successMessage: 'Success',
-      ),
+      seed: () => const TopupState(errorMessage: 'Error', successMessage: 'Success'),
       act: (bloc) => bloc.add(const ClearMessages()),
-      expect: () => [
-        const TopupState(
-          errorMessage: null,
-          successMessage: null,
-        ),
-      ],
+      expect: () => [const TopupState(errorMessage: null, successMessage: null)],
     );
 
     group('canPerformTopup', () {
-      test('should return true when CheckTopupEligibilityUseCase returns true',
-          () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => true);
+      test('should return true when CheckTopupEligibilityUseCase returns true', () async {
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => true);
 
-        final result = await bloc.canPerformTopup(
-          user: tUser,
-          beneficiary: tBeneficiary,
-          amount: 100.0,
-        );
+        final result = await bloc.canPerformTopup(user: tUser, beneficiary: tBeneficiary, amount: 100.0);
 
         expect(result, isTrue);
       });
 
       test('should return false when amount is zero', () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => false);
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => false);
 
-        final result = await bloc.canPerformTopup(
-          user: tUser,
-          beneficiary: tBeneficiary,
-          amount: 0.0,
-        );
+        final result = await bloc.canPerformTopup(user: tUser, beneficiary: tBeneficiary, amount: 0.0);
 
         expect(result, isFalse);
       });
 
       test('should return false when balance is insufficient', () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => false);
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => false);
 
         final userWithLowBalance = tUser.copyWith(balance: 50.0);
-        final result = await bloc.canPerformTopup(
-          user: userWithLowBalance,
-          beneficiary: tBeneficiary,
-          amount: 100.0,
-        );
+        final result = await bloc.canPerformTopup(user: userWithLowBalance, beneficiary: tBeneficiary, amount: 100.0);
 
         expect(result, isFalse);
       });
 
-      test('should return false when beneficiary monthly limit exceeded',
-          () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => false);
+      test('should return false when beneficiary monthly limit exceeded', () async {
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => false);
 
-        final beneficiaryWithHighAmount = tBeneficiary.copyWith(
-          monthlyTopupAmount: 500.0,
-        );
-        final result = await bloc.canPerformTopup(
-          user: tUser,
-          beneficiary: beneficiaryWithHighAmount,
-          amount: 600.0,
-        );
+        final beneficiaryWithHighAmount = tBeneficiary.copyWith(monthlyTopupAmount: 500.0);
+        final result = await bloc.canPerformTopup(user: tUser, beneficiary: beneficiaryWithHighAmount, amount: 600.0);
 
         expect(result, isFalse);
       });
 
       test('should return false when total monthly limit exceeded', () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => false);
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => false);
 
-        final userWithHighMonthlyTotal = tUser.copyWith(
-          monthlyTopupTotal: 2950.0,
-        );
+        final userWithHighMonthlyTotal = tUser.copyWith(monthlyTopupTotal: 2950.0);
         final result = await bloc.canPerformTopup(
           user: userWithHighMonthlyTotal,
           beneficiary: tBeneficiary,
@@ -279,50 +239,35 @@ void main() {
       });
 
       test('should delegate to CheckTopupEligibilityUseCase with user', () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => true);
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => true);
 
         final updatedUser = tUser.copyWith(balance: 500.0);
-        final result = await bloc.canPerformTopup(
-          user: updatedUser,
-          beneficiary: tBeneficiary,
-          amount: 100.0,
-        );
+        final result = await bloc.canPerformTopup(user: updatedUser, beneficiary: tBeneficiary, amount: 100.0);
 
         expect(result, isTrue);
-        verify(mockCheckTopupEligibilityUseCase(
-          user: updatedUser,
-          beneficiary: tBeneficiary,
-          amount: 100.0,
-        )).called(1);
+        verify(mockCheckTopupEligibilityUseCase(user: updatedUser, beneficiary: tBeneficiary, amount: 100.0)).called(1);
       });
 
-      test('should delegate to CheckTopupEligibilityUseCase with beneficiary',
-          () async {
-        when(mockCheckTopupEligibilityUseCase(
-          user: anyNamed('user'),
-          beneficiary: anyNamed('beneficiary'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async => true);
+      test('should delegate to CheckTopupEligibilityUseCase with beneficiary', () async {
+        when(
+          mockCheckTopupEligibilityUseCase(
+            user: anyNamed('user'),
+            beneficiary: anyNamed('beneficiary'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async => true);
 
-        final updatedBeneficiary = tBeneficiary.copyWith(
-          monthlyTopupAmount: 400.0,
-        );
-        final result = await bloc.canPerformTopup(
-          user: tUser,
-          beneficiary: updatedBeneficiary,
-          amount: 100.0,
-        );
+        final updatedBeneficiary = tBeneficiary.copyWith(monthlyTopupAmount: 400.0);
+        final result = await bloc.canPerformTopup(user: tUser, beneficiary: updatedBeneficiary, amount: 100.0);
 
         expect(result, isTrue);
-        verify(mockCheckTopupEligibilityUseCase(
-          user: tUser,
-          beneficiary: updatedBeneficiary,
-          amount: 100.0,
-        ),).called(1);
+        verify(mockCheckTopupEligibilityUseCase(user: tUser, beneficiary: updatedBeneficiary, amount: 100.0)).called(1);
       });
     });
   });

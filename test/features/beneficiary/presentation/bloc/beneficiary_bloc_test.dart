@@ -54,15 +54,13 @@ void main() {
     mockAddBeneficiaryUseCase = MockAddBeneficiaryUseCase();
     mockDeleteBeneficiaryUseCase = MockDeleteBeneficiaryUseCase();
     mockToggleBeneficiaryStatusUseCase = MockToggleBeneficiaryStatusUseCase();
-    mockUpdateBeneficiaryMonthlyAmountUseCase =
-        MockUpdateBeneficiaryMonthlyAmountUseCase();
+    mockUpdateBeneficiaryMonthlyAmountUseCase = MockUpdateBeneficiaryMonthlyAmountUseCase();
     bloc = BeneficiaryBloc(
       getBeneficiariesUseCase: mockGetBeneficiariesUseCase,
       addBeneficiaryUseCase: mockAddBeneficiaryUseCase,
       deleteBeneficiaryUseCase: mockDeleteBeneficiaryUseCase,
       toggleBeneficiaryStatusUseCase: mockToggleBeneficiaryStatusUseCase,
-      updateBeneficiaryMonthlyAmountUseCase:
-          mockUpdateBeneficiaryMonthlyAmountUseCase,
+      updateBeneficiaryMonthlyAmountUseCase: mockUpdateBeneficiaryMonthlyAmountUseCase,
     );
   });
 
@@ -78,34 +76,26 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should emit loading then success when LoadBeneficiaries succeeds',
       build: () {
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => tBeneficiaries);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => tBeneficiaries);
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadBeneficiaries()),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
-        BeneficiaryState(
-          status: BeneficiaryStatus.success,
-          beneficiaries: tBeneficiaries,
-        ),
+        BeneficiaryState(status: BeneficiaryStatus.success, beneficiaries: tBeneficiaries),
       ],
     );
 
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should emit loading then error when LoadBeneficiaries fails',
       build: () {
-        when(mockGetBeneficiariesUseCase())
-            .thenThrow(const NetworkException('Network error'));
+        when(mockGetBeneficiariesUseCase()).thenThrow(const NetworkException('Network error'));
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadBeneficiaries()),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
-        const BeneficiaryState(
-          status: BeneficiaryStatus.error,
-          errorMessage: 'Failed to load data: Network error',
-        ),
+        const BeneficiaryState(status: BeneficiaryStatus.error, errorMessage: 'Failed to load data: Network error'),
       ],
     );
 
@@ -119,20 +109,13 @@ void main() {
           monthlyResetDate: DateTime(2025, 2, 1),
           isActive: true,
         );
-        when(mockAddBeneficiaryUseCase(
-          phoneNumber: anyNamed('phoneNumber'),
-          nickname: anyNamed('nickname'),
-        ),).thenAnswer((_) async => newBeneficiary);
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => [...tBeneficiaries, newBeneficiary]);
+        when(
+          mockAddBeneficiaryUseCase(phoneNumber: anyNamed('phoneNumber'), nickname: anyNamed('nickname')),
+        ).thenAnswer((_) async => newBeneficiary);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => [...tBeneficiaries, newBeneficiary]);
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        const AddBeneficiary(
-          phoneNumber: '+971501234569',
-          nickname: 'New Beneficiary',
-        ),
-      ),
+      act: (bloc) => bloc.add(const AddBeneficiary(phoneNumber: '+971501234569', nickname: 'New Beneficiary')),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
         BeneficiaryState(
@@ -162,20 +145,13 @@ void main() {
           monthlyResetDate: DateTime(2025, 2, 1),
           isActive: false,
         );
-        when(mockAddBeneficiaryUseCase(
-          phoneNumber: anyNamed('phoneNumber'),
-          nickname: anyNamed('nickname'),
-        ),).thenAnswer((_) async => newBeneficiary);
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => [...tBeneficiaries, newBeneficiary]);
+        when(
+          mockAddBeneficiaryUseCase(phoneNumber: anyNamed('phoneNumber'), nickname: anyNamed('nickname')),
+        ).thenAnswer((_) async => newBeneficiary);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => [...tBeneficiaries, newBeneficiary]);
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        const AddBeneficiary(
-          phoneNumber: '+971501234569',
-          nickname: 'New Beneficiary',
-        ),
-      ),
+      act: (bloc) => bloc.add(const AddBeneficiary(phoneNumber: '+971501234569', nickname: 'New Beneficiary')),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
         BeneficiaryState(
@@ -190,7 +166,8 @@ void main() {
               isActive: false,
             ),
           ],
-          successMessage: 'Beneficiary added as inactive (5 active limit reached). Activate it from Manage Beneficiaries.',
+          successMessage:
+              'Beneficiary added as inactive (5 active limit reached). Activate it from Manage Beneficiaries.',
         ),
       ],
     );
@@ -198,34 +175,23 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should emit error when AddBeneficiary fails',
       build: () {
-        when(mockAddBeneficiaryUseCase(
-          phoneNumber: anyNamed('phoneNumber'),
-          nickname: anyNamed('nickname'),
-        ),).thenThrow(const ValidationException('Invalid phone number'));
+        when(
+          mockAddBeneficiaryUseCase(phoneNumber: anyNamed('phoneNumber'), nickname: anyNamed('nickname')),
+        ).thenThrow(const ValidationException('Invalid phone number'));
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        const AddBeneficiary(
-          phoneNumber: 'invalid',
-          nickname: 'Test',
-        ),
-      ),
+      act: (bloc) => bloc.add(const AddBeneficiary(phoneNumber: 'invalid', nickname: 'Test')),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
-        const BeneficiaryState(
-          status: BeneficiaryStatus.error,
-          errorMessage: 'Invalid phone number',
-        ),
+        const BeneficiaryState(status: BeneficiaryStatus.error, errorMessage: 'Invalid phone number'),
       ],
     );
 
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should delete beneficiary successfully',
       build: () {
-        when(mockDeleteBeneficiaryUseCase(any))
-            .thenAnswer((_) async {});
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => [tBeneficiaries[0]]);
+        when(mockDeleteBeneficiaryUseCase(any)).thenAnswer((_) async {});
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => [tBeneficiaries[0]]);
         return bloc;
       },
       act: (bloc) => bloc.add(const DeleteBeneficiary('2')),
@@ -243,31 +209,18 @@ void main() {
       'should toggle beneficiary status successfully',
       build: () {
         final toggledBeneficiary = tBeneficiaries[1].copyWith(isActive: true);
-        when(mockToggleBeneficiaryStatusUseCase(
-          beneficiaryId: anyNamed('beneficiaryId'),
-          activate: anyNamed('activate'),
-        ),).thenAnswer((_) async => toggledBeneficiary);
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => [
-                  tBeneficiaries[0],
-                  toggledBeneficiary,
-                ],);
+        when(
+          mockToggleBeneficiaryStatusUseCase(beneficiaryId: anyNamed('beneficiaryId'), activate: anyNamed('activate')),
+        ).thenAnswer((_) async => toggledBeneficiary);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => [tBeneficiaries[0], toggledBeneficiary]);
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        const ToggleBeneficiaryStatus(
-          beneficiaryId: '2',
-          activate: true,
-        ),
-      ),
+      act: (bloc) => bloc.add(const ToggleBeneficiaryStatus(beneficiaryId: '2', activate: true)),
       expect: () => [
         const BeneficiaryState(status: BeneficiaryStatus.loading),
         BeneficiaryState(
           status: BeneficiaryStatus.success,
-          beneficiaries: [
-            tBeneficiaries[0],
-            tBeneficiaries[1].copyWith(isActive: true),
-          ],
+          beneficiaries: [tBeneficiaries[0], tBeneficiaries[1].copyWith(isActive: true)],
           successMessage: 'Beneficiary activated successfully',
         ),
       ],
@@ -276,31 +229,21 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should update beneficiary monthly amount successfully',
       build: () {
-        final updatedBeneficiaries = [
-          tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0),
-          tBeneficiaries[1],
-        ];
-        when(mockUpdateBeneficiaryMonthlyAmountUseCase(
-          beneficiaryId: anyNamed('beneficiaryId'),
-          amount: anyNamed('amount'),
-        )).thenAnswer((_) async {});
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => updatedBeneficiaries);
+        final updatedBeneficiaries = [tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0), tBeneficiaries[1]];
+        when(
+          mockUpdateBeneficiaryMonthlyAmountUseCase(
+            beneficiaryId: anyNamed('beneficiaryId'),
+            amount: anyNamed('amount'),
+          ),
+        ).thenAnswer((_) async {});
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => updatedBeneficiaries);
         return bloc;
       },
-      act: (bloc) => bloc.add(
-        const UpdateBeneficiaryMonthlyAmount(
-          beneficiaryId: '1',
-          amount: 50.0,
-        ),
-      ),
+      act: (bloc) => bloc.add(const UpdateBeneficiaryMonthlyAmount(beneficiaryId: '1', amount: 50.0)),
       expect: () => [
         BeneficiaryState(
           status: BeneficiaryStatus.success,
-          beneficiaries: [
-            tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0),
-            tBeneficiaries[1],
-          ],
+          beneficiaries: [tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0), tBeneficiaries[1]],
         ),
       ],
     );
@@ -308,8 +251,7 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should refresh beneficiaries successfully with silent flag',
       build: () {
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => tBeneficiaries);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => tBeneficiaries);
         return bloc;
       },
       act: (bloc) => bloc.add(const RefreshBeneficiaries(silent: true)),
@@ -325,8 +267,7 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should refresh beneficiaries successfully without silent flag',
       build: () {
-        when(mockGetBeneficiariesUseCase())
-            .thenAnswer((_) async => tBeneficiaries);
+        when(mockGetBeneficiariesUseCase()).thenAnswer((_) async => tBeneficiaries);
         return bloc;
       },
       act: (bloc) => bloc.add(const RefreshBeneficiaries(silent: false)),
@@ -342,17 +283,9 @@ void main() {
     blocTest<BeneficiaryBloc, BeneficiaryState>(
       'should clear messages when ClearMessages is called',
       build: () => bloc,
-      seed: () => const BeneficiaryState(
-        errorMessage: 'Error',
-        successMessage: 'Success',
-      ),
+      seed: () => const BeneficiaryState(errorMessage: 'Error', successMessage: 'Success'),
       act: (bloc) => bloc.add(const ClearMessages()),
-      expect: () => [
-        const BeneficiaryState(
-          errorMessage: null,
-          successMessage: null,
-        ),
-      ],
+      expect: () => [const BeneficiaryState(errorMessage: null, successMessage: null)],
     );
   });
 }

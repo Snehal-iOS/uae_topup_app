@@ -18,34 +18,19 @@ void main() {
 
     group('UpdateUserBalance', () {
       test('props should contain newBalance and topupAmount', () {
-        const event = UpdateUserBalance(
-          newBalance: 1000.0,
-          topupAmount: 100.0,
-        );
+        const event = UpdateUserBalance(newBalance: 1000.0, topupAmount: 100.0);
         expect(event.props, equals([1000.0, 100.0]));
       });
 
       test('two instances with same values should be equal', () {
-        const event1 = UpdateUserBalance(
-          newBalance: 1000.0,
-          topupAmount: 100.0,
-        );
-        const event2 = UpdateUserBalance(
-          newBalance: 1000.0,
-          topupAmount: 100.0,
-        );
+        const event1 = UpdateUserBalance(newBalance: 1000.0, topupAmount: 100.0);
+        const event2 = UpdateUserBalance(newBalance: 1000.0, topupAmount: 100.0);
         expect(event1, equals(event2));
       });
 
       test('two instances with different values should not be equal', () {
-        const event1 = UpdateUserBalance(
-          newBalance: 1000.0,
-          topupAmount: 100.0,
-        );
-        const event2 = UpdateUserBalance(
-          newBalance: 900.0,
-          topupAmount: 200.0,
-        );
+        const event1 = UpdateUserBalance(newBalance: 1000.0, topupAmount: 100.0);
+        const event2 = UpdateUserBalance(newBalance: 900.0, topupAmount: 200.0);
         expect(event1, isNot(equals(event2)));
       });
     });

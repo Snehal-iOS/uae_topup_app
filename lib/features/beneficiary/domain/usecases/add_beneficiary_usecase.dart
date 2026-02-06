@@ -8,10 +8,7 @@ class AddBeneficiaryUseCase {
   final BeneficiaryRepository repository;
   AddBeneficiaryUseCase(this.repository);
 
-  Future<Beneficiary> call({
-    required String phoneNumber,
-    required String nickname,
-  }) async {
+  Future<Beneficiary> call({required String phoneNumber, required String nickname}) async {
     if (nickname.trim().isEmpty) {
       throw const ValidationException(AppStrings.nicknameRequired);
     }
@@ -24,12 +21,9 @@ class AddBeneficiaryUseCase {
     }
 
     final beneficiaries = await repository.getBeneficiaries();
-    final activeBeneficiaries =
-        beneficiaries.where((b) => b.isActive).toList();
+    final activeBeneficiaries = beneficiaries.where((b) => b.isActive).toList();
 
-    final isDuplicate = beneficiaries.any(
-      (b) => b.phoneNumber == phoneNumber,
-    );
+    final isDuplicate = beneficiaries.any((b) => b.phoneNumber == phoneNumber);
 
     if (isDuplicate) {
       throw const ValidationException(AppStrings.duplicatePhoneNumber);
@@ -41,11 +35,7 @@ class AddBeneficiaryUseCase {
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       phoneNumber: phoneNumber,
       nickname: nickname,
-      monthlyResetDate: DateTime(
-        DateTime.now().year,
-        DateTime.now().month + 1,
-        1,
-      ),
+      monthlyResetDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 1),
       isActive: shouldBeActive, // Set based on active count
     );
 

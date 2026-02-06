@@ -35,10 +35,7 @@ class CommonDialog extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     return AlertDialog(
-      title: Text(
-        title,
-        style: AppTextStyles.h4.copyWith(color: colorScheme.onSurface),
-      ),
+      title: Text(title, style: AppTextStyles.h4.copyWith(color: colorScheme.onSurface)),
       content: DefaultTextStyle(
         style: AppTextStyles.bodyMedium.copyWith(color: colorScheme.onSurface),
         child: content,
@@ -195,9 +192,7 @@ class CommonDialogs {
         cancelText: cancelText ?? AppStrings.cancel,
         onCancel: onCancel ?? () => Navigator.pop(dialogContext),
         onConfirm: onConfirm ?? () => Navigator.pop(dialogContext),
-        confirmButtonStyle: willActivate 
-            ? DialogButtonStyle.success 
-            : DialogButtonStyle.warning,
+        confirmButtonStyle: willActivate ? DialogButtonStyle.success : DialogButtonStyle.warning,
       ),
     );
   }
@@ -209,10 +204,7 @@ class CommonDialogs {
   }) {
     return showDialog(
       context: context,
-      builder: (dialogContext) => BlocProvider.value(
-        value: bloc,
-        child: dialog,
-      ),
+      builder: (dialogContext) => BlocProvider.value(value: bloc, child: dialog),
     );
   }
 

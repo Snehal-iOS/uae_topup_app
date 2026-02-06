@@ -26,10 +26,7 @@ void main() {
   setUp(() {
     mockHttpClient = MockHttpClient();
     mockLocalDataSource = MockUserLocalDataSource();
-    repository = UserRepositoryImpl(
-      httpClient: mockHttpClient,
-      localDataSource: mockLocalDataSource,
-    );
+    repository = UserRepositoryImpl(httpClient: mockHttpClient, localDataSource: mockLocalDataSource);
   });
 
   group('UserRepositoryImpl', () {
@@ -49,8 +46,7 @@ void main() {
     test('should fetch from API when no cache exists', () async {
       // Arrange
       when(mockLocalDataSource.getCachedUser()).thenReturn(null);
-      when(mockLocalDataSource.cacheUser(any))
-          .thenAnswer((_) async {});
+      when(mockLocalDataSource.cacheUser(any)).thenAnswer((_) async {});
 
       // Act
       final result = await repository.getUser();
@@ -64,8 +60,7 @@ void main() {
     test('should update user and cache it', () async {
       // Arrange
       final updatedUser = tUser.copyWith(balance: 1200.0);
-      when(mockLocalDataSource.cacheUser(any))
-          .thenAnswer((_) async {});
+      when(mockLocalDataSource.cacheUser(any)).thenAnswer((_) async {});
 
       // Act
       final result = await repository.updateUser(updatedUser);
@@ -79,8 +74,7 @@ void main() {
     test('should return user even if API update fails', () async {
       // Arrange
       final updatedUser = tUser.copyWith(balance: 1200.0);
-      when(mockLocalDataSource.cacheUser(any))
-          .thenAnswer((_) async {});
+      when(mockLocalDataSource.cacheUser(any)).thenAnswer((_) async {});
       // MockHttpClient might succeed or fail randomly
       // If it succeeds, cacheUser is called twice (before and after API)
       // If it fails, cacheUser is called once (before API only)

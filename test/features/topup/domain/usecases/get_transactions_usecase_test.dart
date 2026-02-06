@@ -47,8 +47,7 @@ void main() {
   group('GetTransactionsUseCase', () {
     test('should return all transactions', () async {
       // Arrange
-      when(mockRepository.getTransactions())
-          .thenAnswer((_) async => tTransactions);
+      when(mockRepository.getTransactions()).thenAnswer((_) async => tTransactions);
 
       // Act
       final result = await useCase();
@@ -62,13 +61,10 @@ void main() {
       // Arrange
       final month = DateTime(2025, 1, 1);
       final expectedTransactions = tTransactions
-          .where((t) =>
-              t.timestamp.year == month.year &&
-              t.timestamp.month == month.month,)
+          .where((t) => t.timestamp.year == month.year && t.timestamp.month == month.month)
           .toList();
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => expectedTransactions);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => expectedTransactions);
 
       // Act
       final result = await useCase.getByMonth(month);
@@ -82,12 +78,9 @@ void main() {
     test('should get transactions by beneficiary', () async {
       // Arrange
       const beneficiaryId = 'ben1';
-      final expectedTransactions = tTransactions
-          .where((t) => t.beneficiaryId == beneficiaryId)
-          .toList();
+      final expectedTransactions = tTransactions.where((t) => t.beneficiaryId == beneficiaryId).toList();
 
-      when(mockRepository.getTransactionsByBeneficiary(any))
-          .thenAnswer((_) async => expectedTransactions);
+      when(mockRepository.getTransactionsByBeneficiary(any)).thenAnswer((_) async => expectedTransactions);
 
       // Act
       final result = await useCase.getByBeneficiary(beneficiaryId);
@@ -95,8 +88,7 @@ void main() {
       // Assert
       expect(result.length, equals(2));
       expect(result, equals(expectedTransactions));
-      verify(mockRepository.getTransactionsByBeneficiary(beneficiaryId))
-          .called(1);
+      verify(mockRepository.getTransactionsByBeneficiary(beneficiaryId)).called(1);
     });
 
     test('should calculate monthly total for beneficiary correctly', () async {
@@ -104,40 +96,33 @@ void main() {
       const beneficiaryId = 'ben1';
       final month = DateTime(2025, 1, 1);
       final monthTransactions = tTransactions
-          .where((t) =>
-              t.beneficiaryId == beneficiaryId &&
-              t.timestamp.year == month.year &&
-              t.timestamp.month == month.month &&
-              t.status == 'success',)
+          .where(
+            (t) =>
+                t.beneficiaryId == beneficiaryId &&
+                t.timestamp.year == month.year &&
+                t.timestamp.month == month.month &&
+                t.status == 'success',
+          )
           .toList();
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => monthTransactions);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => monthTransactions);
 
       // Act
-      final result = await useCase.getMonthlyTotalForBeneficiary(
-        beneficiaryId: beneficiaryId,
-        month: month,
-      );
+      final result = await useCase.getMonthlyTotalForBeneficiary(beneficiaryId: beneficiaryId, month: month);
 
       // Assert
       expect(result, equals(100.0));
     });
 
-    test('should return 0.0 when no transactions for beneficiary in month',
-        () async {
+    test('should return 0.0 when no transactions for beneficiary in month', () async {
       // Arrange
       const beneficiaryId = 'ben-nonexistent';
       final month = DateTime(2025, 1, 1);
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => []);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => []);
 
       // Act
-      final result = await useCase.getMonthlyTotalForBeneficiary(
-        beneficiaryId: beneficiaryId,
-        month: month,
-      );
+      final result = await useCase.getMonthlyTotalForBeneficiary(beneficiaryId: beneficiaryId, month: month);
 
       // Assert
       expect(result, equals(0.0));
@@ -161,19 +146,13 @@ void main() {
 
       // Filter to only January transactions
       final januaryTransactions = transactionsWithFailed
-          .where((t) =>
-              t.timestamp.year == month.year &&
-              t.timestamp.month == month.month,)
+          .where((t) => t.timestamp.year == month.year && t.timestamp.month == month.month)
           .toList();
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => januaryTransactions);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => januaryTransactions);
 
       // Act
-      final result = await useCase.getMonthlyTotalForBeneficiary(
-        beneficiaryId: beneficiaryId,
-        month: month,
-      );
+      final result = await useCase.getMonthlyTotalForBeneficiary(beneficiaryId: beneficiaryId, month: month);
 
       // Assert
       expect(result, equals(100.0)); // Only successful transaction
@@ -183,14 +162,10 @@ void main() {
       // Arrange
       final month = DateTime(2025, 1, 1);
       final monthTransactions = tTransactions
-          .where((t) =>
-              t.timestamp.year == month.year &&
-              t.timestamp.month == month.month &&
-              t.status == 'success',)
+          .where((t) => t.timestamp.year == month.year && t.timestamp.month == month.month && t.status == 'success')
           .toList();
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => monthTransactions);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => monthTransactions);
 
       // Act
       final result = await useCase.getMonthlyTotalForUser(month);
@@ -203,8 +178,7 @@ void main() {
       // Arrange
       final month = DateTime(2025, 3, 1);
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => []);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => []);
 
       // Act
       final result = await useCase.getMonthlyTotalForUser(month);
@@ -213,8 +187,7 @@ void main() {
       expect(result, equals(0.0));
     });
 
-    test('should exclude failed transactions from user monthly total',
-        () async {
+    test('should exclude failed transactions from user monthly total', () async {
       // Arrange
       final month = DateTime(2025, 1, 1);
       final transactionsWithFailed = [
@@ -231,13 +204,10 @@ void main() {
 
       // Filter to only January transactions
       final januaryTransactions = transactionsWithFailed
-          .where((t) =>
-              t.timestamp.year == month.year &&
-              t.timestamp.month == month.month,)
+          .where((t) => t.timestamp.year == month.year && t.timestamp.month == month.month)
           .toList();
 
-      when(mockRepository.getTransactionsByMonth(any))
-          .thenAnswer((_) async => januaryTransactions);
+      when(mockRepository.getTransactionsByMonth(any)).thenAnswer((_) async => januaryTransactions);
 
       // Act
       final result = await useCase.getMonthlyTotalForUser(month);

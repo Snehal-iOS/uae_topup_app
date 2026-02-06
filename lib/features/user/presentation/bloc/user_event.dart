@@ -15,10 +15,7 @@ class UpdateUserBalance extends UserEvent {
   final double newBalance;
   final double topupAmount;
 
-  const UpdateUserBalance({
-    required this.newBalance,
-    required this.topupAmount,
-  });
+  const UpdateUserBalance({required this.newBalance, required this.topupAmount});
 
   @override
   List<Object?> get props => [newBalance, topupAmount];

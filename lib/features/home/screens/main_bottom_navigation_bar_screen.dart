@@ -5,7 +5,6 @@ import '../../beneficiary/presentation/screens/manage_beneficiaries_screen.dart'
 import '../../user/presentation/screens/profile_screen.dart';
 import 'home_screen.dart';
 
-
 class MainBottomNavigationBarScreen extends StatefulWidget {
   const MainBottomNavigationBarScreen({super.key});
 
@@ -24,10 +23,7 @@ class _MainBottomNavigationBarScreenState extends State<MainBottomNavigationBarS
       const ProfileScreen(),
     ];
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: screens),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),

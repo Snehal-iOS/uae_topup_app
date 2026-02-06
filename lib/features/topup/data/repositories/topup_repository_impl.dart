@@ -9,21 +9,12 @@ class TopupRepositoryImpl implements TopupRepository {
   final MockHttpClient httpClient;
   final TopupLocalDataSource localDataSource;
 
-  TopupRepositoryImpl({
-    required this.httpClient,
-    required this.localDataSource,
-  });
+  TopupRepositoryImpl({required this.httpClient, required this.localDataSource});
 
   @override
-  Future<TopupTransaction> performTopup({
-    required String beneficiaryId,
-    required double amount,
-  }) async {
+  Future<TopupTransaction> performTopup({required String beneficiaryId, required double amount}) async {
     try {
-      final response = await httpClient.post('/api/topup', {
-        'beneficiaryId': beneficiaryId,
-        'amount': amount,
-      });
+      final response = await httpClient.post('/api/topup', {'beneficiaryId': beneficiaryId, 'amount': amount});
 
       final transaction = TopupTransaction.fromJson(response);
       // Store transaction in history
@@ -31,12 +22,11 @@ class TopupRepositoryImpl implements TopupRepository {
 
       return transaction;
     } catch (e) {
-      if (e is CustomException) {  // Re-throw with more context for better error handling
+      if (e is CustomException) {
+        // Re-throw with more context for better error handling
         rethrow;
       }
-      throw NetworkException(
-        AppStrings.format(AppStrings.failedToPerformTopup, [e.toString()]),
-      );
+      throw NetworkException(AppStrings.format(AppStrings.failedToPerformTopup, [e.toString()]));
     }
   }
 
@@ -51,9 +41,7 @@ class TopupRepositoryImpl implements TopupRepository {
   }
 
   @override
-  Future<List<TopupTransaction>> getTransactionsByBeneficiary(
-    String beneficiaryId,
-  ) async {
+  Future<List<TopupTransaction>> getTransactionsByBeneficiary(String beneficiaryId) async {
     return localDataSource.getTransactionsByBeneficiary(beneficiaryId);
   }
 }

@@ -7,12 +7,9 @@ import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i3;
-import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart'
-    as _i2;
-import 'package:uae_topup_app/features/user/domain/usecases/get_user_usecase.dart'
-    as _i4;
-import 'package:uae_topup_app/features/user/domain/usecases/update_user_usecase.dart'
-    as _i6;
+import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart' as _i2;
+import 'package:uae_topup_app/features/user/domain/usecases/get_user_usecase.dart' as _i4;
+import 'package:uae_topup_app/features/user/domain/usecases/update_user_usecase.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -28,15 +25,12 @@ import 'package:uae_topup_app/features/user/domain/usecases/update_user_usecase.
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUserRepository_0 extends _i1.SmartFake
-    implements _i2.UserRepository {
-  _FakeUserRepository_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeUserRepository_0 extends _i1.SmartFake implements _i2.UserRepository {
+  _FakeUserRepository_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeUser_1 extends _i1.SmartFake implements _i3.User {
-  _FakeUser_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUser_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [GetUserUseCase].
@@ -51,10 +45,7 @@ class MockGetUserUseCase extends _i1.Mock implements _i4.GetUserUseCase {
   _i2.UserRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeUserRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeUserRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.UserRepository);
 
@@ -62,9 +53,7 @@ class MockGetUserUseCase extends _i1.Mock implements _i4.GetUserUseCase {
   _i5.Future<_i3.User> call() =>
       (super.noSuchMethod(
             Invocation.method(#call, []),
-            returnValue: _i5.Future<_i3.User>.value(
-              _FakeUser_1(this, Invocation.method(#call, [])),
-            ),
+            returnValue: _i5.Future<_i3.User>.value(_FakeUser_1(this, Invocation.method(#call, []))),
           )
           as _i5.Future<_i3.User>);
 }
@@ -81,10 +70,7 @@ class MockUpdateUserUseCase extends _i1.Mock implements _i6.UpdateUserUseCase {
   _i2.UserRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeUserRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeUserRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.UserRepository);
 
@@ -92,9 +78,7 @@ class MockUpdateUserUseCase extends _i1.Mock implements _i6.UpdateUserUseCase {
   _i5.Future<_i3.User> call(_i3.User? user) =>
       (super.noSuchMethod(
             Invocation.method(#call, [user]),
-            returnValue: _i5.Future<_i3.User>.value(
-              _FakeUser_1(this, Invocation.method(#call, [user])),
-            ),
+            returnValue: _i5.Future<_i3.User>.value(_FakeUser_1(this, Invocation.method(#call, [user]))),
           )
           as _i5.Future<_i3.User>);
 }

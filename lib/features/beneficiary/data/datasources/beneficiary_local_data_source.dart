@@ -9,19 +9,14 @@ class BeneficiaryLocalDataSource {
 
   Future<void> cacheBeneficiaries(List<Beneficiary> beneficiaries) async {
     final jsonList = beneficiaries.map((b) => b.toJson()).toList();
-    await sharedPreferences.setString(
-      SharedPrefsKeys.beneficiaries,
-      jsonEncode(jsonList),
-    );
+    await sharedPreferences.setString(SharedPrefsKeys.beneficiaries, jsonEncode(jsonList));
   }
 
   List<Beneficiary>? getCachedBeneficiaries() {
     final jsonString = sharedPreferences.getString(SharedPrefsKeys.beneficiaries);
     if (jsonString != null) {
       final List<dynamic> jsonList = jsonDecode(jsonString) as List;
-      return jsonList
-          .map((json) => Beneficiary.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return jsonList.map((json) => Beneficiary.fromJson(json as Map<String, dynamic>)).toList();
     }
     return null;
   }

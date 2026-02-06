@@ -30,19 +30,14 @@ class InsufficientBalanceException extends BusinessLogicException {
   final double amount;
   final double available;
 
-  InsufficientBalanceException({
-    required this.amount,
-    required this.available,
-  }) : super(
-          AppStrings.format(
-            AppStrings.insufficientBalanceFormat,
-            [
-              amount.toStringAsFixed(2),
-              available.toStringAsFixed(2),
-            ],
-          ),
-          code: 'INSUFFICIENT_BALANCE',
-        );
+  InsufficientBalanceException({required this.amount, required this.available})
+    : super(
+        AppStrings.format(AppStrings.insufficientBalanceFormat, [
+          amount.toStringAsFixed(2),
+          available.toStringAsFixed(2),
+        ]),
+        code: 'INSUFFICIENT_BALANCE',
+      );
 }
 
 class LimitExceededException extends BusinessLogicException {
@@ -50,27 +45,17 @@ class LimitExceededException extends BusinessLogicException {
   final double limit;
   final double current;
 
-  LimitExceededException({
-    required this.limitType,
-    required this.limit,
-    required this.current,
-  }) : super(
-          AppStrings.format(
-            AppStrings.limitExceededFormat,
-            [
-              limitType,
-              limit.toStringAsFixed(0),
-              current.toStringAsFixed(2),
-            ],
-          ),
-          code: 'LIMIT_EXCEEDED',
-        );
+  LimitExceededException({required this.limitType, required this.limit, required this.current})
+    : super(
+        AppStrings.format(AppStrings.limitExceededFormat, [
+          limitType,
+          limit.toStringAsFixed(0),
+          current.toStringAsFixed(2),
+        ]),
+        code: 'LIMIT_EXCEEDED',
+      );
 }
 
 class MaxBeneficiariesException extends BusinessLogicException {
-  const MaxBeneficiariesException()
-      : super(
-          AppStrings.cannotActivateMaxReached,
-          code: 'MAX_BENEFICIARIES',
-        );
+  const MaxBeneficiariesException() : super(AppStrings.cannotActivateMaxReached, code: 'MAX_BENEFICIARIES');
 }

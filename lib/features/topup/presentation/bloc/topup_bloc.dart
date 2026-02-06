@@ -28,86 +28,61 @@ class TopupBloc extends Bloc<TopupEvent, TopupState> {
     on<ClearMessages>(_onClearMessages);
   }
 
-  Future<void> _onPerformTopup(
-    PerformTopup event,
-    Emitter<TopupState> emit,
-  ) async {
+  Future<void> _onPerformTopup(PerformTopup event, Emitter<TopupState> emit) async {
     emit(state.copyWith(status: TopupStatus.loading));
-    AppLogger.info(
-      'Performing top-up: ${event.amount} AED to ${event.beneficiary.nickname} (${event.beneficiary.id})',
-    );
+    AppLogger.info('Performing top-up: ${event.amount} AED to ${event.beneficiary.nickname} (${event.beneficiary.id})');
 
     try {
-      await performTopupUseCase(
-        user: event.user,
-        beneficiary: event.beneficiary,
-        amount: event.amount,
-      );
+      await performTopupUseCase(user: event.user, beneficiary: event.beneficiary, amount: event.amount);
 
-      AppLogger.info(
-        'Top-up successful: ${event.amount} AED to ${event.beneficiary.nickname}',
-      );
+      AppLogger.info('Top-up successful: ${event.amount} AED to ${event.beneficiary.nickname}');
 
-      emit(state.copyWith(
-        status: TopupStatus.success,
-        successMessage: AppStrings.format(
-          AppStrings.topupSuccessful,
-          [event.amount.toStringAsFixed(0), event.beneficiary.nickname],
+      emit(
+        state.copyWith(
+          status: TopupStatus.success,
+          successMessage: AppStrings.format(AppStrings.topupSuccessful, [
+            event.amount.toStringAsFixed(0),
+            event.beneficiary.nickname,
+          ]),
         ),
-      ),);
+      );
     } catch (e, stackTrace) {
       AppLogger.error('Failed to perform top-up', e, stackTrace);
       final errorMessage = ErrorHelper.extractErrorMessage(e);
-      emit(state.copyWith(
-        status: TopupStatus.error,
-        errorMessage: AppStrings.format(AppStrings.failedToPerformTopup, [errorMessage]),
-      ),);
+      emit(
+        state.copyWith(
+          status: TopupStatus.error,
+          errorMessage: AppStrings.format(AppStrings.failedToPerformTopup, [errorMessage]),
+        ),
+      );
     }
   }
 
-  Future<bool> canPerformTopup({
-    required User user,
-    required Beneficiary beneficiary,
-    required double amount,
-  }) async {
-    return checkTopupEligibilityUseCase(
-      user: user,
-      beneficiary: beneficiary,
-      amount: amount,
-    );
+  Future<bool> canPerformTopup({required User user, required Beneficiary beneficiary, required double amount}) async {
+    return checkTopupEligibilityUseCase(user: user, beneficiary: beneficiary, amount: amount);
   }
 
-  Future<void> _onLoadTransactions(
-    LoadTransactions event,
-    Emitter<TopupState> emit,
-  ) async {
+  Future<void> _onLoadTransactions(LoadTransactions event, Emitter<TopupState> emit) async {
     emit(state.copyWith(status: TopupStatus.loading));
     AppLogger.info('Loading transactions');
 
     try {
       final transactions = await getTransactionsUseCase();
       AppLogger.info('Successfully loaded ${transactions.length} transactions');
-      emit(state.copyWith(
-        status: TopupStatus.success,
-        transactions: transactions,
-      ),);
+      emit(state.copyWith(status: TopupStatus.success, transactions: transactions));
     } catch (e, stackTrace) {
       AppLogger.error('Failed to load transactions', e, stackTrace);
       final errorMessage = ErrorHelper.extractErrorMessage(e);
-      emit(state.copyWith(
-        status: TopupStatus.error,
-        errorMessage: AppStrings.format(AppStrings.failedToLoadData, [errorMessage]),
-      ),);
+      emit(
+        state.copyWith(
+          status: TopupStatus.error,
+          errorMessage: AppStrings.format(AppStrings.failedToLoadData, [errorMessage]),
+        ),
+      );
     }
   }
 
-  void _onClearMessages(
-    ClearMessages event,
-    Emitter<TopupState> emit,
-  ) {
-    emit(state.copyWith(
-      errorMessage: null,
-      successMessage: null,
-    ),);
+  void _onClearMessages(ClearMessages event, Emitter<TopupState> emit) {
+    emit(state.copyWith(errorMessage: null, successMessage: null));
   }
 }

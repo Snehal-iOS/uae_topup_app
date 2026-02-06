@@ -43,18 +43,17 @@ class _BeneficiaryCardState extends State<BeneficiaryCard> {
   Widget build(BuildContext context) {
     return BlocBuilder<BeneficiaryBloc, BeneficiaryState>(
       builder: (context, beneficiaryState) {
-        final updatedBeneficiary = beneficiaryState.beneficiaries
-            .firstWhere(
-              (beneficiary) => beneficiary.id == widget.beneficiary.id,
-              orElse: () => widget.beneficiary,
-            );
+        final updatedBeneficiary = beneficiaryState.beneficiaries.firstWhere(
+          (beneficiary) => beneficiary.id == widget.beneficiary.id,
+          orElse: () => widget.beneficiary,
+        );
 
         return BlocBuilder<UserBloc, UserState>(
           builder: (context, userState) {
             final currentUser = userState.user ?? widget.user;
             final beneficiaryLimit = currentUser.monthlyLimit;
             final isBeneficiaryActive = updatedBeneficiary.isActive;
-            
+
             final theme = Theme.of(context);
             final colorScheme = theme.colorScheme;
             final cardColor = widget.showManagementActions && !isBeneficiaryActive
@@ -68,111 +67,110 @@ class _BeneficiaryCardState extends State<BeneficiaryCard> {
               color: cardColor,
               margin: const EdgeInsets.only(bottom: 12),
               child: InkWell(
-                onTap: onTap == null
-                    ? null
-                    : () => onTap(updatedBeneficiary, currentUser),
+                onTap: onTap == null ? null : () => onTap(updatedBeneficiary, currentUser),
                 borderRadius: BorderRadius.circular(12),
                 child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            child: Row(
-              children: [
-                BeneficiaryAvatar(
-                  beneficiary: updatedBeneficiary,
-                  showManagementActions: widget.showManagementActions,
-                  isActive: isBeneficiaryActive,
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                      child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                updatedBeneficiary.nickname,
-                                style: AppTextStyles.bodyMedium.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: widget.showManagementActions && !isBeneficiaryActive
-                                      ? colorScheme.onSurfaceVariant
-                                      : null,
-                                ),
-                              ),
-                              Text(
-                                updatedBeneficiary.phoneNumber,
-                                style: AppTextStyles.bodySmall.copyWith(
-                                  color: widget.showManagementActions && !isBeneficiaryActive
-                                      ? colorScheme.onSurfaceVariant
-                                      : colorScheme.onSurfaceVariant,
-                                ),
-                              ),
-                            ],
+                          BeneficiaryAvatar(
+                            beneficiary: updatedBeneficiary,
+                            showManagementActions: widget.showManagementActions,
+                            isActive: isBeneficiaryActive,
                           ),
-                          widget.showManagementActions
-                              ? Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Switch.adaptive(
-                                    value: isBeneficiaryActive,
-                                    onChanged: widget.isLoading
-                                        ? null
-                                        : (bool value) => _showToggleDialog(context, value),
-                                    activeTrackColor: ColorPalette.success,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  CommonIconButton.sized(
-                                    icon: Icons.cancel,
-                                    size: 32,
-                                    iconColor: ColorPalette.error,
-                                    iconSize: 25,
-                                    onPressed: widget.isLoading ? null : () => _showDeleteDialog(context),
-                                    tooltip: AppStrings.delete,
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          updatedBeneficiary.nickname,
+                                          style: AppTextStyles.bodyMedium.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: widget.showManagementActions && !isBeneficiaryActive
+                                                ? colorScheme.onSurfaceVariant
+                                                : null,
+                                          ),
+                                        ),
+                                        Text(
+                                          updatedBeneficiary.phoneNumber,
+                                          style: AppTextStyles.bodySmall.copyWith(
+                                            color: widget.showManagementActions && !isBeneficiaryActive
+                                                ? colorScheme.onSurfaceVariant
+                                                : colorScheme.onSurfaceVariant,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    widget.showManagementActions
+                                        ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Switch.adaptive(
+                                                value: isBeneficiaryActive,
+                                                onChanged: widget.isLoading
+                                                    ? null
+                                                    : (bool value) => _showToggleDialog(context, value),
+                                                activeTrackColor: ColorPalette.success,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              CommonIconButton.sized(
+                                                icon: Icons.cancel,
+                                                size: 32,
+                                                iconColor: ColorPalette.error,
+                                                iconSize: 25,
+                                                onPressed: widget.isLoading ? null : () => _showDeleteDialog(context),
+                                                tooltip: AppStrings.delete,
+                                              ),
+                                            ],
+                                          )
+                                        : Container(
+                                            margin: const EdgeInsets.only(top: 4),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                const SizedBox(height: 4),
+                                                StatusBadge(isActive: updatedBeneficiary.isActive, wrapText: true),
+                                                const SizedBox(width: 8),
+                                                Icon(
+                                                  Icons.arrow_forward_ios_outlined,
+                                                  color: colorScheme.onSurfaceVariant,
+                                                  size: 12,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                  ],
+                                ),
+
+                                if (!widget.showManagementActions) ...[
+                                  const SizedBox(height: 6),
+                                  LimitProgressBar(
+                                    used: updatedBeneficiary.monthlyTopupAmount,
+                                    limit: beneficiaryLimit,
                                   ),
                                 ],
-                              )
-                              : Container(
-                            margin: const EdgeInsets.only(top: 4),
-                                child: Row(
-                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                     children: [
-                                const SizedBox(height: 4),
-                                StatusBadge(
-                                  isActive: updatedBeneficiary.isActive,
-                                  wrapText: true,
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(Icons.arrow_forward_ios_outlined, color: colorScheme.onSurfaceVariant, size: 12),
-                                                            ],
-                                                          ),
-                              ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
                         ],
                       ),
-
-                      if (!widget.showManagementActions) ...[
-                        const SizedBox(height: 6),
-                        LimitProgressBar(
-                          used: updatedBeneficiary.monthlyTopupAmount,
-                          limit: beneficiaryLimit,
-                        ),
-                      ],
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-              ],
-            ),
-          ),
-        ],
-      ),
-      ),
+              ),
             );
           },
         );
@@ -182,36 +180,26 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
   void _showToggleDialog(BuildContext context, bool willActivate) {
     final beneficiaryBloc = context.read<BeneficiaryBloc>();
-    final currentBeneficiary = beneficiaryBloc.state.beneficiaries
-        .firstWhere(
-          (b) => b.id == widget.beneficiary.id,
-          orElse: () => widget.beneficiary,
-        );
+    final currentBeneficiary = beneficiaryBloc.state.beneficiaries.firstWhere(
+      (b) => b.id == widget.beneficiary.id,
+      orElse: () => widget.beneficiary,
+    );
 
     CommonDialogs.showWithBlocProvider(
       context: context,
       bloc: beneficiaryBloc,
       dialog: CommonDialog(
-        title: willActivate
-            ? AppStrings.activateBeneficiary
-            : AppStrings.deactivateBeneficiary,
+        title: willActivate ? AppStrings.activateBeneficiary : AppStrings.deactivateBeneficiary,
         content: Text(
           willActivate
               ? AppStrings.format(AppStrings.activateConfirm, [currentBeneficiary.nickname])
               : AppStrings.format(AppStrings.deactivateConfirm, [currentBeneficiary.nickname]),
         ),
         confirmText: willActivate ? AppStrings.activate : AppStrings.deactivate,
-        confirmButtonStyle: willActivate 
-            ? DialogButtonStyle.success 
-            : DialogButtonStyle.warning,
+        confirmButtonStyle: willActivate ? DialogButtonStyle.success : DialogButtonStyle.warning,
         onConfirm: () {
           Navigator.pop(context);
-          beneficiaryBloc.add(
-                ToggleBeneficiaryStatus(
-                  beneficiaryId: currentBeneficiary.id,
-                  activate: willActivate,
-                ),
-              );
+          beneficiaryBloc.add(ToggleBeneficiaryStatus(beneficiaryId: currentBeneficiary.id, activate: willActivate));
         },
       ),
     );
@@ -219,30 +207,24 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
   void _showDeleteDialog(BuildContext context) {
     final beneficiaryBloc = context.read<BeneficiaryBloc>();
-    final currentBeneficiary = beneficiaryBloc.state.beneficiaries
-        .firstWhere(
-          (b) => b.id == widget.beneficiary.id,
-          orElse: () => widget.beneficiary,
-        );
-    
+    final currentBeneficiary = beneficiaryBloc.state.beneficiaries.firstWhere(
+      (b) => b.id == widget.beneficiary.id,
+      orElse: () => widget.beneficiary,
+    );
+
     CommonDialogs.showWithBlocProvider(
       context: context,
       bloc: beneficiaryBloc,
       dialog: CommonDialog(
         title: AppStrings.deleteBeneficiary,
-        content: Text(
-          AppStrings.format(AppStrings.deleteBeneficiaryConfirm, [currentBeneficiary.nickname]),
-        ),
+        content: Text(AppStrings.format(AppStrings.deleteBeneficiaryConfirm, [currentBeneficiary.nickname])),
         confirmText: AppStrings.delete,
         confirmButtonStyle: DialogButtonStyle.error,
         onConfirm: () {
           Navigator.pop(context);
-          beneficiaryBloc.add(
-                DeleteBeneficiary(currentBeneficiary.id),
-              );
+          beneficiaryBloc.add(DeleteBeneficiary(currentBeneficiary.id));
         },
       ),
     );
   }
 }
-

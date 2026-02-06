@@ -9,7 +9,6 @@ import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary
 import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_state.dart';
 import 'package:uae_topup_app/features/beneficiary/presentation/widgets/beneficiary_card.dart';
 import 'package:uae_topup_app/features/topup/presentation/bloc/topup_bloc.dart';
-import 'package:uae_topup_app/features/topup/presentation/bloc/topup_event.dart';
 import 'package:uae_topup_app/features/topup/presentation/bloc/topup_state.dart';
 import 'package:uae_topup_app/features/user/domain/entities/user.dart';
 import 'package:uae_topup_app/features/user/presentation/bloc/user_bloc.dart';
@@ -47,41 +46,19 @@ void main() {
     monthlyResetDate: DateTime(2026, 3, 1),
   );
 
-  Widget createWidgetUnderTest({
-    required Beneficiary beneficiary,
-    required User user,
-    bool isLoading = false,
-  }) {
+  Widget createWidgetUnderTest({required Beneficiary beneficiary, required User user, bool isLoading = false}) {
     // Set up default bloc behavior
     when(mockBeneficiaryBloc.stream).thenAnswer(
-      (_) => Stream.value(BeneficiaryState(
-        status: BeneficiaryStatus.success,
-        beneficiaries: [beneficiary],
-      )),
+      (_) => Stream.value(BeneficiaryState(status: BeneficiaryStatus.success, beneficiaries: [beneficiary])),
     );
-    when(mockBeneficiaryBloc.state).thenReturn(
-      BeneficiaryState(
-        status: BeneficiaryStatus.success,
-        beneficiaries: [beneficiary],
-      ),
-    );
+    when(
+      mockBeneficiaryBloc.state,
+    ).thenReturn(BeneficiaryState(status: BeneficiaryStatus.success, beneficiaries: [beneficiary]));
 
-    when(mockUserBloc.stream).thenAnswer(
-      (_) => Stream.value(UserState(
-        status: UserStatus.success,
-        user: user,
-      )),
-    );
-    when(mockUserBloc.state).thenReturn(
-      UserState(
-        status: UserStatus.success,
-        user: user,
-      ),
-    );
+    when(mockUserBloc.stream).thenAnswer((_) => Stream.value(UserState(status: UserStatus.success, user: user)));
+    when(mockUserBloc.state).thenReturn(UserState(status: UserStatus.success, user: user));
 
-    when(mockTopupBloc.stream).thenAnswer(
-      (_) => Stream.value(const TopupState()),
-    );
+    when(mockTopupBloc.stream).thenAnswer((_) => Stream.value(const TopupState()));
     when(mockTopupBloc.state).thenReturn(const TopupState());
 
     return MaterialApp(
@@ -106,12 +83,7 @@ void main() {
 
   group('BeneficiaryCard', () {
     testWidgets('displays beneficiary information correctly', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          beneficiary: tBeneficiary,
-          user: tUser,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(beneficiary: tBeneficiary, user: tUser));
 
       // Check nickname is displayed
       expect(find.text('Test Beneficiary'), findsOneWidget);
@@ -128,12 +100,7 @@ void main() {
     });
 
     testWidgets('displays active status correctly', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          beneficiary: tBeneficiary,
-          user: tUser,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(beneficiary: tBeneficiary, user: tUser));
 
       // Check active badge is displayed
       expect(find.text('Active'), findsOneWidget);
@@ -144,66 +111,35 @@ void main() {
       final inactiveBeneficiary = tBeneficiary.copyWith(isActive: false);
 
       when(mockBeneficiaryBloc.stream).thenAnswer(
-        (_) => Stream.value(BeneficiaryState(
-          status: BeneficiaryStatus.success,
-          beneficiaries: [inactiveBeneficiary],
-        )),
+        (_) => Stream.value(BeneficiaryState(status: BeneficiaryStatus.success, beneficiaries: [inactiveBeneficiary])),
       );
-      when(mockBeneficiaryBloc.state).thenReturn(
-        BeneficiaryState(
-          status: BeneficiaryStatus.success,
-          beneficiaries: [inactiveBeneficiary],
-        ),
-      );
+      when(
+        mockBeneficiaryBloc.state,
+      ).thenReturn(BeneficiaryState(status: BeneficiaryStatus.success, beneficiaries: [inactiveBeneficiary]));
 
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          beneficiary: inactiveBeneficiary,
-          user: tUser,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(beneficiary: inactiveBeneficiary, user: tUser));
 
       // Check inactive badge is displayed
       expect(find.text('Inactive'), findsOneWidget);
       expect(find.byIcon(Icons.cancel), findsOneWidget);
     });
 
-    testWidgets('calculates beneficiary limit correctly for verified user',
-        (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          beneficiary: tBeneficiary,
-          user: tUser,
-        ),
-      );
+    testWidgets('calculates beneficiary limit correctly for verified user', (tester) async {
+      await tester.pumpWidget(createWidgetUnderTest(beneficiary: tBeneficiary, user: tUser));
 
       // Verified user should have 1000 AED limit per beneficiary
       expect(find.text('AED 100 / 1000'), findsOneWidget);
     });
 
-    testWidgets('calculates beneficiary limit correctly for unverified user',
-        (tester) async {
+    testWidgets('calculates beneficiary limit correctly for unverified user', (tester) async {
       final unverifiedUser = tUser.copyWith(isVerified: false);
 
-      when(mockUserBloc.stream).thenAnswer(
-        (_) => Stream.value(UserState(
-          status: UserStatus.success,
-          user: unverifiedUser,
-        )),
-      );
-      when(mockUserBloc.state).thenReturn(
-        UserState(
-          status: UserStatus.success,
-          user: unverifiedUser,
-        ),
-      );
+      when(
+        mockUserBloc.stream,
+      ).thenAnswer((_) => Stream.value(UserState(status: UserStatus.success, user: unverifiedUser)));
+      when(mockUserBloc.state).thenReturn(UserState(status: UserStatus.success, user: unverifiedUser));
 
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          beneficiary: tBeneficiary,
-          user: unverifiedUser,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(beneficiary: tBeneficiary, user: unverifiedUser));
 
       // Unverified user should have 500 AED limit per beneficiary
       expect(find.text('AED 100 / 500'), findsOneWidget);

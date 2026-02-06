@@ -16,10 +16,7 @@ void main() {
       });
 
       test('should strip Exception: prefix from generic Exception', () {
-        expect(
-          ErrorHelper.extractErrorMessage(Exception('Something failed')),
-          'Something failed',
-        );
+        expect(ErrorHelper.extractErrorMessage(Exception('Something failed')), 'Something failed');
       });
 
       test('should handle null', () {
@@ -30,17 +27,11 @@ void main() {
     group('extractErrorMessageOrFallback', () {
       test('should return extracted message when extraction succeeds', () {
         const e = ValidationException('Bad value');
-        expect(
-          ErrorHelper.extractErrorMessageOrFallback(e, 'Fallback'),
-          'Bad value',
-        );
+        expect(ErrorHelper.extractErrorMessageOrFallback(e, 'Fallback'), 'Bad value');
       });
 
       test('should return empty string for null error', () {
-        expect(
-          ErrorHelper.extractErrorMessageOrFallback(null, 'Fallback'),
-          '',
-        );
+        expect(ErrorHelper.extractErrorMessageOrFallback(null, 'Fallback'), '');
       });
     });
   });

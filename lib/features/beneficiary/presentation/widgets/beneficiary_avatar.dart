@@ -33,10 +33,7 @@ class BeneficiaryAvatar extends StatelessWidget {
       backgroundColor: bgColor,
       child: Text(
         beneficiary.nickname.isNotEmpty ? beneficiary.nickname[0].toUpperCase() : '?',
-        style: AppTextStyles.bodyMedium.copyWith(
-          fontWeight: FontWeight.bold,
-          color: textColor,
-        ),
+        style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: textColor),
       ),
     );
   }
@@ -51,10 +48,7 @@ class BeneficiaryAvatar extends StatelessWidget {
       height: _size,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        imageBuilder: (context, imageProvider) => CircleAvatar(
-          radius: _size / 2,
-          backgroundImage: imageProvider,
-        ),
+        imageBuilder: (context, imageProvider) => CircleAvatar(radius: _size / 2, backgroundImage: imageProvider),
         placeholder: (context, url) => _buildInitialsPlaceholder(context),
         errorWidget: (context, url, error) => _buildInitialsPlaceholder(context),
       ),

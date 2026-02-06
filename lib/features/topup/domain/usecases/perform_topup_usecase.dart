@@ -21,20 +21,13 @@ class PerformTopupUseCase {
     required this.beneficiaryRepository,
   });
 
-  Future<void> call({
-    required User user,
-    required Beneficiary beneficiary,
-    required double amount,
-  }) async {
+  Future<void> call({required User user, required Beneficiary beneficiary, required double amount}) async {
     AppLogger.debug('PerformTopupUseCase: Starting top-up of $amount AED to ${beneficiary.nickname}');
-    
+
     final currentUser = await userRepository.getUser();
-    
+
     final beneficiaries = await beneficiaryRepository.getBeneficiaries();
-    final currentBeneficiary = beneficiaries.firstWhere(
-      (b) => b.id == beneficiary.id,
-      orElse: () => beneficiary,
-    );
+    final currentBeneficiary = beneficiaries.firstWhere((b) => b.id == beneficiary.id, orElse: () => beneficiary);
 
     if (amount <= 0) {
       AppLogger.warning('Invalid top-up amount: $amount');
@@ -44,13 +37,8 @@ class PerformTopupUseCase {
     final totalCost = amount + topupCharge;
 
     if (currentUser.balance < totalCost) {
-      AppLogger.warning(
-        'Insufficient balance: Required $totalCost, Available ${currentUser.balance}',
-      );
-      throw InsufficientBalanceException(
-        amount: totalCost,
-        available: currentUser.balance,
-      );
+      AppLogger.warning('Insufficient balance: Required $totalCost, Available ${currentUser.balance}');
+      throw InsufficientBalanceException(amount: totalCost, available: currentUser.balance);
     }
 
     final beneficiaryNewTotal = currentBeneficiary.monthlyTopupAmount + amount;
@@ -82,10 +70,7 @@ class PerformTopupUseCase {
     }
 
     AppLogger.debug('Executing top-up transaction via repository');
-    await topupRepository.performTopup(
-      beneficiaryId: currentBeneficiary.id,
-      amount: amount,
-    );
+    await topupRepository.performTopup(beneficiaryId: currentBeneficiary.id, amount: amount);
 
     final updatedUser = currentUser.copyWith(
       balance: currentUser.balance - totalCost,
@@ -94,12 +79,7 @@ class PerformTopupUseCase {
     await userRepository.updateUser(updatedUser);
     AppLogger.debug('User balance updated: ${updatedUser.balance} AED');
 
-    await beneficiaryRepository.updateBeneficiaryMonthlyAmount(
-      currentBeneficiary.id,
-      amount,
-    );
-    AppLogger.info(
-      'Top-up completed successfully: $amount AED to ${currentBeneficiary.nickname}',
-    );
+    await beneficiaryRepository.updateBeneficiaryMonthlyAmount(currentBeneficiary.id, amount);
+    AppLogger.info('Top-up completed successfully: $amount AED to ${currentBeneficiary.nickname}');
   }
 }

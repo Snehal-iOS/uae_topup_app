@@ -34,22 +34,19 @@ void main() {
         ),
       );
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => existingBeneficiaries);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-                isActive: true,
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => existingBeneficiaries);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+          isActive: true,
+        ),
+      );
 
       // Act
-      final result = await useCase(
-        phoneNumber: phoneNumber,
-        nickname: nickname,
-      );
+      final result = await useCase(phoneNumber: phoneNumber, nickname: nickname);
 
       // Assert
       expect(result.isActive, isTrue);
@@ -57,8 +54,7 @@ void main() {
       verify(mockRepository.addBeneficiary(any)).called(1);
     });
 
-    test('should add beneficiary as inactive when 5 active beneficiaries exist',
-        () async {
+    test('should add beneficiary as inactive when 5 active beneficiaries exist', () async {
       // Arrange
       const phoneNumber = '+971501234567';
       const nickname = 'Test Beneficiary';
@@ -73,22 +69,19 @@ void main() {
         ),
       );
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => existingBeneficiaries);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-                isActive: false,
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => existingBeneficiaries);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+          isActive: false,
+        ),
+      );
 
       // Act
-      final result = await useCase(
-        phoneNumber: phoneNumber,
-        nickname: nickname,
-      );
+      final result = await useCase(phoneNumber: phoneNumber, nickname: nickname);
 
       // Assert
       expect(result.isActive, isFalse);
@@ -102,38 +95,27 @@ void main() {
       const nickname = '';
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
 
-    test('should throw ValidationException when nickname is whitespace only',
-        () async {
+    test('should throw ValidationException when nickname is whitespace only', () async {
       // Arrange
       const phoneNumber = '+971501234567';
       const nickname = '   ';
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
 
-    test('should throw ValidationException when nickname exceeds 20 characters',
-        () async {
+    test('should throw ValidationException when nickname exceeds 20 characters', () async {
       // Arrange
       const phoneNumber = '+971501234567';
       final nickname = 'A' * 21;
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
 
@@ -141,15 +123,15 @@ void main() {
       // Arrange
       const phoneNumber = '+971501234567';
       final nickname = 'A' * 20;
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => []);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => []);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+        ),
+      );
 
       // Act
       await useCase(phoneNumber: phoneNumber, nickname: nickname);
@@ -158,17 +140,13 @@ void main() {
       verify(mockRepository.addBeneficiary(any)).called(1);
     });
 
-    test('should throw ValidationException for invalid phone number format',
-        () async {
+    test('should throw ValidationException for invalid phone number format', () async {
       // Arrange
       const phoneNumber = '12345';
       const nickname = 'Test';
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
 
@@ -176,15 +154,15 @@ void main() {
       // Arrange
       const phoneNumber = '+971501234567';
       const nickname = 'Test';
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => []);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => []);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+        ),
+      );
 
       // Act
       await useCase(phoneNumber: phoneNumber, nickname: nickname);
@@ -197,15 +175,15 @@ void main() {
       // Arrange
       const phoneNumber = '0501234567';
       const nickname = 'Test';
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => []);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => []);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+        ),
+      );
 
       // Act
       await useCase(phoneNumber: phoneNumber, nickname: nickname);
@@ -218,15 +196,15 @@ void main() {
       // Arrange
       const phoneNumber = '+971 50 123 4567';
       const nickname = 'Test';
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => []);
-      when(mockRepository.addBeneficiary(any))
-          .thenAnswer((_) async => Beneficiary(
-                id: 'new',
-                phoneNumber: phoneNumber,
-                nickname: nickname,
-                monthlyResetDate: DateTime(2025, 2, 1),
-              ),);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => []);
+      when(mockRepository.addBeneficiary(any)).thenAnswer(
+        (_) async => Beneficiary(
+          id: 'new',
+          phoneNumber: phoneNumber,
+          nickname: nickname,
+          monthlyResetDate: DateTime(2025, 2, 1),
+        ),
+      );
 
       // Act
       await useCase(phoneNumber: phoneNumber, nickname: nickname);
@@ -235,33 +213,22 @@ void main() {
       verify(mockRepository.addBeneficiary(any)).called(1);
     });
 
-    test('should throw ValidationException for duplicate phone number',
-        () async {
+    test('should throw ValidationException for duplicate phone number', () async {
       // Arrange
       const phoneNumber = '+971501234567';
       const nickname = 'Test';
       final existingBeneficiaries = [
-        Beneficiary(
-          id: '1',
-          phoneNumber: phoneNumber,
-          nickname: 'Existing',
-          monthlyResetDate: DateTime(2025, 2, 1),
-        ),
+        Beneficiary(id: '1', phoneNumber: phoneNumber, nickname: 'Existing', monthlyResetDate: DateTime(2025, 2, 1)),
       ];
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => existingBeneficiaries);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => existingBeneficiaries);
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
 
-    test('should check duplicate against all beneficiaries, not just active',
-        () async {
+    test('should check duplicate against all beneficiaries, not just active', () async {
       // Arrange
       const phoneNumber = '+971501234567';
       const nickname = 'Test';
@@ -275,14 +242,10 @@ void main() {
         ),
       ];
 
-      when(mockRepository.getBeneficiaries())
-          .thenAnswer((_) async => existingBeneficiaries);
+      when(mockRepository.getBeneficiaries()).thenAnswer((_) async => existingBeneficiaries);
 
       // Act & Assert
-      expect(
-        () => useCase(phoneNumber: phoneNumber, nickname: nickname),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(phoneNumber: phoneNumber, nickname: nickname), throwsA(isA<ValidationException>()));
       verifyNever(mockRepository.addBeneficiary(any));
     });
   });

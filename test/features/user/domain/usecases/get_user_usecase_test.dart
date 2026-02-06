@@ -41,24 +41,12 @@ void main() {
 
   test('should reset monthly total when reset date has passed', () async {
     // Arrange
-    final userWithPastResetDate = tUser.copyWith(
-      monthlyResetDate: DateTime(2024, 1, 1),
-      monthlyTopupTotal: 500.0,
-    );
-    final expectedResetDate = DateTime(
-      DateTime.now().year,
-      DateTime.now().month + 1,
-      1,
-    );
-    final expectedUser = userWithPastResetDate.copyWith(
-      monthlyTopupTotal: 0.0,
-      monthlyResetDate: expectedResetDate,
-    );
+    final userWithPastResetDate = tUser.copyWith(monthlyResetDate: DateTime(2024, 1, 1), monthlyTopupTotal: 500.0);
+    final expectedResetDate = DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
+    final expectedUser = userWithPastResetDate.copyWith(monthlyTopupTotal: 0.0, monthlyResetDate: expectedResetDate);
 
-    when(mockRepository.getUser())
-        .thenAnswer((_) async => userWithPastResetDate);
-    when(mockRepository.updateUser(any))
-        .thenAnswer((_) async => expectedUser);
+    when(mockRepository.getUser()).thenAnswer((_) async => userWithPastResetDate);
+    when(mockRepository.updateUser(any)).thenAnswer((_) async => expectedUser);
 
     // Act
     final result = await usecase();
@@ -73,12 +61,9 @@ void main() {
   test('should not reset when reset date is in the future', () async {
     // Arrange
     final futureDate = DateTime.now().add(const Duration(days: 10));
-    final userWithFutureResetDate = tUser.copyWith(
-      monthlyResetDate: futureDate,
-    );
+    final userWithFutureResetDate = tUser.copyWith(monthlyResetDate: futureDate);
 
-    when(mockRepository.getUser())
-        .thenAnswer((_) async => userWithFutureResetDate);
+    when(mockRepository.getUser()).thenAnswer((_) async => userWithFutureResetDate);
 
     // Act
     final result = await usecase();

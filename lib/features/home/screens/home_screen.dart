@@ -39,9 +39,9 @@ class HomeScreen extends StatelessWidget {
             listener: (context, state) {
               if (state.errorMessage != null) {
                 AppSnackBar.showError(context, state.errorMessage!);
-                  if (context.mounted) {
-                    context.read<BeneficiaryBloc>().add(const beneficiary_events.ClearMessages());
-                  }
+                if (context.mounted) {
+                  context.read<BeneficiaryBloc>().add(const beneficiary_events.ClearMessages());
+                }
               }
               if (state.successMessage != null) {
                 AppSnackBar.showSuccess(context, state.successMessage!);
@@ -69,9 +69,9 @@ class HomeScreen extends StatelessWidget {
                 final beneficiaryBloc = context.read<BeneficiaryBloc>();
                 userBloc.add(const RefreshUser(silent: true));
                 beneficiaryBloc.add(const RefreshBeneficiaries(silent: true));
-                  if (context.mounted) {
-                    context.read<TopupBloc>().add(const topup_events.ClearMessages());
-                  }
+                if (context.mounted) {
+                  context.read<TopupBloc>().add(const topup_events.ClearMessages());
+                }
               }
             },
           ),
@@ -82,11 +82,7 @@ class HomeScreen extends StatelessWidget {
               return const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
-                    Text(AppStrings.loading),
-                  ],
+                  children: [CircularProgressIndicator(), SizedBox(height: 16), Text(AppStrings.loading)],
                 ),
               );
             }
@@ -96,11 +92,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.error_outline,
-                      size: 64,
-                      color: ColorPalette.error,
-                    ),
+                    const Icon(Icons.error_outline, size: 64, color: ColorPalette.error),
                     const SizedBox(height: 16),
                     Text(
                       userState.errorMessage ?? AppStrings.somethingWentWrong,
@@ -139,9 +131,7 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               if (userState.user != null)
                                 UserInfoCard(
-                                  key: ValueKey(
-                                    'user_${userState.user!.balance}_${userState.user!.monthlyTopupTotal}',
-                                  ),
+                                  key: ValueKey('user_${userState.user!.balance}_${userState.user!.monthlyTopupTotal}'),
                                   user: userState.user!,
                                 ),
                               const SizedBox(height: 15),
@@ -242,10 +232,7 @@ class HomeScreen extends StatelessWidget {
     final beneficiaryBloc = context.read<BeneficiaryBloc>();
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => BlocProvider.value(
-          value: beneficiaryBloc,
-          child: const AddBeneficiaryScreen(),
-        ),
+        builder: (_) => BlocProvider.value(value: beneficiaryBloc, child: const AddBeneficiaryScreen()),
       ),
     );
   }
@@ -256,10 +243,7 @@ class HomeScreen extends StatelessWidget {
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider.value(
           value: topupBloc,
-          child: TopUpTransactionScreen(
-            beneficiary: beneficiary,
-            user: user,
-          ),
+          child: TopUpTransactionScreen(beneficiary: beneficiary, user: user),
         ),
       ),
     );

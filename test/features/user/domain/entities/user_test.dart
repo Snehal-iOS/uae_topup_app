@@ -136,17 +136,7 @@ void main() {
         monthlyResetDate: DateTime(2026, 3, 1),
       );
 
-      expect(
-        user.props,
-        equals([
-          '1',
-          'Test User',
-          1000.0,
-          true,
-          500.0,
-          DateTime(2026, 3, 1),
-        ]),
-      );
+      expect(user.props, equals(['1', 'Test User', 1000.0, true, 500.0, DateTime(2026, 3, 1)]));
     });
 
     test('two instances with same values should be equal', () {

@@ -28,56 +28,35 @@ class StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusText = isActive ? AppStrings.active : AppStrings.inactive;
-    final backgroundColor = isActive 
-        ? ColorPalette.successLight50 
-        : ColorPalette.greyLight200;
-    final borderColor = isActive 
-        ? ColorPalette.success 
-        : ColorPalette.grey;
-    final iconColor = isActive 
-        ? ColorPalette.successDark700 
-        : ColorPalette.greyDark600;
-    final textColor = isActive 
-        ? ColorPalette.successDark700 
-        : ColorPalette.greyDark600;
+    final backgroundColor = isActive ? ColorPalette.successLight50 : ColorPalette.greyLight200;
+    final borderColor = isActive ? ColorPalette.success : ColorPalette.grey;
+    final iconColor = isActive ? ColorPalette.successDark700 : ColorPalette.greyDark600;
+    final textColor = isActive ? ColorPalette.successDark700 : ColorPalette.greyDark600;
 
     return Container(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
+        border: Border.all(color: borderColor, width: borderWidth),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            isActive ? Icons.check_circle : Icons.cancel,
-            size: iconSize,
-            color: iconColor,
-          ),
+          Icon(isActive ? Icons.check_circle : Icons.cancel, size: iconSize, color: iconColor),
           SizedBox(width: spacing),
           if (wrapText)
             Flexible(
               child: Text(
                 statusText,
-                style: textStyle ?? AppTextStyles.labelSmall.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: textColor,
-                ),
+                style: textStyle ?? AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w600, color: textColor),
                 overflow: TextOverflow.ellipsis,
               ),
             )
           else
             Text(
               statusText,
-              style: textStyle ?? AppTextStyles.labelSmall.copyWith(
-                fontWeight: FontWeight.w600,
-                color: textColor,
-              ),
+              style: textStyle ?? AppTextStyles.labelSmall.copyWith(fontWeight: FontWeight.w600, color: textColor),
             ),
         ],
       ),

@@ -50,20 +50,13 @@ class CommonIconButton extends StatelessWidget {
           width: size,
           height: size,
           alignment: Alignment.center,
-          child: Icon(
-            icon,
-            size: defaultIconSize,
-            color: defaultIconColor,
-          ),
+          child: Icon(icon, size: defaultIconSize, color: defaultIconColor),
         ),
       ),
     );
 
     if (tooltip != null) {
-      button = Tooltip(
-        message: tooltip!,
-        child: button,
-      );
+      button = Tooltip(message: tooltip!, child: button);
     }
 
     return button;

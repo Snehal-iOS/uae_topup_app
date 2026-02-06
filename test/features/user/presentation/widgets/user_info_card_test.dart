@@ -6,8 +6,7 @@ import 'package:uae_topup_app/features/user/presentation/widgets/user_info_card.
 
 void main() {
   group('UserInfoCard Widget Tests', () {
-    testWidgets('displays user name and balance correctly',
-        (WidgetTester tester) async {
+    testWidgets('displays user name and balance correctly', (WidgetTester tester) async {
       final user = User(
         id: '1',
         name: 'John Doe',
@@ -19,9 +18,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: UserInfoCard(user: user),
-          ),
+          home: Scaffold(body: UserInfoCard(user: user)),
         ),
       );
 
@@ -30,8 +27,7 @@ void main() {
       expect(find.byType(Image), findsOneWidget);
     });
 
-    testWidgets('shows correct verification status for unverified user',
-        (WidgetTester tester) async {
+    testWidgets('shows correct verification status for unverified user', (WidgetTester tester) async {
       final user = User(
         id: '1',
         name: 'Jane Doe',
@@ -43,9 +39,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: UserInfoCard(user: user),
-          ),
+          home: Scaffold(body: UserInfoCard(user: user)),
         ),
       );
 
@@ -54,8 +48,7 @@ void main() {
       expect(find.byType(Image), findsNothing);
     });
 
-    testWidgets('displays monthly usage correctly',
-        (WidgetTester tester) async {
+    testWidgets('displays monthly usage correctly', (WidgetTester tester) async {
       final user = User(
         id: '1',
         name: 'Test User',
@@ -67,9 +60,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: UserInfoCard(user: user),
-          ),
+          home: Scaffold(body: UserInfoCard(user: user)),
         ),
       );
 

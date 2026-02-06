@@ -8,10 +8,7 @@ import '../../../../core/constants/color_palette.dart';
 class UAEPhoneField extends StatelessWidget {
   final TextEditingController controller;
 
-  const UAEPhoneField({
-    super.key,
-    required this.controller,
-  });
+  const UAEPhoneField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +19,7 @@ class UAEPhoneField extends StatelessWidget {
       children: [
         Text(
           AppStrings.uaePhoneNumber,
-          style: AppTextStyles.labelLarge.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
-          ),
+          style: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         ),
         const SizedBox(height: 8),
         FormField<String>(
@@ -49,20 +43,13 @@ class UAEPhoneField extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
-                    border: Border.all(
-                      color: state.hasError
-                          ? ColorPalette.error
-                          : colorScheme.outlineVariant,
-                    ),
+                    border: Border.all(color: state.hasError ? ColorPalette.error : colorScheme.outlineVariant),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         child: Text(
                           '+971',
                           style: AppTextStyles.bodyMedium.copyWith(
@@ -71,11 +58,7 @@ class UAEPhoneField extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        width: 1,
-                        height: 24,
-                        color: colorScheme.outlineVariant,
-                      ),
+                      Container(width: 1, height: 24, color: colorScheme.outlineVariant),
                       Expanded(
                         child: TextField(
                           controller: controller,
@@ -89,16 +72,11 @@ class UAEPhoneField extends StatelessWidget {
                             filled: true,
                             fillColor: colorScheme.surfaceContainerHighest,
                             border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 16,
-                            ),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                             errorBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
                           ),
-                          style: AppTextStyles.bodyMedium.copyWith(
-                            color: colorScheme.onSurface,
-                          ),
+                          style: AppTextStyles.bodyMedium.copyWith(color: colorScheme.onSurface),
                           keyboardType: TextInputType.phone,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[\d\s]')),
@@ -114,9 +92,7 @@ class UAEPhoneField extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
                       state.errorText!,
-                      style: AppTextStyles.captionSmall.copyWith(
-                        color: ColorPalette.error,
-                      ),
+                      style: AppTextStyles.captionSmall.copyWith(color: ColorPalette.error),
                     ),
                   ),
                 const SizedBox(height: 12),
@@ -127,18 +103,12 @@ class UAEPhoneField extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.info_outline,
-              size: 20,
-              color: colorScheme.onSurfaceVariant,
-            ),
+            Icon(Icons.info_outline, size: 20, color: colorScheme.onSurfaceVariant),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 AppStrings.phoneVerifyInfo,
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
+                style: AppTextStyles.bodySmall.copyWith(color: colorScheme.onSurfaceVariant),
               ),
             ),
           ],

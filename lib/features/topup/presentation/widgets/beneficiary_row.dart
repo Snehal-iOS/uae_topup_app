@@ -6,10 +6,7 @@ import '../../../beneficiary/domain/entities/beneficiary.dart';
 class BeneficiaryRow extends StatelessWidget {
   final Beneficiary beneficiary;
 
-  const BeneficiaryRow({
-    super.key,
-    required this.beneficiary,
-  });
+  const BeneficiaryRow({super.key, required this.beneficiary});
 
   static const String _diceBearBase = 'https://api.dicebear.com/7.x/avataaars/png';
 
@@ -26,32 +23,21 @@ class BeneficiaryRow extends StatelessWidget {
           height: 56,
           child: CachedNetworkImage(
             imageUrl: imageUrl,
-            imageBuilder: (context, imageProvider) => CircleAvatar(
-              radius: 28,
-              backgroundImage: imageProvider,
-            ),
+            imageBuilder: (context, imageProvider) => CircleAvatar(radius: 28, backgroundImage: imageProvider),
             placeholder: (context, url) => CircleAvatar(
               radius: 28,
               backgroundColor: colorScheme.primaryContainer,
               child: Text(
-                beneficiary.nickname.isNotEmpty
-                    ? beneficiary.nickname[0].toUpperCase()
-                    : '?',
-                style: AppTextStyles.h3.copyWith(
-                  color: colorScheme.onPrimaryContainer,
-                ),
+                beneficiary.nickname.isNotEmpty ? beneficiary.nickname[0].toUpperCase() : '?',
+                style: AppTextStyles.h3.copyWith(color: colorScheme.onPrimaryContainer),
               ),
             ),
             errorWidget: (context, url, error) => CircleAvatar(
               radius: 28,
               backgroundColor: colorScheme.primaryContainer,
               child: Text(
-                beneficiary.nickname.isNotEmpty
-                    ? beneficiary.nickname[0].toUpperCase()
-                    : '?',
-                style: AppTextStyles.h3.copyWith(
-                  color: colorScheme.onPrimaryContainer,
-                ),
+                beneficiary.nickname.isNotEmpty ? beneficiary.nickname[0].toUpperCase() : '?',
+                style: AppTextStyles.h3.copyWith(color: colorScheme.onPrimaryContainer),
               ),
             ),
           ),
@@ -61,18 +47,11 @@ class BeneficiaryRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                beneficiary.nickname,
-                style: AppTextStyles.h3.copyWith(
-                  color: colorScheme.onSurface,
-                ),
-              ),
+              Text(beneficiary.nickname, style: AppTextStyles.h3.copyWith(color: colorScheme.onSurface)),
               const SizedBox(height: 2),
               Text(
                 beneficiary.phoneNumber,
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
+                style: AppTextStyles.bodySmall.copyWith(color: colorScheme.onSurfaceVariant),
               ),
             ],
           ),

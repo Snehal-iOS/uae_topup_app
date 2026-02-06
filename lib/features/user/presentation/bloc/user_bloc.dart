@@ -11,51 +11,39 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final GetUserUseCase getUserUseCase;
   final UpdateUserUseCase updateUserUseCase;
 
-  UserBloc({
-    required this.getUserUseCase,
-    required this.updateUserUseCase,
-  }) : super(const UserState()) {
+  UserBloc({required this.getUserUseCase, required this.updateUserUseCase}) : super(const UserState()) {
     on<LoadUser>(_onLoadUser);
     on<UpdateUserBalance>(_onUpdateUserBalance);
     on<RefreshUser>(_onRefreshUser);
   }
 
-  Future<void> _onLoadUser(
-      LoadUser event,
-      Emitter<UserState> emit,
-      ) async {
+  Future<void> _onLoadUser(LoadUser event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.loading));
     AppLogger.info('Loading user data');
 
     try {
       final user = await getUserUseCase();
       AppLogger.info('User data loaded successfully: ${user.name}');
-      emit(state.copyWith(
-        status: UserStatus.success,
-        user: user,
-      ),);
+      emit(state.copyWith(status: UserStatus.success, user: user));
     } catch (e, stackTrace) {
       AppLogger.error('Failed to load user data', e, stackTrace);
       final errorMessage = ErrorHelper.extractErrorMessage(e);
-      emit(state.copyWith(
-        status: UserStatus.error,
-        errorMessage: AppStrings.format(AppStrings.failedToLoadData, [errorMessage]),
-      ),);
+      emit(
+        state.copyWith(
+          status: UserStatus.error,
+          errorMessage: AppStrings.format(AppStrings.failedToLoadData, [errorMessage]),
+        ),
+      );
     }
   }
 
-  Future<void> _onUpdateUserBalance(
-      UpdateUserBalance event,
-      Emitter<UserState> emit,
-      ) async {
+  Future<void> _onUpdateUserBalance(UpdateUserBalance event, Emitter<UserState> emit) async {
     if (state.user == null) {
       AppLogger.warning('Cannot update balance: user is null');
       return;
     }
 
-    AppLogger.debug(
-      'Updating user balance: ${event.newBalance} (top-up: ${event.topupAmount})',
-    );
+    AppLogger.debug('Updating user balance: ${event.newBalance} (top-up: ${event.topupAmount})');
 
     try {
       final updatedUser = state.user!.copyWith(
@@ -66,41 +54,36 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await updateUserUseCase(updatedUser);
 
       AppLogger.info('User balance updated successfully');
-      emit(state.copyWith(
-        status: UserStatus.success,
-        user: updatedUser,
-      ),);
+      emit(state.copyWith(status: UserStatus.success, user: updatedUser));
     } catch (e, stackTrace) {
       AppLogger.error('Failed to update user balance', e, stackTrace);
       final errorMessage = ErrorHelper.extractErrorMessage(e);
-      emit(state.copyWith(
-        status: UserStatus.error,
-        errorMessage: errorMessage,
-      ),);
+      emit(state.copyWith(status: UserStatus.error, errorMessage: errorMessage));
     }
   }
 
-  Future<void> _onRefreshUser(
-      RefreshUser event,
-      Emitter<UserState> emit,
-      ) async {
+  Future<void> _onRefreshUser(RefreshUser event, Emitter<UserState> emit) async {
     AppLogger.debug('Refreshing user data (silent: ${event.silent})');
 
     try {
       final user = await getUserUseCase();
       AppLogger.info('User data refreshed successfully');
-      emit(state.copyWith(
-        status: UserStatus.success,
-        user: user,
-        successMessage: event.silent ? null : AppStrings.dataRefreshed,
-      ),);
+      emit(
+        state.copyWith(
+          status: UserStatus.success,
+          user: user,
+          successMessage: event.silent ? null : AppStrings.dataRefreshed,
+        ),
+      );
     } catch (e, stackTrace) {
       AppLogger.error('Failed to refresh user data', e, stackTrace);
       final errorMessage = ErrorHelper.extractErrorMessage(e);
-      emit(state.copyWith(
-        status: UserStatus.error,
-        errorMessage: AppStrings.format(AppStrings.failedToRefresh, [errorMessage]),
-      ),);
+      emit(
+        state.copyWith(
+          status: UserStatus.error,
+          errorMessage: AppStrings.format(AppStrings.failedToRefresh, [errorMessage]),
+        ),
+      );
     }
   }
 }

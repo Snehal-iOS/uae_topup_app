@@ -7,47 +7,28 @@ import 'dart:async' as _i16;
 
 import 'package:flutter_bloc/flutter_bloc.dart' as _i18;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart'
-    as _i23;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart'
-    as _i3;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/delete_beneficiary_usecase.dart'
-    as _i4;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/get_beneficiaries_usecase.dart'
-    as _i2;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/toggle_beneficiary_status_usecase.dart'
-    as _i5;
+import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart' as _i23;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart' as _i3;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/delete_beneficiary_usecase.dart' as _i4;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/get_beneficiaries_usecase.dart' as _i2;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/toggle_beneficiary_status_usecase.dart' as _i5;
 import 'package:uae_topup_app/features/beneficiary/domain/usecases/update_beneficiary_monthly_amount_usecase.dart'
     as _i6;
-import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_bloc.dart'
-    as _i15;
-import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_event.dart'
-    as _i17;
-import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_state.dart'
-    as _i7;
-import 'package:uae_topup_app/features/topup/domain/usecases/check_topup_eligibility_usecase.dart'
-    as _i13;
-import 'package:uae_topup_app/features/topup/domain/usecases/get_transactions_usecase.dart'
-    as _i12;
-import 'package:uae_topup_app/features/topup/domain/usecases/perform_topup_usecase.dart'
-    as _i11;
-import 'package:uae_topup_app/features/topup/presentation/bloc/topup_bloc.dart'
-    as _i21;
-import 'package:uae_topup_app/features/topup/presentation/bloc/topup_event.dart'
-    as _i24;
-import 'package:uae_topup_app/features/topup/presentation/bloc/topup_state.dart'
-    as _i14;
+import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_bloc.dart' as _i15;
+import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_event.dart' as _i17;
+import 'package:uae_topup_app/features/beneficiary/presentation/bloc/beneficiary_state.dart' as _i7;
+import 'package:uae_topup_app/features/topup/domain/usecases/check_topup_eligibility_usecase.dart' as _i13;
+import 'package:uae_topup_app/features/topup/domain/usecases/get_transactions_usecase.dart' as _i12;
+import 'package:uae_topup_app/features/topup/domain/usecases/perform_topup_usecase.dart' as _i11;
+import 'package:uae_topup_app/features/topup/presentation/bloc/topup_bloc.dart' as _i21;
+import 'package:uae_topup_app/features/topup/presentation/bloc/topup_event.dart' as _i24;
+import 'package:uae_topup_app/features/topup/presentation/bloc/topup_state.dart' as _i14;
 import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i22;
-import 'package:uae_topup_app/features/user/domain/usecases/get_user_usecase.dart'
-    as _i8;
-import 'package:uae_topup_app/features/user/domain/usecases/update_user_usecase.dart'
-    as _i9;
-import 'package:uae_topup_app/features/user/presentation/bloc/user_bloc.dart'
-    as _i19;
-import 'package:uae_topup_app/features/user/presentation/bloc/user_event.dart'
-    as _i20;
-import 'package:uae_topup_app/features/user/presentation/bloc/user_state.dart'
-    as _i10;
+import 'package:uae_topup_app/features/user/domain/usecases/get_user_usecase.dart' as _i8;
+import 'package:uae_topup_app/features/user/domain/usecases/update_user_usecase.dart' as _i9;
+import 'package:uae_topup_app/features/user/presentation/bloc/user_bloc.dart' as _i19;
+import 'package:uae_topup_app/features/user/presentation/bloc/user_event.dart' as _i20;
+import 'package:uae_topup_app/features/user/presentation/bloc/user_state.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -63,86 +44,58 @@ import 'package:uae_topup_app/features/user/presentation/bloc/user_state.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetBeneficiariesUseCase_0 extends _i1.SmartFake
-    implements _i2.GetBeneficiariesUseCase {
-  _FakeGetBeneficiariesUseCase_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeGetBeneficiariesUseCase_0 extends _i1.SmartFake implements _i2.GetBeneficiariesUseCase {
+  _FakeGetBeneficiariesUseCase_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeAddBeneficiaryUseCase_1 extends _i1.SmartFake
-    implements _i3.AddBeneficiaryUseCase {
-  _FakeAddBeneficiaryUseCase_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeAddBeneficiaryUseCase_1 extends _i1.SmartFake implements _i3.AddBeneficiaryUseCase {
+  _FakeAddBeneficiaryUseCase_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeDeleteBeneficiaryUseCase_2 extends _i1.SmartFake
-    implements _i4.DeleteBeneficiaryUseCase {
-  _FakeDeleteBeneficiaryUseCase_2(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeDeleteBeneficiaryUseCase_2 extends _i1.SmartFake implements _i4.DeleteBeneficiaryUseCase {
+  _FakeDeleteBeneficiaryUseCase_2(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeToggleBeneficiaryStatusUseCase_3 extends _i1.SmartFake
-    implements _i5.ToggleBeneficiaryStatusUseCase {
-  _FakeToggleBeneficiaryStatusUseCase_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(parent, parentInvocation);
+class _FakeToggleBeneficiaryStatusUseCase_3 extends _i1.SmartFake implements _i5.ToggleBeneficiaryStatusUseCase {
+  _FakeToggleBeneficiaryStatusUseCase_3(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeUpdateBeneficiaryMonthlyAmountUseCase_4 extends _i1.SmartFake
     implements _i6.UpdateBeneficiaryMonthlyAmountUseCase {
-  _FakeUpdateBeneficiaryMonthlyAmountUseCase_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(parent, parentInvocation);
-}
-
-class _FakeBeneficiaryState_5 extends _i1.SmartFake
-    implements _i7.BeneficiaryState {
-  _FakeBeneficiaryState_5(Object parent, Invocation parentInvocation)
+  _FakeUpdateBeneficiaryMonthlyAmountUseCase_4(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeGetUserUseCase_6 extends _i1.SmartFake
-    implements _i8.GetUserUseCase {
-  _FakeGetUserUseCase_6(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeBeneficiaryState_5 extends _i1.SmartFake implements _i7.BeneficiaryState {
+  _FakeBeneficiaryState_5(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeUpdateUserUseCase_7 extends _i1.SmartFake
-    implements _i9.UpdateUserUseCase {
-  _FakeUpdateUserUseCase_7(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeGetUserUseCase_6 extends _i1.SmartFake implements _i8.GetUserUseCase {
+  _FakeGetUserUseCase_6(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+}
+
+class _FakeUpdateUserUseCase_7 extends _i1.SmartFake implements _i9.UpdateUserUseCase {
+  _FakeUpdateUserUseCase_7(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeUserState_8 extends _i1.SmartFake implements _i10.UserState {
-  _FakeUserState_8(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUserState_8(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakePerformTopupUseCase_9 extends _i1.SmartFake
-    implements _i11.PerformTopupUseCase {
-  _FakePerformTopupUseCase_9(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakePerformTopupUseCase_9 extends _i1.SmartFake implements _i11.PerformTopupUseCase {
+  _FakePerformTopupUseCase_9(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeGetTransactionsUseCase_10 extends _i1.SmartFake
-    implements _i12.GetTransactionsUseCase {
-  _FakeGetTransactionsUseCase_10(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeGetTransactionsUseCase_10 extends _i1.SmartFake implements _i12.GetTransactionsUseCase {
+  _FakeGetTransactionsUseCase_10(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeCheckTopupEligibilityUseCase_11 extends _i1.SmartFake
-    implements _i13.CheckTopupEligibilityUseCase {
-  _FakeCheckTopupEligibilityUseCase_11(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(parent, parentInvocation);
+class _FakeCheckTopupEligibilityUseCase_11 extends _i1.SmartFake implements _i13.CheckTopupEligibilityUseCase {
+  _FakeCheckTopupEligibilityUseCase_11(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeTopupState_12 extends _i1.SmartFake implements _i14.TopupState {
-  _FakeTopupState_12(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeTopupState_12(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [BeneficiaryBloc].
@@ -157,10 +110,7 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
   _i2.GetBeneficiariesUseCase get getBeneficiariesUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#getBeneficiariesUseCase),
-            returnValue: _FakeGetBeneficiariesUseCase_0(
-              this,
-              Invocation.getter(#getBeneficiariesUseCase),
-            ),
+            returnValue: _FakeGetBeneficiariesUseCase_0(this, Invocation.getter(#getBeneficiariesUseCase)),
           )
           as _i2.GetBeneficiariesUseCase);
 
@@ -168,10 +118,7 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
   _i3.AddBeneficiaryUseCase get addBeneficiaryUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#addBeneficiaryUseCase),
-            returnValue: _FakeAddBeneficiaryUseCase_1(
-              this,
-              Invocation.getter(#addBeneficiaryUseCase),
-            ),
+            returnValue: _FakeAddBeneficiaryUseCase_1(this, Invocation.getter(#addBeneficiaryUseCase)),
           )
           as _i3.AddBeneficiaryUseCase);
 
@@ -179,10 +126,7 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
   _i4.DeleteBeneficiaryUseCase get deleteBeneficiaryUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#deleteBeneficiaryUseCase),
-            returnValue: _FakeDeleteBeneficiaryUseCase_2(
-              this,
-              Invocation.getter(#deleteBeneficiaryUseCase),
-            ),
+            returnValue: _FakeDeleteBeneficiaryUseCase_2(this, Invocation.getter(#deleteBeneficiaryUseCase)),
           )
           as _i4.DeleteBeneficiaryUseCase);
 
@@ -198,8 +142,7 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
           as _i5.ToggleBeneficiaryStatusUseCase);
 
   @override
-  _i6.UpdateBeneficiaryMonthlyAmountUseCase
-  get updateBeneficiaryMonthlyAmountUseCase =>
+  _i6.UpdateBeneficiaryMonthlyAmountUseCase get updateBeneficiaryMonthlyAmountUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#updateBeneficiaryMonthlyAmountUseCase),
             returnValue: _FakeUpdateBeneficiaryMonthlyAmountUseCase_4(
@@ -213,43 +156,29 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
   _i7.BeneficiaryState get state =>
       (super.noSuchMethod(
             Invocation.getter(#state),
-            returnValue: _FakeBeneficiaryState_5(
-              this,
-              Invocation.getter(#state),
-            ),
+            returnValue: _FakeBeneficiaryState_5(this, Invocation.getter(#state)),
           )
           as _i7.BeneficiaryState);
 
   @override
   _i16.Stream<_i7.BeneficiaryState> get stream =>
-      (super.noSuchMethod(
-            Invocation.getter(#stream),
-            returnValue: _i16.Stream<_i7.BeneficiaryState>.empty(),
-          )
+      (super.noSuchMethod(Invocation.getter(#stream), returnValue: _i16.Stream<_i7.BeneficiaryState>.empty())
           as _i16.Stream<_i7.BeneficiaryState>);
 
   @override
-  bool get isClosed =>
-      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
-          as bool);
+  bool get isClosed => (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false) as bool);
 
   @override
-  void add(_i17.BeneficiaryEvent? event) => super.noSuchMethod(
-    Invocation.method(#add, [event]),
-    returnValueForMissingStub: null,
-  );
+  void add(_i17.BeneficiaryEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]), returnValueForMissingStub: null);
 
   @override
-  void onEvent(_i17.BeneficiaryEvent? event) => super.noSuchMethod(
-    Invocation.method(#onEvent, [event]),
-    returnValueForMissingStub: null,
-  );
+  void onEvent(_i17.BeneficiaryEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]), returnValueForMissingStub: null);
 
   @override
-  void emit(_i7.BeneficiaryState? state) => super.noSuchMethod(
-    Invocation.method(#emit, [state]),
-    returnValueForMissingStub: null,
-  );
+  void emit(_i7.BeneficiaryState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]), returnValueForMissingStub: null);
 
   @override
   void on<E extends _i17.BeneficiaryEvent>(
@@ -261,12 +190,8 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
   );
 
   @override
-  void onTransition(
-    _i18.Transition<_i17.BeneficiaryEvent, _i7.BeneficiaryState>? transition,
-  ) => super.noSuchMethod(
-    Invocation.method(#onTransition, [transition]),
-    returnValueForMissingStub: null,
-  );
+  void onTransition(_i18.Transition<_i17.BeneficiaryEvent, _i7.BeneficiaryState>? transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]), returnValueForMissingStub: null);
 
   @override
   _i16.Future<void> close() =>
@@ -279,22 +204,15 @@ class MockBeneficiaryBloc extends _i1.Mock implements _i15.BeneficiaryBloc {
 
   @override
   void onChange(_i18.Change<_i7.BeneficiaryState>? change) =>
-      super.noSuchMethod(
-        Invocation.method(#onChange, [change]),
-        returnValueForMissingStub: null,
-      );
+      super.noSuchMethod(Invocation.method(#onChange, [change]), returnValueForMissingStub: null);
 
   @override
-  void addError(Object? error, [StackTrace? stackTrace]) => super.noSuchMethod(
-    Invocation.method(#addError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]), returnValueForMissingStub: null);
 
   @override
-  void onError(Object? error, StackTrace? stackTrace) => super.noSuchMethod(
-    Invocation.method(#onError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]), returnValueForMissingStub: null);
 }
 
 /// A class which mocks [UserBloc].
@@ -309,10 +227,7 @@ class MockUserBloc extends _i1.Mock implements _i19.UserBloc {
   _i8.GetUserUseCase get getUserUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#getUserUseCase),
-            returnValue: _FakeGetUserUseCase_6(
-              this,
-              Invocation.getter(#getUserUseCase),
-            ),
+            returnValue: _FakeGetUserUseCase_6(this, Invocation.getter(#getUserUseCase)),
           )
           as _i8.GetUserUseCase);
 
@@ -320,51 +235,34 @@ class MockUserBloc extends _i1.Mock implements _i19.UserBloc {
   _i9.UpdateUserUseCase get updateUserUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#updateUserUseCase),
-            returnValue: _FakeUpdateUserUseCase_7(
-              this,
-              Invocation.getter(#updateUserUseCase),
-            ),
+            returnValue: _FakeUpdateUserUseCase_7(this, Invocation.getter(#updateUserUseCase)),
           )
           as _i9.UpdateUserUseCase);
 
   @override
   _i10.UserState get state =>
-      (super.noSuchMethod(
-            Invocation.getter(#state),
-            returnValue: _FakeUserState_8(this, Invocation.getter(#state)),
-          )
+      (super.noSuchMethod(Invocation.getter(#state), returnValue: _FakeUserState_8(this, Invocation.getter(#state)))
           as _i10.UserState);
 
   @override
   _i16.Stream<_i10.UserState> get stream =>
-      (super.noSuchMethod(
-            Invocation.getter(#stream),
-            returnValue: _i16.Stream<_i10.UserState>.empty(),
-          )
+      (super.noSuchMethod(Invocation.getter(#stream), returnValue: _i16.Stream<_i10.UserState>.empty())
           as _i16.Stream<_i10.UserState>);
 
   @override
-  bool get isClosed =>
-      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
-          as bool);
+  bool get isClosed => (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false) as bool);
 
   @override
-  void add(_i20.UserEvent? event) => super.noSuchMethod(
-    Invocation.method(#add, [event]),
-    returnValueForMissingStub: null,
-  );
+  void add(_i20.UserEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]), returnValueForMissingStub: null);
 
   @override
-  void onEvent(_i20.UserEvent? event) => super.noSuchMethod(
-    Invocation.method(#onEvent, [event]),
-    returnValueForMissingStub: null,
-  );
+  void onEvent(_i20.UserEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]), returnValueForMissingStub: null);
 
   @override
-  void emit(_i10.UserState? state) => super.noSuchMethod(
-    Invocation.method(#emit, [state]),
-    returnValueForMissingStub: null,
-  );
+  void emit(_i10.UserState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]), returnValueForMissingStub: null);
 
   @override
   void on<E extends _i20.UserEvent>(
@@ -376,12 +274,8 @@ class MockUserBloc extends _i1.Mock implements _i19.UserBloc {
   );
 
   @override
-  void onTransition(
-    _i18.Transition<_i20.UserEvent, _i10.UserState>? transition,
-  ) => super.noSuchMethod(
-    Invocation.method(#onTransition, [transition]),
-    returnValueForMissingStub: null,
-  );
+  void onTransition(_i18.Transition<_i20.UserEvent, _i10.UserState>? transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]), returnValueForMissingStub: null);
 
   @override
   _i16.Future<void> close() =>
@@ -393,22 +287,16 @@ class MockUserBloc extends _i1.Mock implements _i19.UserBloc {
           as _i16.Future<void>);
 
   @override
-  void onChange(_i18.Change<_i10.UserState>? change) => super.noSuchMethod(
-    Invocation.method(#onChange, [change]),
-    returnValueForMissingStub: null,
-  );
+  void onChange(_i18.Change<_i10.UserState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]), returnValueForMissingStub: null);
 
   @override
-  void addError(Object? error, [StackTrace? stackTrace]) => super.noSuchMethod(
-    Invocation.method(#addError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]), returnValueForMissingStub: null);
 
   @override
-  void onError(Object? error, StackTrace? stackTrace) => super.noSuchMethod(
-    Invocation.method(#onError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]), returnValueForMissingStub: null);
 }
 
 /// A class which mocks [TopupBloc].
@@ -423,10 +311,7 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
   _i11.PerformTopupUseCase get performTopupUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#performTopupUseCase),
-            returnValue: _FakePerformTopupUseCase_9(
-              this,
-              Invocation.getter(#performTopupUseCase),
-            ),
+            returnValue: _FakePerformTopupUseCase_9(this, Invocation.getter(#performTopupUseCase)),
           )
           as _i11.PerformTopupUseCase);
 
@@ -434,10 +319,7 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
   _i12.GetTransactionsUseCase get getTransactionsUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#getTransactionsUseCase),
-            returnValue: _FakeGetTransactionsUseCase_10(
-              this,
-              Invocation.getter(#getTransactionsUseCase),
-            ),
+            returnValue: _FakeGetTransactionsUseCase_10(this, Invocation.getter(#getTransactionsUseCase)),
           )
           as _i12.GetTransactionsUseCase);
 
@@ -445,33 +327,22 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
   _i13.CheckTopupEligibilityUseCase get checkTopupEligibilityUseCase =>
       (super.noSuchMethod(
             Invocation.getter(#checkTopupEligibilityUseCase),
-            returnValue: _FakeCheckTopupEligibilityUseCase_11(
-              this,
-              Invocation.getter(#checkTopupEligibilityUseCase),
-            ),
+            returnValue: _FakeCheckTopupEligibilityUseCase_11(this, Invocation.getter(#checkTopupEligibilityUseCase)),
           )
           as _i13.CheckTopupEligibilityUseCase);
 
   @override
   _i14.TopupState get state =>
-      (super.noSuchMethod(
-            Invocation.getter(#state),
-            returnValue: _FakeTopupState_12(this, Invocation.getter(#state)),
-          )
+      (super.noSuchMethod(Invocation.getter(#state), returnValue: _FakeTopupState_12(this, Invocation.getter(#state)))
           as _i14.TopupState);
 
   @override
   _i16.Stream<_i14.TopupState> get stream =>
-      (super.noSuchMethod(
-            Invocation.getter(#stream),
-            returnValue: _i16.Stream<_i14.TopupState>.empty(),
-          )
+      (super.noSuchMethod(Invocation.getter(#stream), returnValue: _i16.Stream<_i14.TopupState>.empty())
           as _i16.Stream<_i14.TopupState>);
 
   @override
-  bool get isClosed =>
-      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
-          as bool);
+  bool get isClosed => (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false) as bool);
 
   @override
   _i16.Future<bool> canPerformTopup({
@@ -480,32 +351,22 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
     required double? amount,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#canPerformTopup, [], {
-              #user: user,
-              #beneficiary: beneficiary,
-              #amount: amount,
-            }),
+            Invocation.method(#canPerformTopup, [], {#user: user, #beneficiary: beneficiary, #amount: amount}),
             returnValue: _i16.Future<bool>.value(false),
           )
           as _i16.Future<bool>);
 
   @override
-  void add(_i24.TopupEvent? event) => super.noSuchMethod(
-    Invocation.method(#add, [event]),
-    returnValueForMissingStub: null,
-  );
+  void add(_i24.TopupEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]), returnValueForMissingStub: null);
 
   @override
-  void onEvent(_i24.TopupEvent? event) => super.noSuchMethod(
-    Invocation.method(#onEvent, [event]),
-    returnValueForMissingStub: null,
-  );
+  void onEvent(_i24.TopupEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]), returnValueForMissingStub: null);
 
   @override
-  void emit(_i14.TopupState? state) => super.noSuchMethod(
-    Invocation.method(#emit, [state]),
-    returnValueForMissingStub: null,
-  );
+  void emit(_i14.TopupState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]), returnValueForMissingStub: null);
 
   @override
   void on<E extends _i24.TopupEvent>(
@@ -517,12 +378,8 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
   );
 
   @override
-  void onTransition(
-    _i18.Transition<_i24.TopupEvent, _i14.TopupState>? transition,
-  ) => super.noSuchMethod(
-    Invocation.method(#onTransition, [transition]),
-    returnValueForMissingStub: null,
-  );
+  void onTransition(_i18.Transition<_i24.TopupEvent, _i14.TopupState>? transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]), returnValueForMissingStub: null);
 
   @override
   _i16.Future<void> close() =>
@@ -534,20 +391,14 @@ class MockTopupBloc extends _i1.Mock implements _i21.TopupBloc {
           as _i16.Future<void>);
 
   @override
-  void onChange(_i18.Change<_i14.TopupState>? change) => super.noSuchMethod(
-    Invocation.method(#onChange, [change]),
-    returnValueForMissingStub: null,
-  );
+  void onChange(_i18.Change<_i14.TopupState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]), returnValueForMissingStub: null);
 
   @override
-  void addError(Object? error, [StackTrace? stackTrace]) => super.noSuchMethod(
-    Invocation.method(#addError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]), returnValueForMissingStub: null);
 
   @override
-  void onError(Object? error, StackTrace? stackTrace) => super.noSuchMethod(
-    Invocation.method(#onError, [error, stackTrace]),
-    returnValueForMissingStub: null,
-  );
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]), returnValueForMissingStub: null);
 }

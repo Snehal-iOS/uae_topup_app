@@ -7,8 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i2;
-import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart'
-    as _i3;
+import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,8 +24,7 @@ import 'package:uae_topup_app/features/user/domain/repositories/user_repository.
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
-  _FakeUser_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUser_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [UserRepository].
@@ -41,9 +39,7 @@ class MockUserRepository extends _i1.Mock implements _i3.UserRepository {
   _i4.Future<_i2.User> getUser() =>
       (super.noSuchMethod(
             Invocation.method(#getUser, []),
-            returnValue: _i4.Future<_i2.User>.value(
-              _FakeUser_0(this, Invocation.method(#getUser, [])),
-            ),
+            returnValue: _i4.Future<_i2.User>.value(_FakeUser_0(this, Invocation.method(#getUser, []))),
           )
           as _i4.Future<_i2.User>);
 
@@ -51,9 +47,7 @@ class MockUserRepository extends _i1.Mock implements _i3.UserRepository {
   _i4.Future<_i2.User> updateUser(_i2.User? user) =>
       (super.noSuchMethod(
             Invocation.method(#updateUser, [user]),
-            returnValue: _i4.Future<_i2.User>.value(
-              _FakeUser_0(this, Invocation.method(#updateUser, [user])),
-            ),
+            returnValue: _i4.Future<_i2.User>.value(_FakeUser_0(this, Invocation.method(#updateUser, [user]))),
           )
           as _i4.Future<_i2.User>);
 }

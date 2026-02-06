@@ -7,7 +7,7 @@ class AddBeneficiaryAvatarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Center(
       child: Container(
         width: 80,
@@ -21,9 +21,7 @@ class AddBeneficiaryAvatarHeader extends StatelessWidget {
         child: Icon(
           Icons.person_add,
           size: 40,
-          color: colorScheme.brightness == Brightness.dark
-              ? colorScheme.onPrimaryContainer
-              : ColorPalette.primaryDark,
+          color: colorScheme.brightness == Brightness.dark ? colorScheme.onPrimaryContainer : ColorPalette.primaryDark,
         ),
       ),
     );

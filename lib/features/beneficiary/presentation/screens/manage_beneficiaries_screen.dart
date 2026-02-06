@@ -22,11 +22,8 @@ class ManageBeneficiariesScreen extends StatelessWidget {
       appBar: const CommonAppBar(title: AppStrings.manageAllBeneficiaries),
       body: BlocBuilder<BeneficiaryBloc, BeneficiaryState>(
         builder: (context, beneficiaryState) {
-          if (beneficiaryState.status == BeneficiaryStatus.loading &&
-              beneficiaryState.beneficiaries.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+          if (beneficiaryState.status == BeneficiaryStatus.loading && beneficiaryState.beneficiaries.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
           }
 
           final activeBeneficiaries = beneficiaryState.activeBeneficiaries;
@@ -72,11 +69,7 @@ class ManageBeneficiariesScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    width: 1,
-                                    height: 40,
-                                    color: dividerColor,
-                                  ),
+                                  Container(width: 1, height: 40, color: dividerColor),
                                   Column(
                                     children: [
                                       const Icon(Icons.cancel, color: ColorPalette.grey, size: 24),
@@ -91,11 +84,7 @@ class ManageBeneficiariesScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    width: 1,
-                                    height: 40,
-                                    color: dividerColor,
-                                  ),
+                                  Container(width: 1, height: 40, color: dividerColor),
                                   Builder(
                                     builder: (context) {
                                       final effectiveColor = colorScheme.brightness == Brightness.dark
@@ -133,13 +122,10 @@ class ManageBeneficiariesScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            AppStrings.format(
-                              AppStrings.activeCountFormat,
-                              [
-                                beneficiaryState.activeBeneficiaries.length,
-                                AppConstants.maxActiveBeneficiaries,
-                              ],
-                            ),
+                            AppStrings.format(AppStrings.activeCountFormat, [
+                              beneficiaryState.activeBeneficiaries.length,
+                              AppConstants.maxActiveBeneficiaries,
+                            ]),
                             style: AppTextStyles.labelMedium.copyWith(
                               fontWeight: FontWeight.bold,
                               color: ColorPalette.greyDark600,
@@ -205,5 +191,4 @@ class ManageBeneficiariesScreen extends StatelessWidget {
       ),
     );
   }
-
 }

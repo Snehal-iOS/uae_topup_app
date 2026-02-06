@@ -1,12 +1,7 @@
 import 'package:equatable/equatable.dart';
 import '../../domain/entities/beneficiary.dart';
 
-enum BeneficiaryStatus {
-  initial,
-  loading,
-  success,
-  error,
-}
+enum BeneficiaryStatus { initial, loading, success, error }
 
 class BeneficiaryState extends Equatable {
   final BeneficiaryStatus status;
@@ -35,24 +30,14 @@ class BeneficiaryState extends Equatable {
     );
   }
 
-  List<Beneficiary> get activeBeneficiaries =>
-      beneficiaries.where((b) => b.isActive).toList();
+  List<Beneficiary> get activeBeneficiaries => beneficiaries.where((b) => b.isActive).toList();
 
-  List<Beneficiary> get inactiveBeneficiaries =>
-      beneficiaries.where((b) => !b.isActive).toList();
+  List<Beneficiary> get inactiveBeneficiaries => beneficiaries.where((b) => !b.isActive).toList();
 
   int get inactiveCount => inactiveBeneficiaries.length;
 
-  double get totalMonthlyAmount => beneficiaries.fold(
-        0.0,
-        (sum, beneficiary) => sum + beneficiary.monthlyTopupAmount,
-      );
+  double get totalMonthlyAmount => beneficiaries.fold(0.0, (sum, beneficiary) => sum + beneficiary.monthlyTopupAmount);
 
   @override
-  List<Object?> get props => [
-        status,
-        beneficiaries,
-        errorMessage,
-        successMessage,
-      ];
+  List<Object?> get props => [status, beneficiaries, errorMessage, successMessage];
 }

@@ -32,36 +32,19 @@ Future<void> setupDependencies() async {
 
   getIt.registerLazySingleton<MockHttpClient>(() => MockHttpClient());
 
-  getIt.registerLazySingleton<UserLocalDataSource>(
-        () => UserLocalDataSource(getIt()),
-  );
+  getIt.registerLazySingleton<UserLocalDataSource>(() => UserLocalDataSource(getIt()));
 
-  getIt.registerLazySingleton<UserRepository>(
-        () => UserRepositoryImpl(
-      httpClient: getIt(),
-      localDataSource: getIt(),
-    ),
-  );
+  getIt.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(httpClient: getIt(), localDataSource: getIt()));
 
   getIt.registerLazySingleton(() => GetUserUseCase(getIt()));
   getIt.registerLazySingleton(() => UpdateUserUseCase(getIt()));
 
-  getIt.registerFactory(
-        () => UserBloc(
-      getUserUseCase: getIt(),
-      updateUserUseCase: getIt(),
-    ),
-  );
+  getIt.registerFactory(() => UserBloc(getUserUseCase: getIt(), updateUserUseCase: getIt()));
 
-  getIt.registerFactory<BeneficiaryLocalDataSource>(
-        () => BeneficiaryLocalDataSource(getIt()),
-  );
+  getIt.registerFactory<BeneficiaryLocalDataSource>(() => BeneficiaryLocalDataSource(getIt()));
 
   getIt.registerFactory<BeneficiaryRepository>(
-        () => BeneficiaryRepositoryImpl(
-      httpClient: getIt(),
-      localDataSource: getIt(),
-    ),
+    () => BeneficiaryRepositoryImpl(httpClient: getIt(), localDataSource: getIt()),
   );
 
   getIt.registerFactory(() => GetBeneficiariesUseCase(getIt()));
@@ -71,7 +54,7 @@ Future<void> setupDependencies() async {
   getIt.registerFactory(() => UpdateBeneficiaryMonthlyAmountUseCase(getIt()));
 
   getIt.registerFactory(
-        () => BeneficiaryBloc(
+    () => BeneficiaryBloc(
       getBeneficiariesUseCase: getIt(),
       addBeneficiaryUseCase: getIt(),
       deleteBeneficiaryUseCase: getIt(),
@@ -80,33 +63,20 @@ Future<void> setupDependencies() async {
     ),
   );
 
-  getIt.registerFactory<TopupLocalDataSource>(
-        () => TopupLocalDataSource(getIt()),
-  );
+  getIt.registerFactory<TopupLocalDataSource>(() => TopupLocalDataSource(getIt()));
 
-  getIt.registerFactory<TopupRepository>(
-        () => TopupRepositoryImpl(
-      httpClient: getIt(),
-      localDataSource: getIt(),
-    ),
-  );
-
-  getIt.registerFactory(() => PerformTopupUseCase(
-    topupRepository: getIt(),
-    userRepository: getIt(),
-    beneficiaryRepository: getIt(),
-  ),);
-  getIt.registerFactory(() => GetTransactionsUseCase(getIt()));
-  getIt.registerLazySingleton(() => CheckTopupEligibilityUseCase(
-    userRepository: getIt(),
-    beneficiaryRepository: getIt(),
-  ),);
+  getIt.registerFactory<TopupRepository>(() => TopupRepositoryImpl(httpClient: getIt(), localDataSource: getIt()));
 
   getIt.registerFactory(
-        () => TopupBloc(
-      performTopupUseCase: getIt(),
-      getTransactionsUseCase: getIt(),
-      checkTopupEligibilityUseCase: getIt(),
-    ),
+    () => PerformTopupUseCase(topupRepository: getIt(), userRepository: getIt(), beneficiaryRepository: getIt()),
+  );
+  getIt.registerFactory(() => GetTransactionsUseCase(getIt()));
+  getIt.registerLazySingleton(
+    () => CheckTopupEligibilityUseCase(userRepository: getIt(), beneficiaryRepository: getIt()),
+  );
+
+  getIt.registerFactory(
+    () =>
+        TopupBloc(performTopupUseCase: getIt(), getTransactionsUseCase: getIt(), checkTopupEligibilityUseCase: getIt()),
   );
 }

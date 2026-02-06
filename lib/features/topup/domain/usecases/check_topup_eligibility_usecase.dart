@@ -8,22 +8,12 @@ class CheckTopupEligibilityUseCase {
   final UserRepository userRepository;
   final BeneficiaryRepository beneficiaryRepository;
 
-  CheckTopupEligibilityUseCase({
-    required this.userRepository,
-    required this.beneficiaryRepository,
-  });
+  CheckTopupEligibilityUseCase({required this.userRepository, required this.beneficiaryRepository});
 
-  Future<bool> call({
-    required User user,
-    required Beneficiary beneficiary,
-    required double amount,
-  }) async {
+  Future<bool> call({required User user, required Beneficiary beneficiary, required double amount}) async {
     final currentUser = await userRepository.getUser();
     final beneficiaries = await beneficiaryRepository.getBeneficiaries();
-    final currentBeneficiary = beneficiaries.firstWhere(
-      (b) => b.id == beneficiary.id,
-      orElse: () => beneficiary,
-    );
+    final currentBeneficiary = beneficiaries.firstWhere((b) => b.id == beneficiary.id, orElse: () => beneficiary);
 
     if (amount <= 0) return false;
     final totalCost = amount + AppConstants.topupServiceCharge;

@@ -9,10 +9,7 @@ class ToggleBeneficiaryStatusUseCase {
   final BeneficiaryRepository repository;
   ToggleBeneficiaryStatusUseCase(this.repository);
 
-  Future<Beneficiary> call({
-    required String beneficiaryId,
-    required bool activate,
-  }) async {
+  Future<Beneficiary> call({required String beneficiaryId, required bool activate}) async {
     final beneficiaries = await repository.getBeneficiaries();
     final beneficiary = beneficiaries.firstWhere(
       (b) => b.id == beneficiaryId,

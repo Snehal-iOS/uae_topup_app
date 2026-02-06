@@ -6,18 +6,12 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart'
-    as _i3;
-import 'package:uae_topup_app/features/beneficiary/domain/repositories/beneficiary_repository.dart'
-    as _i2;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart'
-    as _i6;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/delete_beneficiary_usecase.dart'
-    as _i7;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/get_beneficiaries_usecase.dart'
-    as _i4;
-import 'package:uae_topup_app/features/beneficiary/domain/usecases/toggle_beneficiary_status_usecase.dart'
-    as _i8;
+import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart' as _i3;
+import 'package:uae_topup_app/features/beneficiary/domain/repositories/beneficiary_repository.dart' as _i2;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart' as _i6;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/delete_beneficiary_usecase.dart' as _i7;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/get_beneficiaries_usecase.dart' as _i4;
+import 'package:uae_topup_app/features/beneficiary/domain/usecases/toggle_beneficiary_status_usecase.dart' as _i8;
 import 'package:uae_topup_app/features/beneficiary/domain/usecases/update_beneficiary_monthly_amount_usecase.dart'
     as _i9;
 
@@ -35,22 +29,18 @@ import 'package:uae_topup_app/features/beneficiary/domain/usecases/update_benefi
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeBeneficiaryRepository_0 extends _i1.SmartFake
-    implements _i2.BeneficiaryRepository {
-  _FakeBeneficiaryRepository_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeBeneficiaryRepository_0 extends _i1.SmartFake implements _i2.BeneficiaryRepository {
+  _FakeBeneficiaryRepository_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeBeneficiary_1 extends _i1.SmartFake implements _i3.Beneficiary {
-  _FakeBeneficiary_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeBeneficiary_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [GetBeneficiariesUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetBeneficiariesUseCase extends _i1.Mock
-    implements _i4.GetBeneficiariesUseCase {
+class MockGetBeneficiariesUseCase extends _i1.Mock implements _i4.GetBeneficiariesUseCase {
   MockGetBeneficiariesUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -59,10 +49,7 @@ class MockGetBeneficiariesUseCase extends _i1.Mock
   _i2.BeneficiaryRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeBeneficiaryRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeBeneficiaryRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.BeneficiaryRepository);
 
@@ -70,9 +57,7 @@ class MockGetBeneficiariesUseCase extends _i1.Mock
   _i5.Future<List<_i3.Beneficiary>> call() =>
       (super.noSuchMethod(
             Invocation.method(#call, []),
-            returnValue: _i5.Future<List<_i3.Beneficiary>>.value(
-              <_i3.Beneficiary>[],
-            ),
+            returnValue: _i5.Future<List<_i3.Beneficiary>>.value(<_i3.Beneficiary>[]),
           )
           as _i5.Future<List<_i3.Beneficiary>>);
 }
@@ -80,8 +65,7 @@ class MockGetBeneficiariesUseCase extends _i1.Mock
 /// A class which mocks [AddBeneficiaryUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddBeneficiaryUseCase extends _i1.Mock
-    implements _i6.AddBeneficiaryUseCase {
+class MockAddBeneficiaryUseCase extends _i1.Mock implements _i6.AddBeneficiaryUseCase {
   MockAddBeneficiaryUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -90,31 +74,16 @@ class MockAddBeneficiaryUseCase extends _i1.Mock
   _i2.BeneficiaryRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeBeneficiaryRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeBeneficiaryRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.BeneficiaryRepository);
 
   @override
-  _i5.Future<_i3.Beneficiary> call({
-    required String? phoneNumber,
-    required String? nickname,
-  }) =>
+  _i5.Future<_i3.Beneficiary> call({required String? phoneNumber, required String? nickname}) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [], {
-              #phoneNumber: phoneNumber,
-              #nickname: nickname,
-            }),
+            Invocation.method(#call, [], {#phoneNumber: phoneNumber, #nickname: nickname}),
             returnValue: _i5.Future<_i3.Beneficiary>.value(
-              _FakeBeneficiary_1(
-                this,
-                Invocation.method(#call, [], {
-                  #phoneNumber: phoneNumber,
-                  #nickname: nickname,
-                }),
-              ),
+              _FakeBeneficiary_1(this, Invocation.method(#call, [], {#phoneNumber: phoneNumber, #nickname: nickname})),
             ),
           )
           as _i5.Future<_i3.Beneficiary>);
@@ -123,8 +92,7 @@ class MockAddBeneficiaryUseCase extends _i1.Mock
 /// A class which mocks [DeleteBeneficiaryUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDeleteBeneficiaryUseCase extends _i1.Mock
-    implements _i7.DeleteBeneficiaryUseCase {
+class MockDeleteBeneficiaryUseCase extends _i1.Mock implements _i7.DeleteBeneficiaryUseCase {
   MockDeleteBeneficiaryUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -133,10 +101,7 @@ class MockDeleteBeneficiaryUseCase extends _i1.Mock
   _i2.BeneficiaryRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeBeneficiaryRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeBeneficiaryRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.BeneficiaryRepository);
 
@@ -153,8 +118,7 @@ class MockDeleteBeneficiaryUseCase extends _i1.Mock
 /// A class which mocks [ToggleBeneficiaryStatusUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockToggleBeneficiaryStatusUseCase extends _i1.Mock
-    implements _i8.ToggleBeneficiaryStatusUseCase {
+class MockToggleBeneficiaryStatusUseCase extends _i1.Mock implements _i8.ToggleBeneficiaryStatusUseCase {
   MockToggleBeneficiaryStatusUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -163,30 +127,18 @@ class MockToggleBeneficiaryStatusUseCase extends _i1.Mock
   _i2.BeneficiaryRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeBeneficiaryRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeBeneficiaryRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.BeneficiaryRepository);
 
   @override
-  _i5.Future<_i3.Beneficiary> call({
-    required String? beneficiaryId,
-    required bool? activate,
-  }) =>
+  _i5.Future<_i3.Beneficiary> call({required String? beneficiaryId, required bool? activate}) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [], {
-              #beneficiaryId: beneficiaryId,
-              #activate: activate,
-            }),
+            Invocation.method(#call, [], {#beneficiaryId: beneficiaryId, #activate: activate}),
             returnValue: _i5.Future<_i3.Beneficiary>.value(
               _FakeBeneficiary_1(
                 this,
-                Invocation.method(#call, [], {
-                  #beneficiaryId: beneficiaryId,
-                  #activate: activate,
-                }),
+                Invocation.method(#call, [], {#beneficiaryId: beneficiaryId, #activate: activate}),
               ),
             ),
           )
@@ -196,8 +148,7 @@ class MockToggleBeneficiaryStatusUseCase extends _i1.Mock
 /// A class which mocks [UpdateBeneficiaryMonthlyAmountUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUpdateBeneficiaryMonthlyAmountUseCase extends _i1.Mock
-    implements _i9.UpdateBeneficiaryMonthlyAmountUseCase {
+class MockUpdateBeneficiaryMonthlyAmountUseCase extends _i1.Mock implements _i9.UpdateBeneficiaryMonthlyAmountUseCase {
   MockUpdateBeneficiaryMonthlyAmountUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -206,23 +157,14 @@ class MockUpdateBeneficiaryMonthlyAmountUseCase extends _i1.Mock
   _i2.BeneficiaryRepository get repository =>
       (super.noSuchMethod(
             Invocation.getter(#repository),
-            returnValue: _FakeBeneficiaryRepository_0(
-              this,
-              Invocation.getter(#repository),
-            ),
+            returnValue: _FakeBeneficiaryRepository_0(this, Invocation.getter(#repository)),
           )
           as _i2.BeneficiaryRepository);
 
   @override
-  _i5.Future<void> call({
-    required String? beneficiaryId,
-    required double? amount,
-  }) =>
+  _i5.Future<void> call({required String? beneficiaryId, required double? amount}) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [], {
-              #beneficiaryId: beneficiaryId,
-              #amount: amount,
-            }),
+            Invocation.method(#call, [], {#beneficiaryId: beneficiaryId, #amount: amount}),
             returnValue: _i5.Future<void>.value(),
             returnValueForMissingStub: _i5.Future<void>.value(),
           )

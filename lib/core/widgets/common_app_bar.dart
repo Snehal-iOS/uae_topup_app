@@ -29,14 +29,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final appBarBg = backgroundColor ?? 
-        (theme.appBarTheme.backgroundColor ?? colorScheme.surface);
+    final appBarBg = backgroundColor ?? (theme.appBarTheme.backgroundColor ?? colorScheme.surface);
     final foreground = theme.appBarTheme.foregroundColor ?? colorScheme.onSurface;
-    
+
     if (showWalletIcon && showThemeToggle) {
       return _buildCustomLayout(context, appBarBg, foreground, colorScheme);
     }
-    
+
     return AppBar(
       backgroundColor: appBarBg,
       elevation: 0,
@@ -49,20 +48,12 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () => Navigator.of(context).pop(),
             )
           : null,
-      title: Text(
-        title,
-        style: AppTextStyles.h4.copyWith(color: foreground),
-      ),
+      title: Text(title, style: AppTextStyles.h4.copyWith(color: foreground)),
       actions: showThemeToggle ? [_ThemeToggleButton()] : null,
     );
   }
 
-  Widget _buildCustomLayout(
-    BuildContext context,
-    Color appBarBg,
-    Color foreground,
-    ColorScheme colorScheme,
-  ) {
+  Widget _buildCustomLayout(BuildContext context, Color appBarBg, Color foreground, ColorScheme colorScheme) {
     final walletBg = colorScheme.brightness == Brightness.dark
         ? colorScheme.primaryContainer
         : ColorPalette.primaryLight100;
@@ -74,12 +65,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         height: kToolbarHeight,
         color: appBarBg,
-        padding: EdgeInsets.only(
-          left: showBackButton ? 8 : 16,
-          right: 8,
-          top: 8,
-          bottom: 8,
-        ),
+        padding: EdgeInsets.only(left: showBackButton ? 8 : 16, right: 8, top: 8, bottom: 8),
         child: Row(
           children: [
             if (showBackButton) ...[
@@ -93,24 +79,14 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             Container(
               width: 30,
               height: 30,
-              decoration: BoxDecoration(
-                color: walletBg,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.account_balance_wallet_rounded,
-                size: 20,
-                color: walletIcon,
-              ),
+              decoration: BoxDecoration(color: walletBg, shape: BoxShape.circle),
+              child: Icon(Icons.account_balance_wallet_rounded, size: 20, color: walletIcon),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 title,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: foreground,
-                ),
+                style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold, color: foreground),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -130,7 +106,7 @@ class _ThemeToggleButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final buttonBg = colorScheme.surfaceContainerHighest;
     final iconColor = colorScheme.onSurfaceVariant;
-    
+
     return Material(
       color: ColorPalette.transparent,
       child: InkWell(
@@ -144,17 +120,13 @@ class _ThemeToggleButton extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: colorScheme.shadow.withOpacity(isDark ? 0.3 : 0.08),
+                color: colorScheme.shadow.withValues(alpha: isDark ? 0.3 : 0.08),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
             ],
           ),
-          child: Icon(
-            isDark ? Icons.light_mode : Icons.dark_mode,
-            size: 20,
-            color: iconColor,
-          ),
+          child: Icon(isDark ? Icons.light_mode : Icons.dark_mode, size: 20, color: iconColor),
         ),
       ),
     );

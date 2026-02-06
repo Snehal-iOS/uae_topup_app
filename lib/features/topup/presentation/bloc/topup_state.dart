@@ -1,12 +1,7 @@
 import 'package:equatable/equatable.dart';
 import '../../domain/entities/topup_transaction.dart';
 
-enum TopupStatus {
-  initial,
-  loading,
-  success,
-  error,
-}
+enum TopupStatus { initial, loading, success, error }
 
 class TopupState extends Equatable {
   final TopupStatus status;
@@ -36,10 +31,5 @@ class TopupState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        transactions,
-        errorMessage,
-        successMessage,
-      ];
+  List<Object?> get props => [status, transactions, errorMessage, successMessage];
 }

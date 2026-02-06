@@ -21,8 +21,7 @@ class LabelValueRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final effectiveColor = valueColor ??
-        (valueHighlightGreen ? ColorPalette.success : colorScheme.onSurface);
+    final effectiveColor = valueColor ?? (valueHighlightGreen ? ColorPalette.success : colorScheme.onSurface);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

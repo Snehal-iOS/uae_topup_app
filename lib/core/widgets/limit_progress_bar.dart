@@ -4,18 +4,14 @@ import '../constants/app_text_styles.dart';
 import '../utils/progress_color.dart';
 
 /// A widget that displays a progress bar showing used amount vs limit
-/// 
+///
 /// Shows a linear progress indicator with color-coded progress based on usage ratio,
 /// along with labels showing "Limit Used" and the used/limit amounts.
 class LimitProgressBar extends StatelessWidget {
   final double used;
   final double limit;
 
-  const LimitProgressBar({
-    super.key,
-    required this.used,
-    required this.limit,
-  });
+  const LimitProgressBar({super.key, required this.used, required this.limit});
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +40,11 @@ class LimitProgressBar extends StatelessWidget {
           children: [
             Text(
               AppStrings.limitUsed,
-              style: AppTextStyles.captionSmall.copyWith(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.captionSmall.copyWith(color: textColor, fontWeight: FontWeight.bold),
             ),
             Text(
-              AppStrings.format(AppStrings.used, [
-                used.toStringAsFixed(0),
-                limit.toStringAsFixed(0),
-              ]),
-              style: AppTextStyles.captionSmall.copyWith(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-              ),
+              AppStrings.format(AppStrings.used, [used.toStringAsFixed(0), limit.toStringAsFixed(0)]),
+              style: AppTextStyles.captionSmall.copyWith(color: textColor, fontWeight: FontWeight.bold),
             ),
           ],
         ),

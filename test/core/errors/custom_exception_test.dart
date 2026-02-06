@@ -55,10 +55,7 @@ void main() {
   group('InsufficientBalanceException', () {
     test('should create exception with required and available amounts', () {
       // Arrange & Act
-      final exception = InsufficientBalanceException(
-        amount: 100.0,
-        available: 50.0,
-      );
+      final exception = InsufficientBalanceException(amount: 100.0, available: 50.0);
 
       // Assert
       expect(exception.amount, equals(100.0));
@@ -73,11 +70,7 @@ void main() {
   group('LimitExceededException', () {
     test('should create exception with limit details', () {
       // Arrange & Act
-      final exception = LimitExceededException(
-        limitType: 'Test limit',
-        limit: 1000.0,
-        current: 1200.0,
-      );
+      final exception = LimitExceededException(limitType: 'Test limit', limit: 1000.0, current: 1200.0);
 
       // Assert
       expect(exception.limitType, equals('Test limit'));

@@ -25,44 +25,19 @@ void main() {
   group('TopupEvent', () {
     group('PerformTopup', () {
       test('props should contain all fields', () {
-        final event = PerformTopup(
-          beneficiaryId: '1',
-          amount: 100.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        );
+        final event = PerformTopup(beneficiaryId: '1', amount: 100.0, user: tUser, beneficiary: tBeneficiary);
         expect(event.props, equals(['1', 100.0, tUser, tBeneficiary]));
       });
 
       test('two instances with same values should be equal', () {
-        final event1 = PerformTopup(
-          beneficiaryId: '1',
-          amount: 100.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        );
-        final event2 = PerformTopup(
-          beneficiaryId: '1',
-          amount: 100.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        );
+        final event1 = PerformTopup(beneficiaryId: '1', amount: 100.0, user: tUser, beneficiary: tBeneficiary);
+        final event2 = PerformTopup(beneficiaryId: '1', amount: 100.0, user: tUser, beneficiary: tBeneficiary);
         expect(event1, equals(event2));
       });
 
       test('two instances with different amounts should not be equal', () {
-        final event1 = PerformTopup(
-          beneficiaryId: '1',
-          amount: 100.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        );
-        final event2 = PerformTopup(
-          beneficiaryId: '1',
-          amount: 200.0,
-          user: tUser,
-          beneficiary: tBeneficiary,
-        );
+        final event1 = PerformTopup(beneficiaryId: '1', amount: 100.0, user: tUser, beneficiary: tBeneficiary);
+        final event2 = PerformTopup(beneficiaryId: '1', amount: 200.0, user: tUser, beneficiary: tBeneficiary);
         expect(event1, isNot(equals(event2)));
       });
     });

@@ -30,8 +30,7 @@ void main() {
     test('should update user successfully', () async {
       // Arrange
       final updatedUser = tUser.copyWith(balance: 600.0);
-      when(mockRepository.updateUser(any))
-          .thenAnswer((_) async => updatedUser);
+      when(mockRepository.updateUser(any)).thenAnswer((_) async => updatedUser);
 
       // Act
       final result = await useCase(tUser);
@@ -43,14 +42,10 @@ void main() {
 
     test('should propagate exceptions from repository', () async {
       // Arrange
-      when(mockRepository.updateUser(any))
-          .thenThrow(Exception('Repository error'));
+      when(mockRepository.updateUser(any)).thenThrow(Exception('Repository error'));
 
       // Act & Assert
-      expect(
-        () => useCase(tUser),
-        throwsException,
-      );
+      expect(() => useCase(tUser), throwsException);
       verify(mockRepository.updateUser(tUser)).called(1);
     });
   });

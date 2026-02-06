@@ -34,7 +34,8 @@ class AppStrings {
 
   // Beneficiary Management
   static const String deleteBeneficiary = 'Delete Beneficiary';
-  static const String deleteBeneficiaryConfirm = 'Are you sure you want to permanently delete {0}? This action cannot be undone.';
+  static const String deleteBeneficiaryConfirm =
+      'Are you sure you want to permanently delete {0}? This action cannot be undone.';
   static const String activateBeneficiary = 'Activate Beneficiary';
   static const String deactivateBeneficiary = 'Deactivate Beneficiary';
   static const String activate = 'Activate';
@@ -49,7 +50,8 @@ class AppStrings {
   static const String phonePlaceholder = '5X XXX XXXX';
   static const String phoneVerifyInfo = 'Ensure the number is active for successful top-ups.';
   static const String transactionLimitsTitle = 'TRANSACTION LIMITS';
-  static const String transactionLimitsDescription = 'A max monthly top-up limit (AED 500 unverified / AED 1,000 verified) applies per beneficiary.';
+  static const String transactionLimitsDescription =
+      'A max monthly top-up limit (AED 500 unverified / AED 1,000 verified) applies per beneficiary.';
   static const String saveBeneficiary = 'Save Beneficiary';
   static const String nicknameCounter = '{0}/{1}';
 
@@ -80,7 +82,8 @@ class AppStrings {
   static const String amountNotSelected = '--';
 
   static const String beneficiaryAddedSuccessfully = 'Beneficiary added successfully';
-  static const String beneficiaryAddedInactive = 'Beneficiary added as inactive (5 active limit reached). Activate it from Manage Beneficiaries.';
+  static const String beneficiaryAddedInactive =
+      'Beneficiary added as inactive (5 active limit reached). Activate it from Manage Beneficiaries.';
   static const String beneficiaryRemoved = 'Beneficiary removed';
   static const String beneficiaryActivated = 'Beneficiary activated successfully';
   static const String beneficiaryDeactivated = 'Beneficiary deactivated successfully';
@@ -101,7 +104,8 @@ class AppStrings {
   static const String duplicatePhoneNumber = 'Beneficiary with this phone number already exists';
   static const String topupAmountMustBePositive = 'Top-up amount must be positive';
   static const String beneficiaryNotFound = 'Beneficiary not found';
-  static const String cannotActivateMaxReached = 'Cannot activate: Maximum 5 active beneficiaries allowed. Please deactivate another beneficiary first.';
+  static const String cannotActivateMaxReached =
+      'Cannot activate: Maximum 5 active beneficiaries allowed. Please deactivate another beneficiary first.';
   static const String networkError = 'Network error: Connection timeout';
   static const String unknownEndpoint = 'Unknown endpoint: {0}';
   static const String failedToPerformTopup = 'Failed to perform top-up: {0}';

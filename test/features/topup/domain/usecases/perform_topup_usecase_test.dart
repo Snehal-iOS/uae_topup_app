@@ -10,11 +10,7 @@ import 'package:uae_topup_app/features/topup/domain/usecases/perform_topup_useca
 import 'package:uae_topup_app/features/user/domain/entities/user.dart';
 import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart';
 
-@GenerateMocks([
-  TopupRepository,
-  UserRepository,
-  BeneficiaryRepository,
-])
+@GenerateMocks([TopupRepository, UserRepository, BeneficiaryRepository])
 import 'perform_topup_usecase_test.mocks.dart';
 
 void main() {
@@ -66,136 +62,82 @@ void main() {
       // Arrange
       const amount = 100.0;
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
-      when(mockTopupRepository.performTopup(
-        beneficiaryId: anyNamed('beneficiaryId'),
-        amount: anyNamed('amount'),
-      ),).thenAnswer((_) async => tTransaction);
-      when(mockUserRepository.updateUser(any))
-          .thenAnswer((_) async => tUser.copyWith(balance: 897.0));
-      when(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        any,
-        any,
-      ),).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
+      when(
+        mockTopupRepository.performTopup(beneficiaryId: anyNamed('beneficiaryId'), amount: anyNamed('amount')),
+      ).thenAnswer((_) async => tTransaction);
+      when(mockUserRepository.updateUser(any)).thenAnswer((_) async => tUser.copyWith(balance: 897.0));
+      when(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(any, any),
+      ).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
 
       // Act
-      await useCase(
-        user: tUser,
-        beneficiary: tBeneficiary,
-        amount: amount,
-      );
+      await useCase(user: tUser, beneficiary: tBeneficiary, amount: amount);
 
       // Assert
       verify(mockUserRepository.getUser()).called(1);
       verify(mockBeneficiaryRepository.getBeneficiaries()).called(1);
-      verify(mockTopupRepository.performTopup(
-        beneficiaryId: tBeneficiary.id,
-        amount: amount,
-      ),).called(1);
+      verify(mockTopupRepository.performTopup(beneficiaryId: tBeneficiary.id, amount: amount)).called(1);
       verify(mockUserRepository.updateUser(any)).called(1);
-      verify(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        tBeneficiary.id,
-        amount,
-      ),).called(1);
+      verify(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(tBeneficiary.id, amount)).called(1);
     });
 
     test('should throw ValidationException when amount is zero', () async {
       // Arrange
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
 
       // Act & Assert
-      expect(
-        () => useCase(
-          user: tUser,
-          beneficiary: tBeneficiary,
-          amount: 0.0,
-        ),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(user: tUser, beneficiary: tBeneficiary, amount: 0.0), throwsA(isA<ValidationException>()));
     });
 
     test('should throw ValidationException when amount is negative', () async {
       // Arrange
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
 
       // Act & Assert
-      expect(
-        () => useCase(
-          user: tUser,
-          beneficiary: tBeneficiary,
-          amount: -10.0,
-        ),
-        throwsA(isA<ValidationException>()),
-      );
+      expect(() => useCase(user: tUser, beneficiary: tBeneficiary, amount: -10.0), throwsA(isA<ValidationException>()));
     });
 
-    test('should throw InsufficientBalanceException when balance is insufficient',
-        () async {
+    test('should throw InsufficientBalanceException when balance is insufficient', () async {
       // Arrange
       const amount = 1000.0;
       final userWithLowBalance = tUser.copyWith(balance: 50.0);
-      when(mockUserRepository.getUser())
-          .thenAnswer((_) async => userWithLowBalance);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
+      when(mockUserRepository.getUser()).thenAnswer((_) async => userWithLowBalance);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
 
       // Act & Assert
       expect(
-        () => useCase(
-          user: userWithLowBalance,
-          beneficiary: tBeneficiary,
-          amount: amount,
-        ),
+        () => useCase(user: userWithLowBalance, beneficiary: tBeneficiary, amount: amount),
         throwsA(isA<InsufficientBalanceException>()),
       );
     });
 
-    test('should throw LimitExceededException when beneficiary monthly limit exceeded',
-        () async {
+    test('should throw LimitExceededException when beneficiary monthly limit exceeded', () async {
       // Arrange
       const amount = 600.0;
-      final beneficiaryWithHighAmount = tBeneficiary.copyWith(
-        monthlyTopupAmount: 500.0,
-      );
+      final beneficiaryWithHighAmount = tBeneficiary.copyWith(monthlyTopupAmount: 500.0);
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [beneficiaryWithHighAmount]);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [beneficiaryWithHighAmount]);
 
       // Act & Assert
       expect(
-        () => useCase(
-          user: tUser,
-          beneficiary: beneficiaryWithHighAmount,
-          amount: amount,
-        ),
+        () => useCase(user: tUser, beneficiary: beneficiaryWithHighAmount, amount: amount),
         throwsA(isA<LimitExceededException>()),
       );
     });
 
-    test('should throw LimitExceededException when total monthly limit exceeded',
-        () async {
+    test('should throw LimitExceededException when total monthly limit exceeded', () async {
       // Arrange
       const amount = 100.0;
-      final userWithHighMonthlyTotal = tUser.copyWith(
-        monthlyTopupTotal: 2950.0,
-      );
-      when(mockUserRepository.getUser())
-          .thenAnswer((_) async => userWithHighMonthlyTotal);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
+      final userWithHighMonthlyTotal = tUser.copyWith(monthlyTopupTotal: 2950.0);
+      when(mockUserRepository.getUser()).thenAnswer((_) async => userWithHighMonthlyTotal);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
 
       // Act & Assert
       expect(
-        () => useCase(
-          user: userWithHighMonthlyTotal,
-          beneficiary: tBeneficiary,
-          amount: amount,
-        ),
+        () => useCase(user: userWithHighMonthlyTotal, beneficiary: tBeneficiary, amount: amount),
         throwsA(isA<LimitExceededException>()),
       );
     });
@@ -204,21 +146,13 @@ void main() {
       // Arrange
       const amount = 600.0;
       final unverifiedUser = tUser.copyWith(isVerified: false);
-      final beneficiaryWithHighAmount = tBeneficiary.copyWith(
-        monthlyTopupAmount: 100.0,
-      );
-      when(mockUserRepository.getUser())
-          .thenAnswer((_) async => unverifiedUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [beneficiaryWithHighAmount]);
+      final beneficiaryWithHighAmount = tBeneficiary.copyWith(monthlyTopupAmount: 100.0);
+      when(mockUserRepository.getUser()).thenAnswer((_) async => unverifiedUser);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [beneficiaryWithHighAmount]);
 
       // Act & Assert
       expect(
-        () => useCase(
-          user: unverifiedUser,
-          beneficiary: beneficiaryWithHighAmount,
-          amount: amount,
-        ),
+        () => useCase(user: unverifiedUser, beneficiary: beneficiaryWithHighAmount, amount: amount),
         throwsA(isA<LimitExceededException>()),
       );
     });
@@ -228,30 +162,20 @@ void main() {
       const amount = 100.0;
       const expectedBalance = 897.0; // 1000 - 100 - 3
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
-      when(mockTopupRepository.performTopup(
-        beneficiaryId: anyNamed('beneficiaryId'),
-        amount: anyNamed('amount'),
-      ),).thenAnswer((_) async => tTransaction);
-      when(mockUserRepository.updateUser(any))
-          .thenAnswer((_) async => tUser.copyWith(balance: expectedBalance));
-      when(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        any,
-        any,
-      ),).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
+      when(
+        mockTopupRepository.performTopup(beneficiaryId: anyNamed('beneficiaryId'), amount: anyNamed('amount')),
+      ).thenAnswer((_) async => tTransaction);
+      when(mockUserRepository.updateUser(any)).thenAnswer((_) async => tUser.copyWith(balance: expectedBalance));
+      when(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(any, any),
+      ).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
 
       // Act
-      await useCase(
-        user: tUser,
-        beneficiary: tBeneficiary,
-        amount: amount,
-      );
+      await useCase(user: tUser, beneficiary: tBeneficiary, amount: amount);
 
       // Assert
-      final captured = verify(mockUserRepository.updateUser(captureAny))
-          .captured
-          .single as User;
+      final captured = verify(mockUserRepository.updateUser(captureAny)).captured.single as User;
       expect(captured.balance, equals(expectedBalance));
       expect(captured.monthlyTopupTotal, equals(amount));
     });
@@ -259,55 +183,39 @@ void main() {
     test('should update beneficiary monthly amount correctly', () async {
       // Arrange
       const amount = 100.0;
-      final beneficiaryWithExistingAmount = tBeneficiary.copyWith(
-        monthlyTopupAmount: 200.0,
-      );
+      final beneficiaryWithExistingAmount = tBeneficiary.copyWith(monthlyTopupAmount: 200.0);
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [beneficiaryWithExistingAmount]);
-      when(mockTopupRepository.performTopup(
-        beneficiaryId: anyNamed('beneficiaryId'),
-        amount: anyNamed('amount'),
-      ),).thenAnswer((_) async => tTransaction);
-      when(mockUserRepository.updateUser(any))
-          .thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        any,
-        any,
-      ),).thenAnswer((_) async => beneficiaryWithExistingAmount.copyWith(monthlyTopupAmount: 300.0));
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [beneficiaryWithExistingAmount]);
+      when(
+        mockTopupRepository.performTopup(beneficiaryId: anyNamed('beneficiaryId'), amount: anyNamed('amount')),
+      ).thenAnswer((_) async => tTransaction);
+      when(mockUserRepository.updateUser(any)).thenAnswer((_) async => tUser);
+      when(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(any, any),
+      ).thenAnswer((_) async => beneficiaryWithExistingAmount.copyWith(monthlyTopupAmount: 300.0));
 
       // Act
-      await useCase(
-        user: tUser,
-        beneficiary: beneficiaryWithExistingAmount,
-        amount: amount,
-      );
+      await useCase(user: tUser, beneficiary: beneficiaryWithExistingAmount, amount: amount);
 
       // Assert
-      verify(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        beneficiaryWithExistingAmount.id,
-        amount,
-      ),).called(1);
+      verify(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(beneficiaryWithExistingAmount.id, amount),
+      ).called(1);
     });
 
     test('should use latest user data from repository', () async {
       // Arrange
       const amount = 100.0;
       final updatedUser = tUser.copyWith(balance: 500.0);
-      when(mockUserRepository.getUser())
-          .thenAnswer((_) async => updatedUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [tBeneficiary]);
-      when(mockTopupRepository.performTopup(
-        beneficiaryId: anyNamed('beneficiaryId'),
-        amount: anyNamed('amount'),
-      ),).thenAnswer((_) async => tTransaction);
-      when(mockUserRepository.updateUser(any))
-          .thenAnswer((_) async => updatedUser);
-      when(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        any,
-        any,
-      ),).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
+      when(mockUserRepository.getUser()).thenAnswer((_) async => updatedUser);
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [tBeneficiary]);
+      when(
+        mockTopupRepository.performTopup(beneficiaryId: anyNamed('beneficiaryId'), amount: anyNamed('amount')),
+      ).thenAnswer((_) async => tTransaction);
+      when(mockUserRepository.updateUser(any)).thenAnswer((_) async => updatedUser);
+      when(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(any, any),
+      ).thenAnswer((_) async => tBeneficiary.copyWith(monthlyTopupAmount: amount));
 
       // Act
       await useCase(
@@ -317,31 +225,23 @@ void main() {
       );
 
       // Assert - should use updatedUser's balance (500.0), not tUser's (1000.0)
-      final captured = verify(mockUserRepository.updateUser(captureAny))
-          .captured
-          .single as User;
+      final captured = verify(mockUserRepository.updateUser(captureAny)).captured.single as User;
       expect(captured.balance, equals(397.0)); // 500 - 100 - 3
     });
 
     test('should use latest beneficiary data from repository', () async {
       // Arrange
       const amount = 100.0;
-      final updatedBeneficiary = tBeneficiary.copyWith(
-        monthlyTopupAmount: 400.0,
-      );
+      final updatedBeneficiary = tBeneficiary.copyWith(monthlyTopupAmount: 400.0);
       when(mockUserRepository.getUser()).thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.getBeneficiaries())
-          .thenAnswer((_) async => [updatedBeneficiary]);
-      when(mockTopupRepository.performTopup(
-        beneficiaryId: anyNamed('beneficiaryId'),
-        amount: anyNamed('amount'),
-      ),).thenAnswer((_) async => tTransaction);
-      when(mockUserRepository.updateUser(any))
-          .thenAnswer((_) async => tUser);
-      when(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        any,
-        any,
-      ),).thenAnswer((_) async => updatedBeneficiary.copyWith(monthlyTopupAmount: 500.0));
+      when(mockBeneficiaryRepository.getBeneficiaries()).thenAnswer((_) async => [updatedBeneficiary]);
+      when(
+        mockTopupRepository.performTopup(beneficiaryId: anyNamed('beneficiaryId'), amount: anyNamed('amount')),
+      ).thenAnswer((_) async => tTransaction);
+      when(mockUserRepository.updateUser(any)).thenAnswer((_) async => tUser);
+      when(
+        mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(any, any),
+      ).thenAnswer((_) async => updatedBeneficiary.copyWith(monthlyTopupAmount: 500.0));
 
       // Act
       await useCase(
@@ -351,10 +251,7 @@ void main() {
       );
 
       // Assert - should use updatedBeneficiary's monthlyTopupAmount (400.0)
-      verify(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(
-        updatedBeneficiary.id,
-        amount,
-      ),).called(1);
+      verify(mockBeneficiaryRepository.updateBeneficiaryMonthlyAmount(updatedBeneficiary.id, amount)).called(1);
     });
   });
 }

@@ -19,8 +19,7 @@ class User extends Equatable {
     required this.monthlyResetDate,
   });
 
-  double get monthlyLimit =>
-      isVerified ? AppConstants.monthlyLimitVerified : AppConstants.monthlyLimitUnverified;
+  double get monthlyLimit => isVerified ? AppConstants.monthlyLimitVerified : AppConstants.monthlyLimitUnverified;
   double get totalMonthlyLimit => AppConstants.totalMonthlyLimit;
 
   double get remainingMonthlyLimit => totalMonthlyLimit - monthlyTopupTotal;
@@ -69,12 +68,5 @@ class User extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        balance,
-        isVerified,
-        monthlyTopupTotal,
-        monthlyResetDate,
-      ];
+  List<Object?> get props => [id, name, balance, isVerified, monthlyTopupTotal, monthlyResetDate];
 }

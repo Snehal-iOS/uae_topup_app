@@ -9,10 +9,7 @@ import '../../domain/entities/user.dart';
 class UserInfoCard extends StatelessWidget {
   final User user;
 
-  const UserInfoCard({
-    super.key,
-    required this.user,
-  });
+  const UserInfoCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +37,11 @@ class UserInfoCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            user.name,
-                            style: AppTextStyles.h3,
-                          ),
+                          Text(user.name, style: AppTextStyles.h3),
                           const SizedBox(width: 4),
                           // Verification Status Badge
                           user.isVerified
-                              ? Image.asset(
-                            'assets/verified_user_blue.png',
-                            width: 22,
-                            height: 22,
-                          )
+                              ? Image.asset('assets/verified_user_blue.png', width: 22, height: 22)
                               : const SizedBox.shrink(),
                         ],
                       ),
@@ -69,10 +59,7 @@ class UserInfoCard extends StatelessWidget {
                       colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      DisplayFormatters.formatBalance(user.balance),
-                      style: AppTextStyles.balanceLarge,
-                    ),
+                    Text(DisplayFormatters.formatBalance(user.balance), style: AppTextStyles.balanceLarge),
                   ],
                 ),
               ],
@@ -87,16 +74,11 @@ class UserInfoCard extends StatelessWidget {
                   children: [
                     Text(
                       AppStrings.monthlyLimitUsed,
-                      style: AppTextStyles.labelLarge.copyWith(
-                        color: colorScheme.onSurface,
-                      ),
+                      style: AppTextStyles.labelLarge.copyWith(color: colorScheme.onSurface),
                     ),
                     Text(
                       AppStrings.allBeneficiaries,
-                      style: AppTextStyles.captionSmall.copyWith(
-                        fontSize: 9,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                      style: AppTextStyles.captionSmall.copyWith(fontSize: 9, color: colorScheme.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -110,10 +92,7 @@ class UserInfoCard extends StatelessWidget {
                       colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      '${user.monthlyTopupTotal.toStringAsFixed(0)} / ',
-                      style: AppTextStyles.labelLarge,
-                    ),
+                    Text('${user.monthlyTopupTotal.toStringAsFixed(0)} / ', style: AppTextStyles.labelLarge),
                     SvgPicture.asset(
                       'assets/dirham.svg',
                       width: 14,
@@ -121,10 +100,7 @@ class UserInfoCard extends StatelessWidget {
                       colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      user.totalMonthlyLimit.toStringAsFixed(0),
-                      style: AppTextStyles.labelLarge,
-                    ),
+                    Text(user.totalMonthlyLimit.toStringAsFixed(0), style: AppTextStyles.labelLarge),
                   ],
                 ),
               ],
@@ -136,33 +112,24 @@ class UserInfoCard extends StatelessWidget {
                 value: user.monthlyLimitProgress,
                 minHeight: 8,
                 backgroundColor: progressBg,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  progressColorForRatio(user.monthlyLimitProgress),
-                ),
+                valueColor: AlwaysStoppedAnimation<Color>(progressColorForRatio(user.monthlyLimitProgress)),
               ),
             ),
             const SizedBox(height: 8),
             Row(
               children: [
-                Text(
-                  AppStrings.remainingLabel,
-                  style: AppTextStyles.caption.copyWith(color: secondaryColor),
-                ),
+                Text(AppStrings.remainingLabel, style: AppTextStyles.caption.copyWith(color: secondaryColor)),
                 SvgPicture.asset(
                   'assets/dirham.svg',
                   width: 12,
                   height: 12,
-                  colorFilter: ColorFilter.mode(
-                    secondaryColor,
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: ColorFilter.mode(secondaryColor, BlendMode.srcIn),
                 ),
                 const SizedBox(width: 4),
                 Text(
                   user.remainingMonthlyLimit.toStringAsFixed(2),
                   style: AppTextStyles.caption.copyWith(color: secondaryColor),
                 ),
-
               ],
             ),
           ],

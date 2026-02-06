@@ -6,10 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:uae_topup_app/features/topup/domain/entities/topup_transaction.dart'
-    as _i2;
-import 'package:uae_topup_app/features/topup/domain/repositories/topup_repository.dart'
-    as _i3;
+import 'package:uae_topup_app/features/topup/domain/entities/topup_transaction.dart' as _i2;
+import 'package:uae_topup_app/features/topup/domain/repositories/topup_repository.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,10 +23,8 @@ import 'package:uae_topup_app/features/topup/domain/repositories/topup_repositor
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeTopupTransaction_0 extends _i1.SmartFake
-    implements _i2.TopupTransaction {
-  _FakeTopupTransaction_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeTopupTransaction_0 extends _i1.SmartFake implements _i2.TopupTransaction {
+  _FakeTopupTransaction_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [TopupRepository].
@@ -40,22 +36,13 @@ class MockTopupRepository extends _i1.Mock implements _i3.TopupRepository {
   }
 
   @override
-  _i4.Future<_i2.TopupTransaction> performTopup({
-    required String? beneficiaryId,
-    required double? amount,
-  }) =>
+  _i4.Future<_i2.TopupTransaction> performTopup({required String? beneficiaryId, required double? amount}) =>
       (super.noSuchMethod(
-            Invocation.method(#performTopup, [], {
-              #beneficiaryId: beneficiaryId,
-              #amount: amount,
-            }),
+            Invocation.method(#performTopup, [], {#beneficiaryId: beneficiaryId, #amount: amount}),
             returnValue: _i4.Future<_i2.TopupTransaction>.value(
               _FakeTopupTransaction_0(
                 this,
-                Invocation.method(#performTopup, [], {
-                  #beneficiaryId: beneficiaryId,
-                  #amount: amount,
-                }),
+                Invocation.method(#performTopup, [], {#beneficiaryId: beneficiaryId, #amount: amount}),
               ),
             ),
           )
@@ -65,33 +52,23 @@ class MockTopupRepository extends _i1.Mock implements _i3.TopupRepository {
   _i4.Future<List<_i2.TopupTransaction>> getTransactions() =>
       (super.noSuchMethod(
             Invocation.method(#getTransactions, []),
-            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(
-              <_i2.TopupTransaction>[],
-            ),
+            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(<_i2.TopupTransaction>[]),
           )
           as _i4.Future<List<_i2.TopupTransaction>>);
 
   @override
-  _i4.Future<List<_i2.TopupTransaction>> getTransactionsByMonth(
-    DateTime? month,
-  ) =>
+  _i4.Future<List<_i2.TopupTransaction>> getTransactionsByMonth(DateTime? month) =>
       (super.noSuchMethod(
             Invocation.method(#getTransactionsByMonth, [month]),
-            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(
-              <_i2.TopupTransaction>[],
-            ),
+            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(<_i2.TopupTransaction>[]),
           )
           as _i4.Future<List<_i2.TopupTransaction>>);
 
   @override
-  _i4.Future<List<_i2.TopupTransaction>> getTransactionsByBeneficiary(
-    String? beneficiaryId,
-  ) =>
+  _i4.Future<List<_i2.TopupTransaction>> getTransactionsByBeneficiary(String? beneficiaryId) =>
       (super.noSuchMethod(
             Invocation.method(#getTransactionsByBeneficiary, [beneficiaryId]),
-            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(
-              <_i2.TopupTransaction>[],
-            ),
+            returnValue: _i4.Future<List<_i2.TopupTransaction>>.value(<_i2.TopupTransaction>[]),
           )
           as _i4.Future<List<_i2.TopupTransaction>>);
 }

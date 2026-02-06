@@ -15,10 +15,7 @@ class AddBeneficiary extends BeneficiaryEvent {
   final String phoneNumber;
   final String nickname;
 
-  const AddBeneficiary({
-    required this.phoneNumber,
-    required this.nickname,
-  });
+  const AddBeneficiary({required this.phoneNumber, required this.nickname});
 
   @override
   List<Object?> get props => [phoneNumber, nickname];
@@ -37,10 +34,7 @@ class ToggleBeneficiaryStatus extends BeneficiaryEvent {
   final String beneficiaryId;
   final bool activate;
 
-  const ToggleBeneficiaryStatus({
-    required this.beneficiaryId,
-    required this.activate,
-  });
+  const ToggleBeneficiaryStatus({required this.beneficiaryId, required this.activate});
 
   @override
   List<Object?> get props => [beneficiaryId, activate];
@@ -50,10 +44,7 @@ class UpdateBeneficiaryMonthlyAmount extends BeneficiaryEvent {
   final String beneficiaryId;
   final double amount;
 
-  const UpdateBeneficiaryMonthlyAmount({
-    required this.beneficiaryId,
-    required this.amount,
-  });
+  const UpdateBeneficiaryMonthlyAmount({required this.beneficiaryId, required this.amount});
 
   @override
   List<Object?> get props => [beneficiaryId, amount];

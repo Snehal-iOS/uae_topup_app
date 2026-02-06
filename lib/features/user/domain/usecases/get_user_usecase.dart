@@ -10,18 +10,9 @@ class GetUserUseCase {
     final user = await repository.getUser();
 
     if (DateTime.now().isAfter(user.monthlyResetDate)) {
-      final nextResetDate = DateTime(
-        DateTime.now().year,
-        DateTime.now().month + 1,
-        1,
-      );
+      final nextResetDate = DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
 
-      return repository.updateUser(
-        user.copyWith(
-          monthlyTopupTotal: 0.0,
-          monthlyResetDate: nextResetDate,
-        ),
-      );
+      return repository.updateUser(user.copyWith(monthlyTopupTotal: 0.0, monthlyResetDate: nextResetDate));
     }
 
     return user;

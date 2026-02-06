@@ -42,12 +42,5 @@ class TopupTransaction extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        id,
-        beneficiaryId,
-        amount,
-        charge,
-        timestamp,
-        status,
-      ];
+  List<Object?> get props => [id, beneficiaryId, amount, charge, timestamp, status];
 }

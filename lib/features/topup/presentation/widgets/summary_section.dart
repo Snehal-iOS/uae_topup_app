@@ -24,7 +24,7 @@ class SummarySection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest.withOpacity(0.4),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -32,9 +32,7 @@ class SummarySection extends StatelessWidget {
           LabelValueRow(
             label: AppStrings.remainingForThisMonth,
             value: AppStrings.format(AppStrings.aedFormat, [remaining.toStringAsFixed(2)]),
-            valueColor: colorScheme.brightness == Brightness.dark
-                ? colorScheme.onSurface
-                : ColorPalette.primaryDark,
+            valueColor: colorScheme.brightness == Brightness.dark ? colorScheme.onSurface : ColorPalette.primaryDark,
             valueBold: true,
           ),
           const SizedBox(height: 12),
@@ -55,9 +53,7 @@ class SummarySection extends StatelessWidget {
           LabelValueRow(
             label: AppStrings.totalAmount,
             value: AppStrings.format(AppStrings.aedFormat, [totalAmount.toStringAsFixed(2)]),
-            valueColor: colorScheme.brightness == Brightness.dark
-                ? colorScheme.onSurface
-                : ColorPalette.primaryDark,
+            valueColor: colorScheme.brightness == Brightness.dark ? colorScheme.onSurface : ColorPalette.primaryDark,
             valueBold: true,
           ),
         ],

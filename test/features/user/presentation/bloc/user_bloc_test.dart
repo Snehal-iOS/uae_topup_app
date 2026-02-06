@@ -30,10 +30,7 @@ void main() {
   setUp(() {
     mockGetUserUseCase = MockGetUserUseCase();
     mockUpdateUserUseCase = MockUpdateUserUseCase();
-    bloc = UserBloc(
-      getUserUseCase: mockGetUserUseCase,
-      updateUserUseCase: mockUpdateUserUseCase,
-    );
+    bloc = UserBloc(getUserUseCase: mockGetUserUseCase, updateUserUseCase: mockUpdateUserUseCase);
   });
 
   tearDown(() {
@@ -52,29 +49,19 @@ void main() {
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadUser()),
-      expect: () => [
-        const UserState(status: UserStatus.loading),
-        UserState(
-          status: UserStatus.success,
-          user: tUser,
-        ),
-      ],
+      expect: () => [const UserState(status: UserStatus.loading), UserState(status: UserStatus.success, user: tUser)],
     );
 
     blocTest<UserBloc, UserState>(
       'should emit loading then error when LoadUser fails',
       build: () {
-        when(mockGetUserUseCase())
-            .thenThrow(const NetworkException('Network error'));
+        when(mockGetUserUseCase()).thenThrow(const NetworkException('Network error'));
         return bloc;
       },
       act: (bloc) => bloc.add(const LoadUser()),
       expect: () => [
         const UserState(status: UserStatus.loading),
-        const UserState(
-          status: UserStatus.error,
-          errorMessage: 'Failed to load data: Network error',
-        ),
+        const UserState(status: UserStatus.error, errorMessage: 'Failed to load data: Network error'),
       ],
     );
 
@@ -82,28 +69,13 @@ void main() {
       'should update user balance successfully',
       build: () {
         final updatedUser = tUser.copyWith(balance: 900.0);
-        when(mockUpdateUserUseCase(any))
-            .thenAnswer((_) async => updatedUser);
+        when(mockUpdateUserUseCase(any)).thenAnswer((_) async => updatedUser);
         return bloc;
       },
-      seed: () => UserState(
-        status: UserStatus.success,
-        user: tUser,
-      ),
-      act: (bloc) => bloc.add(
-        const UpdateUserBalance(
-          newBalance: 900.0,
-          topupAmount: 100.0,
-        ),
-      ),
+      seed: () => UserState(status: UserStatus.success, user: tUser),
+      act: (bloc) => bloc.add(const UpdateUserBalance(newBalance: 900.0, topupAmount: 100.0)),
       expect: () => [
-        UserState(
-          status: UserStatus.success,
-          user: tUser.copyWith(
-            balance: 900.0,
-            monthlyTopupTotal: 100.0,
-          ),
-        ),
+        UserState(status: UserStatus.success, user: tUser.copyWith(balance: 900.0, monthlyTopupTotal: 100.0)),
       ],
     );
 
@@ -111,39 +83,19 @@ void main() {
       'should not update balance when user is null',
       build: () => bloc,
       seed: () => const UserState(status: UserStatus.initial),
-      act: (bloc) => bloc.add(
-        const UpdateUserBalance(
-          newBalance: 900.0,
-          topupAmount: 100.0,
-        ),
-      ),
+      act: (bloc) => bloc.add(const UpdateUserBalance(newBalance: 900.0, topupAmount: 100.0)),
       expect: () => [],
     );
 
     blocTest<UserBloc, UserState>(
       'should emit error when UpdateUserBalance fails',
       build: () {
-        when(mockUpdateUserUseCase(any))
-            .thenThrow(const ValidationException('Invalid balance'));
+        when(mockUpdateUserUseCase(any)).thenThrow(const ValidationException('Invalid balance'));
         return bloc;
       },
-      seed: () => UserState(
-        status: UserStatus.success,
-        user: tUser,
-      ),
-      act: (bloc) => bloc.add(
-        const UpdateUserBalance(
-          newBalance: 900.0,
-          topupAmount: 100.0,
-        ),
-      ),
-      expect: () => [
-        UserState(
-          status: UserStatus.error,
-          user: tUser,
-          errorMessage: 'Invalid balance',
-        ),
-      ],
+      seed: () => UserState(status: UserStatus.success, user: tUser),
+      act: (bloc) => bloc.add(const UpdateUserBalance(newBalance: 900.0, topupAmount: 100.0)),
+      expect: () => [UserState(status: UserStatus.error, user: tUser, errorMessage: 'Invalid balance')],
     );
 
     blocTest<UserBloc, UserState>(
@@ -153,50 +105,31 @@ void main() {
         when(mockGetUserUseCase()).thenAnswer((_) async => refreshedUser);
         return bloc;
       },
-      seed: () => UserState(
-        status: UserStatus.success,
-        user: tUser,
-      ),
+      seed: () => UserState(status: UserStatus.success, user: tUser),
       act: (bloc) => bloc.add(const RefreshUser()),
       expect: () => [
-        UserState(
-          status: UserStatus.success,
-          user: tUser.copyWith(balance: 1200.0),
-          successMessage: 'Data refreshed',
-        ),
+        UserState(status: UserStatus.success, user: tUser.copyWith(balance: 1200.0), successMessage: 'Data refreshed'),
       ],
     );
 
     blocTest<UserBloc, UserState>(
       'should emit error when RefreshUser fails',
       build: () {
-        when(mockGetUserUseCase())
-            .thenThrow(Exception('Failed to refresh'));
+        when(mockGetUserUseCase()).thenThrow(Exception('Failed to refresh'));
         return bloc;
       },
       act: (bloc) => bloc.add(const RefreshUser()),
-      expect: () => [
-        const UserState(
-          status: UserStatus.error,
-          errorMessage: 'Failed to refresh: Failed to refresh',
-        ),
-      ],
+      expect: () => [const UserState(status: UserStatus.error, errorMessage: 'Failed to refresh: Failed to refresh')],
     );
 
     blocTest<UserBloc, UserState>(
       'should handle CustomException in RefreshUser',
       build: () {
-        when(mockGetUserUseCase())
-            .thenThrow(const ValidationException('Validation error'));
+        when(mockGetUserUseCase()).thenThrow(const ValidationException('Validation error'));
         return bloc;
       },
       act: (bloc) => bloc.add(const RefreshUser()),
-      expect: () => [
-        const UserState(
-          status: UserStatus.error,
-          errorMessage: 'Failed to refresh: Validation error',
-        ),
-      ],
+      expect: () => [const UserState(status: UserStatus.error, errorMessage: 'Failed to refresh: Validation error')],
     );
   });
 }

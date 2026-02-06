@@ -31,9 +31,7 @@ void main() {
       // Assert
       final cachedJson = sharedPreferences.getString('CACHED_USER');
       expect(cachedJson, isNotNull);
-      final cachedUser = User.fromJson(
-        jsonDecode(cachedJson!) as Map<String, dynamic>,
-      );
+      final cachedUser = User.fromJson(jsonDecode(cachedJson!) as Map<String, dynamic>);
       expect(cachedUser, equals(tUser));
     });
 

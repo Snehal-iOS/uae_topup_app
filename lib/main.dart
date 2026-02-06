@@ -35,16 +35,9 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             home: MultiBlocProvider(
               providers: [
-                BlocProvider(
-                  create: (context) => getIt<UserBloc>()..add(const LoadUser()),
-                ),
-                BlocProvider(
-                  create: (context) => getIt<BeneficiaryBloc>()
-                    ..add(const LoadBeneficiaries()),
-                ),
-                BlocProvider(
-                  create: (context) => getIt<TopupBloc>(),
-                ),
+                BlocProvider(create: (context) => getIt<UserBloc>()..add(const LoadUser())),
+                BlocProvider(create: (context) => getIt<BeneficiaryBloc>()..add(const LoadBeneficiaries())),
+                BlocProvider(create: (context) => getIt<TopupBloc>()),
               ],
               child: const MainBottomNavigationBarScreen(),
             ),

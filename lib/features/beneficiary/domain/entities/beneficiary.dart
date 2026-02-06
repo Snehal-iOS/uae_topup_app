@@ -51,20 +51,12 @@ class Beneficiary extends Equatable {
       id: json['id'] as String,
       phoneNumber: json['phoneNumber'] as String,
       nickname: json['nickname'] as String,
-      monthlyTopupAmount:
-          (json['monthlyTopupAmount'] as num?)?.toDouble() ?? 0.0,
+      monthlyTopupAmount: (json['monthlyTopupAmount'] as num?)?.toDouble() ?? 0.0,
       monthlyResetDate: DateTime.parse(json['monthlyResetDate'] as String),
       isActive: json['isActive'] as bool? ?? true,
     );
   }
 
   @override
-  List<Object?> get props => [
-        id,
-        phoneNumber,
-        nickname,
-        monthlyTopupAmount,
-        monthlyResetDate,
-        isActive,
-      ];
+  List<Object?> get props => [id, phoneNumber, nickname, monthlyTopupAmount, monthlyResetDate, isActive];
 }

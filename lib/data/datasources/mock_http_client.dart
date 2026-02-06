@@ -8,7 +8,8 @@ class MockHttpClient {
   final Random _random = Random();
 
   Future<void> _simulateDelay() async {
-    final delayMs = AppConstants.minNetworkDelayMs + 
+    final delayMs =
+        AppConstants.minNetworkDelayMs +
         _random.nextInt(AppConstants.maxNetworkDelayMs - AppConstants.minNetworkDelayMs);
     await Future.delayed(Duration(milliseconds: delayMs));
   }
@@ -23,7 +24,7 @@ class MockHttpClient {
   Future<Map<String, dynamic>> get(String url) async {
     await _simulateDelay();
     _simulateNetworkError();
-    
+
     if (url.contains('/user')) {
       return {
         'id': 'user_001',
@@ -31,30 +32,19 @@ class MockHttpClient {
         'balance': 1500.0,
         'isVerified': true,
         'monthlyTopupTotal': 0.0,
-        'monthlyResetDate': DateTime(
-          DateTime.now().year,
-          DateTime.now().month + 1,
-          1,
-        ).toIso8601String(),
+        'monthlyResetDate': DateTime(DateTime.now().year, DateTime.now().month + 1, 1).toIso8601String(),
       };
     } else if (url.contains('/beneficiaries')) {
-      return {
-        'data': [],
-      };
+      return {'data': []};
     }
-    
-    throw NetworkException(
-      AppStrings.format(AppStrings.unknownEndpoint, [url]),
-    );
+
+    throw NetworkException(AppStrings.format(AppStrings.unknownEndpoint, [url]));
   }
 
-  Future<Map<String, dynamic>> post(
-    String url,
-    Map<String, dynamic> body,
-  ) async {
+  Future<Map<String, dynamic>> post(String url, Map<String, dynamic> body) async {
     await _simulateDelay();
     _simulateNetworkError();
-    
+
     if (url.contains('/beneficiaries')) {
       return body;
     } else if (url.contains('/topup')) {
@@ -67,19 +57,14 @@ class MockHttpClient {
         'status': 'success',
       };
     }
-    
-    throw NetworkException(
-      AppStrings.format(AppStrings.unknownEndpoint, [url]),
-    );
+
+    throw NetworkException(AppStrings.format(AppStrings.unknownEndpoint, [url]));
   }
 
-  Future<Map<String, dynamic>> put(
-    String url,
-    Map<String, dynamic> body,
-  ) async {
+  Future<Map<String, dynamic>> put(String url, Map<String, dynamic> body) async {
     await _simulateDelay();
     _simulateNetworkError();
-    
+
     return body;
   }
 

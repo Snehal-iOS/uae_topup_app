@@ -23,15 +23,15 @@ class AmountCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectiveSelected = isSelected && isEnabled;
     final bgColor = !isEnabled
-        ? colorScheme.surfaceContainerHighest.withOpacity(0.5)
+        ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
         : (effectiveSelected
-            ? ColorPalette.primaryLight100
-            : colorScheme.surfaceContainerHighest.withOpacity(0.6));
+              ? ColorPalette.primaryLight100
+              : colorScheme.surfaceContainerHighest.withValues(alpha: 0.6));
     final borderColor = !isEnabled
-        ? colorScheme.outlineVariant.withOpacity(0.6)
+        ? colorScheme.outlineVariant.withValues(alpha: 0.6)
         : (effectiveSelected ? ColorPalette.primaryDark : colorScheme.outlineVariant);
     final textColor = !isEnabled
-        ? colorScheme.onSurfaceVariant.withOpacity(0.6)
+        ? colorScheme.onSurfaceVariant.withValues(alpha: 0.6)
         : (effectiveSelected ? ColorPalette.primaryDark : colorScheme.onSurface);
 
     return Material(
@@ -52,15 +52,9 @@ class AmountCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    amount.toInt().toString(),
-                    style: AppTextStyles.h3.copyWith(color: textColor),
-                  ),
+                  Text(amount.toInt().toString(), style: AppTextStyles.h3.copyWith(color: textColor)),
                   const SizedBox(height: 2),
-                  Text(
-                    AppStrings.aed,
-                    style: AppTextStyles.bodySmall.copyWith(color: textColor),
-                  ),
+                  Text(AppStrings.aed, style: AppTextStyles.bodySmall.copyWith(color: textColor)),
                 ],
               ),
             ),

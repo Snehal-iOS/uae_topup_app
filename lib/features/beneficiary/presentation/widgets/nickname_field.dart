@@ -8,11 +8,7 @@ class NicknameField extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
 
-  const NicknameField({
-    super.key,
-    required this.controller,
-    this.onChanged,
-  });
+  const NicknameField({super.key, required this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +19,7 @@ class NicknameField extends StatelessWidget {
       children: [
         Text(
           AppStrings.nickname,
-          style: AppTextStyles.labelLarge.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
-          ),
+          style: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.bold, color: colorScheme.onSurface),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -48,16 +41,10 @@ class NicknameField extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: colorScheme.outlineVariant),
             ),
-            errorStyle: AppTextStyles.captionSmall.copyWith(
-              color: ColorPalette.error,
-            ),
-            counterStyle: AppTextStyles.bodySmall.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
+            errorStyle: AppTextStyles.captionSmall.copyWith(color: ColorPalette.error),
+            counterStyle: AppTextStyles.bodySmall.copyWith(color: colorScheme.onSurfaceVariant),
           ),
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: colorScheme.onSurface,
-          ),
+          style: AppTextStyles.bodyMedium.copyWith(color: colorScheme.onSurface),
           maxLength: AppConstants.maxNicknameLength,
           textCapitalization: TextCapitalization.words,
           validator: (value) {

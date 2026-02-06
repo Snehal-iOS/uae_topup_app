@@ -7,10 +7,7 @@ class UserRepositoryImpl implements UserRepository {
   final MockHttpClient httpClient;
   final UserLocalDataSource localDataSource;
 
-  UserRepositoryImpl({
-    required this.httpClient,
-    required this.localDataSource,
-  });
+  UserRepositoryImpl({required this.httpClient, required this.localDataSource});
 
   @override
   Future<User> getUser() async {

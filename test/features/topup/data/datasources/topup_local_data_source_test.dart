@@ -110,8 +110,7 @@ void main() {
       expect(result[1].id, equals('3'));
     });
 
-    test('should return empty list when no transactions for beneficiary',
-        () async {
+    test('should return empty list when no transactions for beneficiary', () async {
       // Arrange
       await dataSource.cacheTransactions(tTransactions);
 

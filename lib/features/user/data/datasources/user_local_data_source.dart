@@ -9,10 +9,7 @@ class UserLocalDataSource {
   UserLocalDataSource(this.sharedPreferences);
 
   Future<void> cacheUser(User user) async {
-    await sharedPreferences.setString(
-      SharedPrefsKeys.user,
-      jsonEncode(user.toJson()),
-    );
+    await sharedPreferences.setString(SharedPrefsKeys.user, jsonEncode(user.toJson()));
   }
 
   User? getCachedUser() {

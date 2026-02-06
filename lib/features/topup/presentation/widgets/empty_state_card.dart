@@ -63,29 +63,18 @@ class EmptyStateCard extends StatelessWidget {
     final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (icon != null) ...[
-          Icon(
-            icon,
-            size: iconSize,
-            color: defaultIconColor,
-          ),
-          const SizedBox(height: 12),
-        ],
+        if (icon != null) ...[Icon(icon, size: iconSize, color: defaultIconColor), const SizedBox(height: 12)],
         Text(
           message,
           textAlign: centerContent ? TextAlign.center : null,
-          style: messageStyle ?? AppTextStyles.bodyLarge.copyWith(
-            color: defaultMessageColor,
-          ),
+          style: messageStyle ?? AppTextStyles.bodyLarge.copyWith(color: defaultMessageColor),
         ),
         if (hint != null) ...[
           const SizedBox(height: 8),
           Text(
             hint!,
             textAlign: TextAlign.center,
-            style: hintStyle ?? AppTextStyles.bodyMedium.copyWith(
-              color: defaultHintColor,
-            ),
+            style: hintStyle ?? AppTextStyles.bodyMedium.copyWith(color: defaultHintColor),
           ),
         ],
       ],
@@ -93,9 +82,7 @@ class EmptyStateCard extends StatelessWidget {
 
     return Padding(
       padding: padding ?? const EdgeInsets.all(24),
-      child: centerContent
-          ? Center(child: content)
-          : content,
+      child: centerContent ? Center(child: content) : content,
     );
   }
 }

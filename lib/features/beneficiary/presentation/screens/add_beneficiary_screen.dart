@@ -24,9 +24,7 @@ class _AddBeneficiaryScreenState extends State<AddBeneficiaryScreen> {
 
   Color _getBackgroundColor(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return colorScheme.brightness == Brightness.dark
-        ? colorScheme.surfaceContainerHighest
-        : colorScheme.surface;
+    return colorScheme.brightness == Brightness.dark ? colorScheme.surfaceContainerHighest : colorScheme.surface;
   }
 
   @override
@@ -56,10 +54,7 @@ class _AddBeneficiaryScreenState extends State<AddBeneficiaryScreen> {
                 const SizedBox(height: 24),
                 const AddBeneficiaryAvatarHeader(),
                 const SizedBox(height: 32),
-                NicknameField(
-                  controller: _nicknameController,
-                  onChanged: (_) => setState(() {}),
-                ),
+                NicknameField(controller: _nicknameController, onChanged: (_) => setState(() {})),
                 const SizedBox(height: 10),
                 UAEPhoneField(controller: _phoneController),
                 const SizedBox(height: 24),
@@ -69,20 +64,14 @@ class _AddBeneficiaryScreenState extends State<AddBeneficiaryScreen> {
                     return Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest.withOpacity(0.6),
+                        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: colorScheme.outlineVariant.withOpacity(0.5),
-                        ),
+                        border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.safety_check,
-                            size: 28,
-                            color: colorScheme.primary,
-                          ),
+                          Icon(Icons.safety_check, size: 28, color: colorScheme.primary),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Column(
@@ -99,9 +88,7 @@ class _AddBeneficiaryScreenState extends State<AddBeneficiaryScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   AppStrings.transactionLimitsDescription,
-                                  style: AppTextStyles.bodySmall.copyWith(
-                                    color: colorScheme.onSurfaceVariant,
-                                  ),
+                                  style: AppTextStyles.bodySmall.copyWith(color: colorScheme.onSurfaceVariant),
                                 ),
                               ],
                             ),
@@ -124,17 +111,12 @@ class _AddBeneficiaryScreenState extends State<AddBeneficiaryScreen> {
 
   void _submitForm() {
     if (!_formKey.currentState!.validate()) return;
-    
+
     final nickname = _nicknameController.text.trim();
     final digits = _phoneController.text.replaceAll(RegExp(r'\s'), '');
     final phoneNumber = '+971$digits';
-    
-    context.read<BeneficiaryBloc>().add(
-      AddBeneficiary(
-        nickname: nickname,
-        phoneNumber: phoneNumber,
-      ),
-    );
+
+    context.read<BeneficiaryBloc>().add(AddBeneficiary(nickname: nickname, phoneNumber: phoneNumber));
     Navigator.of(context).pop();
   }
 

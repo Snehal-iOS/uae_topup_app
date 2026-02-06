@@ -7,8 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:shared_preferences/shared_preferences.dart' as _i2;
-import 'package:uae_topup_app/features/user/data/datasources/user_local_data_source.dart'
-    as _i3;
+import 'package:uae_topup_app/features/user/data/datasources/user_local_data_source.dart' as _i3;
 import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i5;
 
 // ignore_for_file: type=lint
@@ -25,17 +24,14 @@ import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeSharedPreferences_0 extends _i1.SmartFake
-    implements _i2.SharedPreferences {
-  _FakeSharedPreferences_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeSharedPreferences_0 extends _i1.SmartFake implements _i2.SharedPreferences {
+  _FakeSharedPreferences_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [UserLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserLocalDataSource extends _i1.Mock
-    implements _i3.UserLocalDataSource {
+class MockUserLocalDataSource extends _i1.Mock implements _i3.UserLocalDataSource {
   MockUserLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -44,10 +40,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i2.SharedPreferences get sharedPreferences =>
       (super.noSuchMethod(
             Invocation.getter(#sharedPreferences),
-            returnValue: _FakeSharedPreferences_0(
-              this,
-              Invocation.getter(#sharedPreferences),
-            ),
+            returnValue: _FakeSharedPreferences_0(this, Invocation.getter(#sharedPreferences)),
           )
           as _i2.SharedPreferences);
 

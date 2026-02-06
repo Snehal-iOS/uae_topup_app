@@ -13,10 +13,7 @@ class GetBeneficiariesUseCase {
     final updatedBeneficiaries = beneficiaries.map((beneficiary) {
       if (now.isAfter(beneficiary.monthlyResetDate)) {
         needsReset = true;
-        return beneficiary.copyWith(
-          monthlyTopupAmount: 0.0,
-          monthlyResetDate: DateTime(now.year, now.month + 1, 1),
-        );
+        return beneficiary.copyWith(monthlyTopupAmount: 0.0, monthlyResetDate: DateTime(now.year, now.month + 1, 1));
       }
       return beneficiary;
     }).toList();

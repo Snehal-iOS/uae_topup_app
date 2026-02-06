@@ -12,10 +12,7 @@ class ErrorHelper {
     return message.replaceAll(RegExp(r'^Exception:\s*'), '');
   }
 
-  static String extractErrorMessageOrFallback(
-    Object? error,
-    String fallback,
-  ) {
+  static String extractErrorMessageOrFallback(Object? error, String fallback) {
     try {
       return extractErrorMessage(error);
     } catch (e) {

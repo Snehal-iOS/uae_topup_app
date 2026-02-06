@@ -6,13 +6,10 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart'
-    as _i3;
-import 'package:uae_topup_app/features/beneficiary/domain/repositories/beneficiary_repository.dart'
-    as _i6;
+import 'package:uae_topup_app/features/beneficiary/domain/entities/beneficiary.dart' as _i3;
+import 'package:uae_topup_app/features/beneficiary/domain/repositories/beneficiary_repository.dart' as _i6;
 import 'package:uae_topup_app/features/user/domain/entities/user.dart' as _i2;
-import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart'
-    as _i4;
+import 'package:uae_topup_app/features/user/domain/repositories/user_repository.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,13 +26,11 @@ import 'package:uae_topup_app/features/user/domain/repositories/user_repository.
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
-  _FakeUser_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUser_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeBeneficiary_1 extends _i1.SmartFake implements _i3.Beneficiary {
-  _FakeBeneficiary_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeBeneficiary_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [UserRepository].
@@ -50,9 +45,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
   _i5.Future<_i2.User> getUser() =>
       (super.noSuchMethod(
             Invocation.method(#getUser, []),
-            returnValue: _i5.Future<_i2.User>.value(
-              _FakeUser_0(this, Invocation.method(#getUser, [])),
-            ),
+            returnValue: _i5.Future<_i2.User>.value(_FakeUser_0(this, Invocation.method(#getUser, []))),
           )
           as _i5.Future<_i2.User>);
 
@@ -60,9 +53,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
   _i5.Future<_i2.User> updateUser(_i2.User? user) =>
       (super.noSuchMethod(
             Invocation.method(#updateUser, [user]),
-            returnValue: _i5.Future<_i2.User>.value(
-              _FakeUser_0(this, Invocation.method(#updateUser, [user])),
-            ),
+            returnValue: _i5.Future<_i2.User>.value(_FakeUser_0(this, Invocation.method(#updateUser, [user]))),
           )
           as _i5.Future<_i2.User>);
 }
@@ -70,8 +61,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
 /// A class which mocks [BeneficiaryRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBeneficiaryRepository extends _i1.Mock
-    implements _i6.BeneficiaryRepository {
+class MockBeneficiaryRepository extends _i1.Mock implements _i6.BeneficiaryRepository {
   MockBeneficiaryRepository() {
     _i1.throwOnMissingStub(this);
   }
@@ -80,9 +70,7 @@ class MockBeneficiaryRepository extends _i1.Mock
   _i5.Future<List<_i3.Beneficiary>> getBeneficiaries() =>
       (super.noSuchMethod(
             Invocation.method(#getBeneficiaries, []),
-            returnValue: _i5.Future<List<_i3.Beneficiary>>.value(
-              <_i3.Beneficiary>[],
-            ),
+            returnValue: _i5.Future<List<_i3.Beneficiary>>.value(<_i3.Beneficiary>[]),
           )
           as _i5.Future<List<_i3.Beneficiary>>);
 
@@ -91,10 +79,7 @@ class MockBeneficiaryRepository extends _i1.Mock
       (super.noSuchMethod(
             Invocation.method(#addBeneficiary, [beneficiary]),
             returnValue: _i5.Future<_i3.Beneficiary>.value(
-              _FakeBeneficiary_1(
-                this,
-                Invocation.method(#addBeneficiary, [beneficiary]),
-              ),
+              _FakeBeneficiary_1(this, Invocation.method(#addBeneficiary, [beneficiary])),
             ),
           )
           as _i5.Future<_i3.Beneficiary>);
@@ -113,10 +98,7 @@ class MockBeneficiaryRepository extends _i1.Mock
       (super.noSuchMethod(
             Invocation.method(#updateBeneficiary, [beneficiary]),
             returnValue: _i5.Future<_i3.Beneficiary>.value(
-              _FakeBeneficiary_1(
-                this,
-                Invocation.method(#updateBeneficiary, [beneficiary]),
-              ),
+              _FakeBeneficiary_1(this, Invocation.method(#updateBeneficiary, [beneficiary])),
             ),
           )
           as _i5.Future<_i3.Beneficiary>);
@@ -131,20 +113,11 @@ class MockBeneficiaryRepository extends _i1.Mock
           as _i5.Future<void>);
 
   @override
-  _i5.Future<_i3.Beneficiary> updateBeneficiaryMonthlyAmount(
-    String? id,
-    double? amount,
-  ) =>
+  _i5.Future<_i3.Beneficiary> updateBeneficiaryMonthlyAmount(String? id, double? amount) =>
       (super.noSuchMethod(
             Invocation.method(#updateBeneficiaryMonthlyAmount, [id, amount]),
             returnValue: _i5.Future<_i3.Beneficiary>.value(
-              _FakeBeneficiary_1(
-                this,
-                Invocation.method(#updateBeneficiaryMonthlyAmount, [
-                  id,
-                  amount,
-                ]),
-              ),
+              _FakeBeneficiary_1(this, Invocation.method(#updateBeneficiaryMonthlyAmount, [id, amount])),
             ),
           )
           as _i5.Future<_i3.Beneficiary>);

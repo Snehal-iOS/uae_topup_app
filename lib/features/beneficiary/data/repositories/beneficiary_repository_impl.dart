@@ -7,10 +7,7 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
   final MockHttpClient httpClient;
   final BeneficiaryLocalDataSource localDataSource;
 
-  BeneficiaryRepositoryImpl({
-    required this.httpClient,
-    required this.localDataSource,
-  });
+  BeneficiaryRepositoryImpl({required this.httpClient, required this.localDataSource});
 
   @override
   Future<List<Beneficiary>> getBeneficiaries() async {
@@ -23,8 +20,7 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
       final response = await httpClient.get('/api/beneficiaries');
       final data = response['data'];
       final List<Map<String, dynamic>> list = data is List
-          ? (data).map<Map<String, dynamic>>(
-              (e) => e as Map<String, dynamic>).toList()
+          ? (data).map<Map<String, dynamic>>((e) => e as Map<String, dynamic>).toList()
           : <Map<String, dynamic>>[];
 
       final beneficiaries = list.map(Beneficiary.fromJson).toList();
@@ -41,10 +37,7 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
   @override
   Future<Beneficiary> addBeneficiary(Beneficiary beneficiary) async {
     try {
-      final response = await httpClient.post(
-        '/api/beneficiaries',
-        beneficiary.toJson(),
-      );
+      final response = await httpClient.post('/api/beneficiaries', beneficiary.toJson());
       final newBeneficiary = Beneficiary.fromJson(response);
       await _addToCache(newBeneficiary);
       return newBeneficiary;
@@ -56,9 +49,7 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
 
   Future<void> _addToCache(Beneficiary beneficiary) async {
     final currentBeneficiaries = localDataSource.getCachedBeneficiaries() ?? [];
-    await localDataSource.cacheBeneficiaries(
-      [...currentBeneficiaries, beneficiary],
-    );
+    await localDataSource.cacheBeneficiaries([...currentBeneficiaries, beneficiary]);
   }
 
   @override
@@ -74,9 +65,7 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
 
   Future<void> _removeFromCache(String id) async {
     final currentBeneficiaries = localDataSource.getCachedBeneficiaries() ?? [];
-    final updatedBeneficiaries = currentBeneficiaries
-        .where((b) => b.id != id)
-        .toList();
+    final updatedBeneficiaries = currentBeneficiaries.where((b) => b.id != id).toList();
     await localDataSource.cacheBeneficiaries(updatedBeneficiaries);
   }
 
@@ -88,15 +77,12 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
   @override
   Future<Beneficiary> updateBeneficiary(Beneficiary beneficiary) async {
     try {
-      final response = await httpClient.put(
-        '/api/beneficiaries/${beneficiary.id}',
-        beneficiary.toJson(),
-      );
+      final response = await httpClient.put('/api/beneficiaries/${beneficiary.id}', beneficiary.toJson());
       final updatedBeneficiary = Beneficiary.fromJson(response);
       await _updateInCache(updatedBeneficiary);
       return updatedBeneficiary;
     } catch (e) {
-      await _updateInCache(beneficiary);  // Update cache even if remote fails
+      await _updateInCache(beneficiary); // Update cache even if remote fails
       return beneficiary;
     }
   }
@@ -110,23 +96,15 @@ class BeneficiaryRepositoryImpl implements BeneficiaryRepository {
   }
 
   @override
-  Future<Beneficiary> updateBeneficiaryMonthlyAmount(
-    String id,
-    double amount,
-  ) async {
+  Future<Beneficiary> updateBeneficiaryMonthlyAmount(String id, double amount) async {
     final beneficiaries = localDataSource.getCachedBeneficiaries() ?? [];
     final beneficiary = beneficiaries.firstWhere((b) => b.id == id);
-    final updatedBeneficiary = beneficiary.copyWith(
-      monthlyTopupAmount: beneficiary.monthlyTopupAmount + amount,
-    );
-    
+    final updatedBeneficiary = beneficiary.copyWith(monthlyTopupAmount: beneficiary.monthlyTopupAmount + amount);
+
     await _updateInCache(updatedBeneficiary);
-    
+
     try {
-      final response = await httpClient.put(
-        '/api/beneficiaries/${updatedBeneficiary.id}',
-        updatedBeneficiary.toJson(),
-      );
+      final response = await httpClient.put('/api/beneficiaries/${updatedBeneficiary.id}', updatedBeneficiary.toJson());
       final apiUpdatedBeneficiary = Beneficiary.fromJson(response);
       await _updateInCache(apiUpdatedBeneficiary);
       return apiUpdatedBeneficiary;

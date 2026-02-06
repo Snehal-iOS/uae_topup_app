@@ -42,9 +42,7 @@ void main() {
       final cachedJson = sharedPreferences.getString('CACHED_BENEFICIARIES');
       expect(cachedJson, isNotNull);
       final List<dynamic> jsonList = jsonDecode(cachedJson!) as List;
-      final cachedBeneficiaries = jsonList
-          .map((json) => Beneficiary.fromJson(json as Map<String, dynamic>))
-          .toList();
+      final cachedBeneficiaries = jsonList.map((json) => Beneficiary.fromJson(json as Map<String, dynamic>)).toList();
       expect(cachedBeneficiaries, equals(tBeneficiaries));
     });
 
@@ -83,10 +81,7 @@ void main() {
     test('should update cached beneficiaries when caching again', () async {
       // Arrange
       await dataSource.cacheBeneficiaries(tBeneficiaries);
-      final updatedBeneficiaries = [
-        tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0),
-        tBeneficiaries[1],
-      ];
+      final updatedBeneficiaries = [tBeneficiaries[0].copyWith(monthlyTopupAmount: 150.0), tBeneficiaries[1]];
 
       // Act
       await dataSource.cacheBeneficiaries(updatedBeneficiaries);

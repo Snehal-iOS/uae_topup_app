@@ -4,8 +4,6 @@ import '../../../../core/constants/color_palette.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../widgets/label_value_row.dart';
 import '../../../beneficiary/domain/entities/beneficiary.dart';
-import '../bloc/topup_bloc.dart';
-import '../bloc/topup_event.dart';
 
 class TopUpSuccessContent extends StatelessWidget {
   final Beneficiary beneficiary;
@@ -31,9 +29,7 @@ class TopUpSuccessContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final cardColor = colorScheme.brightness == Brightness.dark
-        ? colorScheme.surfaceContainerHigh
-        : ColorPalette.white;
+    final cardColor = colorScheme.brightness == Brightness.dark ? colorScheme.surfaceContainerHigh : ColorPalette.white;
 
     return SingleChildScrollView(
       controller: scrollController,
@@ -46,13 +42,7 @@ class TopUpSuccessContent extends StatelessWidget {
             decoration: BoxDecoration(
               color: cardColor,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                  color: ColorPalette.overlayLight,
-                  blurRadius: 16,
-                  offset: Offset(0, 4),
-                ),
-              ],
+              boxShadow: const [BoxShadow(color: ColorPalette.overlayLight, blurRadius: 16, offset: Offset(0, 4))],
             ),
             child: Column(
               children: [
@@ -60,30 +50,21 @@ class TopUpSuccessContent extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: ColorPalette.success.withOpacity(0.15),
+                    color: ColorPalette.success.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.check_circle,
-                    size: 56,
-                    color: ColorPalette.success,
-                  ),
+                  child: const Icon(Icons.check_circle, size: 56, color: ColorPalette.success),
                 ),
                 const SizedBox(height: 24),
                 Text(
                   AppStrings.topUpSuccessfulTitle,
-                  style: AppTextStyles.h2.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyles.h2.copyWith(color: colorScheme.onSurface, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   AppStrings.transactionCompletedSuccessfully,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
+                  style: AppTextStyles.bodyMedium.copyWith(color: colorScheme.onSurfaceVariant),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
@@ -112,7 +93,7 @@ class TopUpSuccessContent extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest.withOpacity(0.6),
+                    color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -134,18 +115,13 @@ class TopUpSuccessContent extends StatelessWidget {
                             const SizedBox(height: 4),
                             RichText(
                               text: TextSpan(
-                                style: AppTextStyles.bodySmall.copyWith(
-                                  color: colorScheme.onSurfaceVariant,
-                                ),
+                                style: AppTextStyles.bodySmall.copyWith(color: colorScheme.onSurfaceVariant),
                                 children: [
-                                  const TextSpan(
-                                    text: AppStrings.remainingLimitForBeneficiary,
-                                  ),
+                                  const TextSpan(text: AppStrings.remainingLimitForBeneficiary),
                                   TextSpan(
-                                    text: AppStrings.format(
-                                      AppStrings.aedFormat,
-                                      [remainingLimitForBeneficiary.toStringAsFixed(2)],
-                                    ),
+                                    text: AppStrings.format(AppStrings.aedFormat, [
+                                      remainingLimitForBeneficiary.toStringAsFixed(2),
+                                    ]),
                                     style: AppTextStyles.bodySmall.copyWith(
                                       color: ColorPalette.success,
                                       fontWeight: FontWeight.bold,
@@ -173,15 +149,10 @@ class TopUpSuccessContent extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorPalette.primaryDark,
                 foregroundColor: ColorPalette.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 elevation: 0,
               ),
-              child: Text(
-                AppStrings.backToDashboard,
-                style: AppTextStyles.button.copyWith(color: ColorPalette.white),
-              ),
+              child: Text(AppStrings.backToDashboard, style: AppTextStyles.button.copyWith(color: ColorPalette.white)),
             ),
           ),
           const SizedBox(height: 12),
@@ -190,6 +161,7 @@ class TopUpSuccessContent extends StatelessWidget {
     );
   }
 }
+
 void showTopUpSuccessBottomSheet({
   required BuildContext context,
   required Beneficiary beneficiary,
@@ -225,4 +197,3 @@ void showTopUpSuccessBottomSheet({
     ),
   ).then((_) => onSheetClosed());
 }
-
