@@ -229,7 +229,47 @@ This appears in tests like `should throw ValidationException when amount is zero
 
 ## Screenshots
 
-*Screenshots will be added here*
+### Light Theme
+
+#### Dashboard
+![Dashboard](screenshots/dashboard_light.png)
+
+#### Add New Beneficiary
+![Add New Beneficiary](screenshots/add_beneficiary_light.png)
+
+#### Manage All Beneficiaries
+![Manage All Beneficiaries](screenshots/manage_beneficiaries_light.png)
+
+#### Profile
+![Profile](screenshots/profile_light.png)
+
+#### Top-up Transaction
+![Top-up Transaction](screenshots/topup_transaction_light.png)
+
+#### Top-up Success
+![Top-up Success](screenshots/topup_success_light.png)
+
+### Dark Theme
+
+#### Dashboard
+![Dashboard](screenshots/dashboard_dark.png)
+
+#### Top-up Transaction
+![Top-up Transaction](screenshots/topup_transaction_dark.png)
+
+#### Top-up Success
+![Top-up Success](screenshots/topup_success_dark.png)
+
+### Dark Theme
+
+#### Dashboard
+![Dashboard](screenshots/dashboard_dark.png)
+
+#### Top-up Transaction
+![Top-up Transaction](screenshots/topup_transaction_dark.png)
+
+#### Top-up Success
+![Top-up Success](screenshots/topup_success_dark.png)
 
 ---
 
