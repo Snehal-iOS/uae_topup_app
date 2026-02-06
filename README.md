@@ -231,45 +231,46 @@ This appears in tests like `should throw ValidationException when amount is zero
 
 ### Light Theme
 
-#### Dashboard
-![Dashboard](screenshots/dashboard_light.png)
+<table>
+  <tr>
+    <td align="center"><b>Dashboard</b></td>
+    <td align="center"><b>Add New Beneficiary</b></td>
+    <td align="center"><b>Manage All Beneficiaries</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/dashboard_light.png" alt="Dashboard Light" width="250"/></td>
+    <td><img src="screenshots/add_beneficiary_light.png" alt="Add Beneficiary Light" width="250"/></td>
+    <td><img src="screenshots/manage_beneficiaries_light.png" alt="Manage Beneficiaries Light" width="250"/></td>
+  </tr>
+</table>
 
-#### Add New Beneficiary
-![Add New Beneficiary](screenshots/add_beneficiary_light.png)
-
-#### Manage All Beneficiaries
-![Manage All Beneficiaries](screenshots/manage_beneficiaries_light.png)
-
-#### Profile
-![Profile](screenshots/profile_light.png)
-
-#### Top-up Transaction
-![Top-up Transaction](screenshots/topup_transaction_light.png)
-
-#### Top-up Success
-![Top-up Success](screenshots/topup_success_light.png)
-
-### Dark Theme
-
-#### Dashboard
-![Dashboard](screenshots/dashboard_dark.png)
-
-#### Top-up Transaction
-![Top-up Transaction](screenshots/topup_transaction_dark.png)
-
-#### Top-up Success
-![Top-up Success](screenshots/topup_success_dark.png)
+<table>
+  <tr>
+    <td align="center"><b>Profile</b></td>
+    <td align="center"><b>Top-up Transaction</b></td>
+    <td align="center"><b>Top-up Success</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/profile_light.png" alt="Profile Light" width="250"/></td>
+    <td><img src="screenshots/topup_transaction_light.png" alt="Top-up Transaction Light" width="250"/></td>
+    <td><img src="screenshots/topup_success_light.png" alt="Top-up Success Light" width="250"/></td>
+  </tr>
+</table>
 
 ### Dark Theme
 
-#### Dashboard
-![Dashboard](screenshots/dashboard_dark.png)
-
-#### Top-up Transaction
-![Top-up Transaction](screenshots/topup_transaction_dark.png)
-
-#### Top-up Success
-![Top-up Success](screenshots/topup_success_dark.png)
+<table>
+  <tr>
+    <td align="center"><b>Dashboard</b></td>
+    <td align="center"><b>Top-up Transaction</b></td>
+    <td align="center"><b>Top-up Success</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/dashboard_dark.png" alt="Dashboard Dark" width="250"/></td>
+    <td><img src="screenshots/topup_transaction_dark.png" alt="Top-up Transaction Dark" width="250"/></td>
+    <td><img src="screenshots/topup_success_dark.png" alt="Top-up Success Dark" width="250"/></td>
+  </tr>
+</table>
 
 ---
 
