@@ -24,7 +24,7 @@ class UpdateUserBalance extends UserEvent {
   List<Object?> get props => [newBalance, topupAmount];
 }
 
-class RefreshUser extends UserEvent { // This is used when data is refreshed after any transaction but message is not seen to the USer.
+class RefreshUser extends UserEvent {
   final bool silent;
   const RefreshUser({this.silent = false});
 

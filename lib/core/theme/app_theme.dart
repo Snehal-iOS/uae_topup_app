@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../constants/app_text_styles.dart';
 import '../constants/color_palette.dart';
 
-/// This is file contains Theme implementation light and dark color schemes with ThemeData.
 class AppTheme {
   AppTheme._();
 

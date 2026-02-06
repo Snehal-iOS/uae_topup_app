@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../constants/color_palette.dart';
 import '../constants/app_text_styles.dart';
 
-/// This file contains snackbar display across the app.
 class AppSnackBar {
   AppSnackBar._();
 

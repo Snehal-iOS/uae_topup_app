@@ -23,10 +23,8 @@ class User extends Equatable {
       isVerified ? AppConstants.monthlyLimitVerified : AppConstants.monthlyLimitUnverified;
   double get totalMonthlyLimit => AppConstants.totalMonthlyLimit;
 
-  // Remaining monthly limit is calculated by (total limit minus used).
   double get remainingMonthlyLimit => totalMonthlyLimit - monthlyTopupTotal;
 
-  // Monthly limit usage as ratio 0.0–1.0 for progress display.
   double get monthlyLimitProgress =>
       totalMonthlyLimit > 0 ? (monthlyTopupTotal / totalMonthlyLimit).clamp(0.0, 1.0) : 0.0;
 

@@ -1,6 +1,5 @@
 import '../constants/app_strings.dart';
 
-/// This is the Base exception class for all custom exceptions in the app.
 abstract class CustomException implements Exception {
   final String message;
   final String? code;
@@ -11,39 +10,34 @@ abstract class CustomException implements Exception {
   String toString() => message;
 }
 
-// Exception for validation errors
 class ValidationException extends CustomException {
   const ValidationException(super.message, {super.code});
 }
 
-// Exception for business logic errors
 class BusinessLogicException extends CustomException {
   const BusinessLogicException(super.message, {super.code});
 }
 
-// Exception for network/API errors
 class NetworkException extends CustomException {
   const NetworkException(super.message, {super.code});
 }
 
-// Exception for not found errors
 class NotFoundException extends CustomException {
   const NotFoundException(super.message, {super.code});
 }
 
-// Exception for insufficient balance
 class InsufficientBalanceException extends BusinessLogicException {
-  final double required;
+  final double amount;
   final double available;
 
   InsufficientBalanceException({
-    required this.required,
+    required this.amount,
     required this.available,
   }) : super(
           AppStrings.format(
             AppStrings.insufficientBalanceFormat,
             [
-              required.toStringAsFixed(2),
+              amount.toStringAsFixed(2),
               available.toStringAsFixed(2),
             ],
           ),
@@ -51,7 +45,6 @@ class InsufficientBalanceException extends BusinessLogicException {
         );
 }
 
-// Exception for limit exceeded
 class LimitExceededException extends BusinessLogicException {
   final String limitType;
   final double limit;
@@ -74,7 +67,6 @@ class LimitExceededException extends BusinessLogicException {
         );
 }
 
-// Exception for maximum beneficiaries reached
 class MaxBeneficiariesException extends BusinessLogicException {
   const MaxBeneficiariesException()
       : super(

@@ -4,7 +4,6 @@ import '../constants/app_strings.dart';
 import '../constants/color_palette.dart';
 import '../constants/app_text_styles.dart';
 
-/// Common dialog widget that provides consistent styling across the app
 class CommonDialog extends StatelessWidget {
   final String title;
   final Widget content;
@@ -13,9 +12,8 @@ class CommonDialog extends StatelessWidget {
   final VoidCallback? onCancel;
   final VoidCallback? onConfirm;
   final DialogButtonStyle confirmButtonStyle;
-  final bool showCancelButton; // defaults to true
-  final bool showConfirmButton; // defaults to true
-  
+  final bool showCancelButton;
+  final bool showConfirmButton;
   final List<Widget>? customActions;
 
   const CommonDialog({
@@ -122,7 +120,6 @@ class CommonDialog extends StatelessWidget {
   }
 }
 
-/// Dialog button style types
 enum DialogButtonStyle {
   primary, // default theme color
   success, // green
@@ -130,11 +127,9 @@ enum DialogButtonStyle {
   error, // red
 }
 
-/// Helper class for common dialog operations
 class CommonDialogs {
   CommonDialogs._();
 
-  // Shows a confirmation dialog
   static Future<void> showConfirm({
     required BuildContext context,
     required String title,
@@ -159,7 +154,6 @@ class CommonDialogs {
     );
   }
 
-  // Shows a delete confirmation dialog
   static Future<void> showDelete({
     required BuildContext context,
     required String title,
@@ -183,7 +177,6 @@ class CommonDialogs {
     );
   }
 
-  // Shows a toggle (activate/deactivate) confirmation dialog
   static Future<void> showToggle({
     required BuildContext context,
     required String title,
@@ -209,7 +202,6 @@ class CommonDialogs {
     );
   }
 
-  // Shows a dialog with BlocProvider wrapper
   static Future<void> showWithBlocProvider<T extends BlocBase<Object?>>({
     required BuildContext context,
     required T bloc,
@@ -224,7 +216,6 @@ class CommonDialogs {
     );
   }
 
-  // Shows a custom dialog with custom content
   static Future<void> showCustom({
     required BuildContext context,
     required String title,

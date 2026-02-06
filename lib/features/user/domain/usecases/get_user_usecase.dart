@@ -9,7 +9,6 @@ class GetUserUseCase {
   Future<User> call() async {
     final user = await repository.getUser();
 
-    // Check if monthly reset is needed
     if (DateTime.now().isAfter(user.monthlyResetDate)) {
       final nextResetDate = DateTime(
         DateTime.now().year,

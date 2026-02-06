@@ -1,14 +1,11 @@
-/// This file contains all string constants for the entire application which are majorly seen by Users
 class AppStrings {
   static const String appName = 'TopUp UAE';
 
-  // Bottom Navigation & App Bar
   static const String navHome = 'Home';
   static const String navManageBeneficiaries = 'Beneficiaries';
   static const String navProfile = 'Profile';
   static const String dashboard = 'Dashboard';
 
-  // Common
   static const String cancel = 'Cancel';
   static const String confirm = 'Confirm';
   static const String delete = 'Delete';
@@ -17,13 +14,11 @@ class AppStrings {
   static const String processingTopup = 'Processing top-up...';
   static const String somethingWentWrong = 'Something went wrong';
 
-  // User Info
   static const String monthlyLimitUsed = 'Monthly Limit Used';
   static const String remainingLabel = 'Remaining: ';
   static const String used = 'AED {0} / {1}';
   static const String limitUsed = 'Limit used';
 
-  // Beneficiaries
   static const String activeBeneficiaries = 'Active Beneficiaries';
   static const String inactiveBeneficiaries = 'Inactive Beneficiaries';
   static const String manageAllBeneficiaries = 'Manage All Beneficiaries';
@@ -47,7 +42,6 @@ class AppStrings {
   static const String activateConfirm = 'Are you sure you want to activate {0}?';
   static const String deactivateConfirm = 'Are you sure you want to deactivate {0}?';
 
-  // Add Beneficiary
   static const String addNewBeneficiaryTitle = 'Add New Beneficiary';
   static const String nickname = 'Nickname';
   static const String nicknameHintPlaceholder = "e.g., Mom's Phone";
@@ -59,7 +53,6 @@ class AppStrings {
   static const String saveBeneficiary = 'Save Beneficiary';
   static const String nicknameCounter = '{0}/{1}';
 
-  // Top-up
   static const String topUpTransactionTitle = 'Top-up Transaction';
   static const String selectAmount = 'Select Amount';
   static const String currencyAed = 'Currency: AED';
@@ -86,7 +79,6 @@ class AppStrings {
   static const String aedFormat = 'AED {0}';
   static const String amountNotSelected = '--';
 
-  // Messages
   static const String beneficiaryAddedSuccessfully = 'Beneficiary added successfully';
   static const String beneficiaryAddedInactive = 'Beneficiary added as inactive (5 active limit reached). Activate it from Manage Beneficiaries.';
   static const String beneficiaryRemoved = 'Beneficiary removed';
@@ -103,7 +95,6 @@ class AppStrings {
   static const String pleaseEnterPhoneNumber = 'Please enter a phone number';
   static const String pleaseEnterValidUAENumber = 'Please enter a valid UAE phone number';
 
-  // Error Messages
   static const String nicknameRequired = 'Nickname is required';
   static const String nicknameMaxLengthError = 'Nickname must be 20 characters or less';
   static const String invalidPhoneFormat = 'Invalid UAE phone number format';
@@ -117,7 +108,7 @@ class AppStrings {
   static const String insufficientBalanceFormat = 'Insufficient balance. Required: AED {0}, Available: AED {1}';
   static const String limitExceededFormat = '{0} limit exceeded. Limit: AED {1}, Current: AED {2}';
 
-  // Helper method to format strings with placeholders
+  // format strings with placeholders
   static String format(String template, List<Object> args) {
     String result = template;
     for (int i = 0; i < args.length; i++) {

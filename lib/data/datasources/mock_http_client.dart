@@ -4,19 +4,15 @@ import '../../core/constants/app_strings.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/utils/app_logger.dart';
 
-/// Mock HTTP client for development. Response shapes match domain entity
-/// fromJson expectations (User, Beneficiary, TopupTransaction).
 class MockHttpClient {
   final Random _random = Random();
 
-  // Simulate network delay
   Future<void> _simulateDelay() async {
     final delayMs = AppConstants.minNetworkDelayMs + 
         _random.nextInt(AppConstants.maxNetworkDelayMs - AppConstants.minNetworkDelayMs);
     await Future.delayed(Duration(milliseconds: delayMs));
   }
 
-  // Simulate occasional network errors
   void _simulateNetworkError() {
     if (_random.nextInt(AppConstants.networkErrorProbability) == 0) {
       AppLogger.warning('Simulated network error occurred');
@@ -28,14 +24,13 @@ class MockHttpClient {
     await _simulateDelay();
     _simulateNetworkError();
     
-    // Return mock response based on endpoint
     if (url.contains('/user')) {
       return {
         'id': 'user_001',
         'name': 'John Doe',
         'balance': 1500.0,
         'isVerified': true,
-        'monthlyTopupTotal': 0.0, // Start at 0, updated only after successful top-ups
+        'monthlyTopupTotal': 0.0,
         'monthlyResetDate': DateTime(
           DateTime.now().year,
           DateTime.now().month + 1,

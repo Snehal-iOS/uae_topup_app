@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_styles.dart';
-import '../../../../core/widgets/app_bar_style.dart';
+import '../../../../core/widgets/common_app_bar.dart';
 import '../bloc/user_bloc.dart';
 import '../bloc/user_event.dart';
 import '../bloc/user_state.dart';
@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarStyle(title: AppStrings.navProfile),
+      appBar: const CommonAppBar(title: AppStrings.navProfile),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, userState) {
           if (userState.status == UserStatus.loading && userState.user == null) {
